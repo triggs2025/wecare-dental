@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WE CARE Dental · Admin</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%237ecfcb'/%3E%3Cpath d='M12 28 Q32 50 52 28 Q33 58 12 28 Z' fill='%23ffffff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--teal:#0e8d8a;--teal-dark:#0a6b69;--teal-light:#e6f4f4;--coral:#ff7a6b;--ink:#1d3038;--gray:#5b6b72;--card:#f7fbfb;--radius:12px;--shadow:0 6px 24px rgba(14,141,138,.12)}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);background:#eef5f5;line-height:1.5}
+  button{font:inherit;cursor:pointer}
+  a{color:var(--teal)}
+
+  /* Gate */
+  .gate{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--teal-light),#fff)}
+  .gate-card{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:2.5rem;width:min(360px,92vw);text-align:center}
+  .gate-card svg{width:64px;height:64px;margin-bottom:1rem}
+  .gate-card h1{font-size:1.2rem;margin-bottom:.25rem}
+  .gate-card p{font-size:.85rem;color:var(--gray);margin-bottom:1.25rem}
+  .gate-card input{width:100%;text-align:center;font-size:1.4rem;letter-spacing:.4em;padding:.6rem;border:1px solid #cfe2e2;border-radius:10px;margin-bottom:1rem}
+  .gate-card button{width:100%;background:var(--teal);color:#fff;border:0;padding:.75rem;border-radius:999px;font-weight:800}
+  .gate-err{color:#c0392b;font-size:.85rem;margin-top:.6rem;display:none}
+
+  /* Shell */
+  header.bar{background:#fff;border-bottom:1px solid #dfeaea;position:sticky;top:0;z-index:50}
+  .bar-inner{max-width:1150px;margin:0 auto;padding:.6rem 1.25rem;display:flex;align-items:center;gap:.75rem}
+  .bar-inner svg{width:38px;height:38px}
+  .bar-title{font-weight:900}
+  .bar-title small{display:block;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);font-weight:700}
+  .bar-spacer{flex:1}
+  .lang-toggle{display:flex;border:2px solid var(--teal);border-radius:999px;overflow:hidden;font-weight:800;font-size:.75rem}
+  .lang-toggle button{border:0;background:transparent;padding:.3rem .6rem;color:var(--teal)}
+  .lang-toggle button.active{background:var(--teal);color:#fff}
+  .tabs{max-width:1150px;margin:0 auto;padding:0 1.25rem;display:flex;gap:.4rem}
+  .tabs button{border:0;background:transparent;font-weight:800;font-size:.9rem;color:var(--gray);padding:.7rem 1rem;border-bottom:3px solid transparent}
+  .tabs button.active{color:var(--teal);border-bottom-color:var(--teal)}
+  main{max-width:1150px;margin:0 auto;padding:1.5rem 1.25rem 4rem}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
+  .kpi{background:#fff;border-radius:var(--radius);padding:1rem 1.25rem;box-shadow:0 2px 10px rgba(14,141,138,.08)}
+  .kpi b{display:block;font-size:1.7rem;color:var(--teal-dark)}
+  .kpi span{font-size:.8rem;color:var(--gray);font-weight:700}
+
+  .panel{background:#fff;border-radius:var(--radius);padding:1.5rem;box-shadow:0 2px 10px rgba(14,141,138,.08);margin-bottom:1.5rem}
+  .panel h2{font-size:1.05rem;margin-bottom:1rem}
+
+  .req{display:flex;align-items:center;gap:1rem;padding:.9rem 0;border-bottom:1px solid #edf4f4;flex-wrap:wrap}
+  .req:last-child{border-bottom:0}
+  .req .avatar{width:42px;height:42px;border-radius:50%;background:var(--teal-light);color:var(--teal-dark);display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0}
+  .req .info{flex:1;min-width:180px}
+  .req .info b{font-size:.98rem}
+  .req .info small{display:block;color:var(--gray)}
+  .badge{font-size:.68rem;font-weight:800;padding:.15rem .55rem;border-radius:999px;background:#fff3e0;color:#b26a00;text-transform:uppercase;letter-spacing:.05em}
+  .badge.en{background:#e3f2fd;color:#1565c0}.badge.es{background:#e8f5e9;color:#2e7d32}
+  .req .acts{display:flex;gap:.5rem;flex-wrap:wrap}
+  .btn{border:0;border-radius:999px;font-weight:800;font-size:.8rem;padding:.45rem 1rem}
+  .btn-book{background:var(--teal);color:#fff}
+  .btn-wa{background:#25d366;color:#fff}
+  .btn-x{background:#f2f5f5;color:var(--gray)}
+  .btn-coral{background:var(--coral);color:#fff}
+  .empty{color:var(--gray);font-size:.9rem;padding:1rem 0}
+
+  /* Calendar */
+  .cal-nav{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;flex-wrap:wrap}
+  .cal-nav h2{flex:1;font-size:1.05rem}
+  .cal-wrap{overflow-x:auto}
+  table.cal{width:100%;border-collapse:collapse;min-width:760px}
+  .cal th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--gray);padding:.5rem;border-bottom:2px solid #e4efef}
+  .cal th.today{color:var(--teal);}
+  .cal td{border:1px solid #edf4f4;height:52px;vertical-align:top;padding:2px;min-width:110px}
+  .cal td.time{font-size:.75rem;font-weight:800;color:var(--gray);text-align:right;padding-right:.5rem;border:0;min-width:52px;vertical-align:middle}
+  .cal td.free{cursor:pointer}
+  .cal td.free:hover{background:var(--teal-light)}
+  .cal td.closed{background:#f4f6f6;cursor:default}
+  .appt{width:100%;height:100%;background:var(--teal);color:#fff;border:0;border-radius:8px;font-size:.72rem;font-weight:800;text-align:left;padding:.3rem .45rem;overflow:hidden;line-height:1.25}
+  .appt small{display:block;font-weight:600;opacity:.85}
+  .appt.past{background:#9fb9b8}
+
+  /* Analytics */
+  .an-note{display:inline-block;background:#fff8e1;color:#9a6c00;border:1px solid #f4e2b0;font-size:.75rem;font-weight:800;padding:.25rem .7rem;border-radius:999px;margin-bottom:1rem}
+  .an-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .chart-line{width:100%;height:auto}
+  .hbar{margin:.5rem 0}
+  .hbar .lbl{display:flex;justify-content:space-between;font-size:.82rem;font-weight:700;margin-bottom:.2rem}
+  .hbar .track{background:#eef4f4;border-radius:999px;height:10px;overflow:hidden}
+  .hbar .fill{background:var(--teal);height:100%;border-radius:999px}
+  .hbar .fill.coral{background:var(--coral)}
+  .donut-row{display:flex;align-items:center;gap:1.5rem}
+  .legend{font-size:.85rem;font-weight:700}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:.4rem}
+  @media (max-width:760px){.an-grid{grid-template-columns:1fr}}
+
+  /* Modal */
+  .overlay{position:fixed;inset:0;background:rgba(29,48,56,.55);display:none;align-items:center;justify-content:center;z-index:200;padding:1rem}
+  .overlay.open{display:flex}
+  .modal{background:#fff;border-radius:16px;padding:1.75rem;width:min(430px,94vw);max-height:90vh;overflow:auto}
+  .modal h3{margin-bottom:1rem}
+  .modal label{display:block;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin:.8rem 0 .25rem}
+  .modal input,.modal select{width:100%;padding:.6rem .75rem;border:1px solid #cfe2e2;border-radius:10px;font:inherit}
+  .modal .m-acts{display:flex;gap:.6rem;margin-top:1.4rem;flex-wrap:wrap}
+  .modal .m-acts .btn{padding:.6rem 1.2rem;font-size:.85rem}
+  .dl{font-size:.92rem}
+  .dl dt{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-top:.7rem}
+  .dl dd{margin:0;font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <svg viewBox="0 0 200 140" style="width:110px;height:77px;margin-bottom:1rem"><path d="M28 84 C22 62 44 50 72 54 C102 58 118 72 114 94 C110 116 84 128 58 121 C40 116 33 101 28 84 Z" fill="#aadedd"/><path d="M118 34 C132 22 158 24 168 40 C177 54 170 72 152 76 C134 80 116 70 112 55 C109 45 110 40 118 34 Z" fill="#ededed"/><path d="M30 18 C20 50 34 92 76 110 C114 126 158 116 172 94 C181 79 174 64 161 63 C152 62 147 70 151 78" fill="none" stroke="#23282b" stroke-width="2.6" stroke-linecap="round"/><path d="M74 56 C88 46 102 45 110 50 C120 44 136 46 144 55 C133 62 118 64 107 61 C94 66 81 62 74 56 Z" fill="#ffffff" stroke="#23282b" stroke-width="2.4" stroke-linejoin="round"/><path d="M82 60 Q86 67 91 63 Q96 70 102 65 Q108 71 114 65 Q120 69 126 63 Q131 66 136 59" fill="none" stroke="#23282b" stroke-width="1.8" stroke-linecap="round"/><path d="M76 58 C88 80 128 82 142 57" fill="none" stroke="#23282b" stroke-width="2.4" stroke-linecap="round"/></svg>
+    <h1>WE CARE Dental</h1>
+    <p data-i18n="gateTitle">Staff access</p>
+    <input id="pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off">
+    <button onclick="tryPin()" data-i18n="gateBtn">Enter</button>
+    <p style="margin-top:.8rem;font-size:.78rem;color:var(--gray)" data-i18n="gateHint">Demo PIN: 1234</p>
+    <p class="gate-err" id="gateErr" data-i18n="gateErr">Wrong PIN</p>
+  </div>
+</div>
+
+<div id="app" hidden>
+<header class="bar">
+  <div class="bar-inner">
+    <svg viewBox="0 0 200 140" style="width:56px;height:39px"><path d="M28 84 C22 62 44 50 72 54 C102 58 118 72 114 94 C110 116 84 128 58 121 C40 116 33 101 28 84 Z" fill="#aadedd"/><path d="M118 34 C132 22 158 24 168 40 C177 54 170 72 152 76 C134 80 116 70 112 55 C109 45 110 40 118 34 Z" fill="#ededed"/><path d="M30 18 C20 50 34 92 76 110 C114 126 158 116 172 94 C181 79 174 64 161 63 C152 62 147 70 151 78" fill="none" stroke="#23282b" stroke-width="2.6" stroke-linecap="round"/><path d="M74 56 C88 46 102 45 110 50 C120 44 136 46 144 55 C133 62 118 64 107 61 C94 66 81 62 74 56 Z" fill="#ffffff" stroke="#23282b" stroke-width="2.4" stroke-linejoin="round"/><path d="M82 60 Q86 67 91 63 Q96 70 102 65 Q108 71 114 65 Q120 69 126 63 Q131 66 136 59" fill="none" stroke="#23282b" stroke-width="1.8" stroke-linecap="round"/><path d="M76 58 C88 80 128 82 142 57" fill="none" stroke="#23282b" stroke-width="2.4" stroke-linecap="round"/></svg>
+    <div class="bar-title">WE CARE Dental<small data-i18n="adminSub">Admin panel</small></div>
+    <div class="bar-spacer"></div>
+    <div class="lang-toggle"><button id="aEn" onclick="setLang('en')">EN</button><button id="aEs" onclick="setLang('es')">ES</button></div>
+    <a href="index.html" style="font-size:.85rem;font-weight:800" data-i18n="viewSite">View site</a>
+  </div>
+  <div class="tabs">
+    <button id="tab-req" class="active" onclick="showTab('req')" data-i18n="tabReq">Requests</button>
+    <button id="tab-cal" onclick="showTab('cal')" data-i18n="tabCal">Calendar</button>
+    <button id="tab-an" onclick="showTab('an')" data-i18n="tabAn">Analytics</button>
+  </div>
+</header>
+
+<main>
+  <div id="view-req">
+    <div class="kpis">
+      <div class="kpi"><b id="kPending">0</b><span data-i18n="kPending">Pending requests</span></div>
+      <div class="kpi"><b id="kToday">0</b><span data-i18n="kToday">Appointments today</span></div>
+      <div class="kpi"><b id="kWeek">0</b><span data-i18n="kWeek">Appointments this week</span></div>
+    </div>
+    <div class="panel">
+      <h2 data-i18n="reqTitle">Appointment requests</h2>
+      <div id="reqList"></div>
+    </div>
+  </div>
+
+  <div id="view-cal" hidden>
+    <div class="panel">
+      <div class="cal-nav">
+        <h2 id="calLabel"></h2>
+        <button class="btn btn-x" onclick="moveWeek(-1)">‹</button>
+        <button class="btn btn-x" onclick="wkOff=0;renderCal()" data-i18n="todayBtn">Today</button>
+        <button class="btn btn-x" onclick="moveWeek(1)">›</button>
+      </div>
+      <div class="cal-wrap"><table class="cal" id="calTable"></table></div>
+      <p style="font-size:.78rem;color:var(--gray);margin-top:.8rem" data-i18n="calHint">Click an empty slot to add an appointment. Click an appointment to confirm, remind, or cancel.</p>
+    </div>
+  </div>
+
+  <div id="view-an" hidden>
+    <span class="an-note" data-i18n="anNote">Sample data, for demonstration</span>
+    <div class="kpis">
+      <div class="kpi"><b>1,284</b><span data-i18n="aVisitors">Visitors, last 30 days</span></div>
+      <div class="kpi"><b>47</b><span data-i18n="aRequests">Appointment requests</span></div>
+      <div class="kpi"><b>66%</b><span data-i18n="aConv">Requests booked</span></div>
+      <div class="kpi"><b>203</b><span data-i18n="aWa">WhatsApp clicks</span></div>
+    </div>
+    <div class="panel">
+      <h2 data-i18n="aTrend">Daily visitors</h2>
+      <svg class="chart-line" viewBox="0 0 600 170" id="lineChart"></svg>
+    </div>
+    <div class="an-grid">
+      <div class="panel">
+        <h2 data-i18n="aServices">Most requested services</h2>
+        <div id="svcBars"></div>
+      </div>
+      <div class="panel">
+        <h2 data-i18n="aSrc">Traffic sources</h2>
+        <div id="srcBars"></div>
+      </div>
+      <div class="panel">
+        <h2 data-i18n="aLang">Language used on the site</h2>
+        <div class="donut-row">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="44" fill="none" stroke="#eef4f4" stroke-width="16"/>
+            <circle cx="60" cy="60" r="44" fill="none" stroke="#0e8d8a" stroke-width="16" stroke-dasharray="171.4 276.5" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+            <text x="60" y="66" text-anchor="middle" style="font-weight:900;font-size:20px" fill="#0a6b69">62%</text>
+          </svg>
+          <div class="legend">
+            <div><i style="background:#0e8d8a"></i><span data-i18n="aLangEn">English 62%</span></div>
+            <div style="margin-top:.4rem"><i style="background:#eef4f4;border:1px solid #d5e5e5"></i><span data-i18n="aLangEs">Spanish 38%</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <h2 data-i18n="aGeo">Where visitors are</h2>
+        <div class="hbar"><div class="lbl"><span data-i18n="aGeoUs">United States (Yuma, San Luis AZ, Phoenix)</span><span>58%</span></div><div class="track"><div class="fill" style="width:58%"></div></div></div>
+        <div class="hbar"><div class="lbl"><span data-i18n="aGeoMx">Mexico (San Luis Río Colorado, Mexicali)</span><span>42%</span></div><div class="track"><div class="fill coral" style="width:42%"></div></div></div>
+        <p style="font-size:.82rem;color:var(--gray);margin-top:1rem" data-i18n="aGeoNote">Most US visitors arrive from Facebook posts and Google searches for "dentist San Luis Mexico".</p>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- Book-a-request modal -->
+<div class="overlay" id="ovBook">
+  <div class="modal">
+    <h3 data-i18n="mBookTitle">Book appointment</h3>
+    <div id="bookWho" style="font-weight:800;color:var(--teal-dark)"></div>
+    <label data-i18n="mDate">Date</label><input type="date" id="mDate" onchange="fillTimes()">
+    <label data-i18n="mTime">Time</label><select id="mTime"></select>
+    <div class="m-acts">
+      <button class="btn btn-book" onclick="confirmBook()" data-i18n="mConfirm">Confirm booking</button>
+      <button class="btn btn-x" onclick="closeOv()" data-i18n="mCancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add appointment modal -->
+<div class="overlay" id="ovAdd">
+  <div class="modal">
+    <h3 data-i18n="mAddTitle">New appointment</h3>
+    <div id="addWhen" style="font-weight:800;color:var(--teal-dark)"></div>
+    <label data-i18n="mName">Patient name</label><input id="mName">
+    <label data-i18n="mPhone">Phone / WhatsApp</label><input id="mPhone" placeholder="+52 ...">
+    <label data-i18n="mService">Service</label><input id="mService">
+    <div class="m-acts">
+      <button class="btn btn-book" onclick="confirmAdd()" data-i18n="mSave">Save</button>
+      <button class="btn btn-x" onclick="closeOv()" data-i18n="mCancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Appointment detail modal -->
+<div class="overlay" id="ovDet">
+  <div class="modal">
+    <h3 data-i18n="dTitle">Appointment</h3>
+    <dl class="dl" id="detBody"></dl>
+    <div class="m-acts">
+      <a class="btn btn-wa" id="detWaC" target="_blank" rel="noopener" data-i18n="dConfirmWa">Send WhatsApp confirmation</a>
+      <a class="btn btn-wa" id="detWaR" target="_blank" rel="noopener" style="background:#128c7e" data-i18n="dRemindWa">Send reminder</a>
+      <button class="btn btn-coral" onclick="cancelAppt()" data-i18n="dCancel">Cancel appointment</button>
+      <button class="btn btn-x" onclick="closeOv()" data-i18n="mClose">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const A = {
+  en:{gateTitle:"Staff access",gateBtn:"Enter",gateHint:"Demo PIN: 1234",gateErr:"Wrong PIN",
+    adminSub:"Admin panel",viewSite:"View site",tabReq:"Requests",tabCal:"Calendar",tabAn:"Analytics",
+    kPending:"Pending requests",kToday:"Appointments today",kWeek:"Appointments this week",
+    reqTitle:"Appointment requests",noReq:"No pending requests. New requests from the website appear here.",
+    btnBook:"Book",btnDecline:"Decline",prefers:"prefers",todayBtn:"Today",
+    calHint:"Click an empty slot to add an appointment. Click an appointment to confirm, remind, or cancel.",
+    closed:"Closed",mBookTitle:"Book appointment",mDate:"Date",mTime:"Time",mConfirm:"Confirm booking",mCancel:"Cancel",
+    mAddTitle:"New appointment",mName:"Patient name",mPhone:"Phone / WhatsApp",mService:"Service",mSave:"Save",mClose:"Close",
+    dTitle:"Appointment",dConfirmWa:"Send WhatsApp confirmation",dRemindWa:"Send reminder",dCancel:"Cancel appointment",
+    dName:"Patient",dPhone:"Phone",dService:"Service",dWhen:"Date and time",
+    anNote:"Sample data, for demonstration",aVisitors:"Visitors, last 30 days",aRequests:"Appointment requests",
+    aConv:"Requests booked",aWa:"WhatsApp clicks",aTrend:"Daily visitors",aServices:"Most requested services",
+    aSrc:"Traffic sources",aLang:"Language used on the site",aLangEn:"English 62%",aLangEs:"Spanish 38%",
+    aGeo:"Where visitors are",aGeoUs:"United States (Yuma, San Luis AZ, Phoenix)",aGeoMx:"Mexico (San Luis Río Colorado, Mexicali)",
+    aGeoNote:"Most US visitors arrive from Facebook posts and Google searches for \"dentist San Luis Mexico\".",
+    confDecline:"Decline this request?",confCancel:"Cancel this appointment?",
+    days:["Mon","Tue","Wed","Thu","Fri","Sat"]},
+  es:{gateTitle:"Acceso del personal",gateBtn:"Entrar",gateHint:"PIN de demostración: 1234",gateErr:"PIN incorrecto",
+    adminSub:"Panel de administración",viewSite:"Ver sitio",tabReq:"Solicitudes",tabCal:"Calendario",tabAn:"Analíticas",
+    kPending:"Solicitudes pendientes",kToday:"Citas hoy",kWeek:"Citas esta semana",
+    reqTitle:"Solicitudes de cita",noReq:"No hay solicitudes pendientes. Las nuevas solicitudes del sitio aparecen aquí.",
+    btnBook:"Agendar",btnDecline:"Rechazar",prefers:"prefiere",todayBtn:"Hoy",
+    calHint:"Haz clic en un espacio vacío para agregar una cita. Haz clic en una cita para confirmar, recordar o cancelar.",
+    closed:"Cerrado",mBookTitle:"Agendar cita",mDate:"Fecha",mTime:"Hora",mConfirm:"Confirmar cita",mCancel:"Cancelar",
+    mAddTitle:"Nueva cita",mName:"Nombre del paciente",mPhone:"Teléfono / WhatsApp",mService:"Servicio",mSave:"Guardar",mClose:"Cerrar",
+    dTitle:"Cita",dConfirmWa:"Enviar confirmación por WhatsApp",dRemindWa:"Enviar recordatorio",dCancel:"Cancelar cita",
+    dName:"Paciente",dPhone:"Teléfono",dService:"Servicio",dWhen:"Fecha y hora",
+    anNote:"Datos de ejemplo, para demostración",aVisitors:"Visitantes, últimos 30 días",aRequests:"Solicitudes de cita",
+    aConv:"Solicitudes agendadas",aWa:"Clics de WhatsApp",aTrend:"Visitantes por día",aServices:"Servicios más solicitados",
+    aSrc:"Fuentes de tráfico",aLang:"Idioma usado en el sitio",aLangEn:"Inglés 62%",aLangEs:"Español 38%",
+    aGeo:"De dónde son los visitantes",aGeoUs:"Estados Unidos (Yuma, San Luis AZ, Phoenix)",aGeoMx:"México (San Luis Río Colorado, Mexicali)",
+    aGeoNote:"La mayoría de los visitantes de EE.UU. llegan por publicaciones de Facebook y búsquedas de Google de \"dentist San Luis Mexico\".",
+    confDecline:"¿Rechazar esta solicitud?",confCancel:"¿Cancelar esta cita?",
+    days:["Lun","Mar","Mié","Jue","Vie","Sáb"]}
+};
+let lang = localStorage.getItem('wc_admin_lang') || ((navigator.language||'en').toLowerCase().startsWith('es')?'es':'en');
+function t(k){return A[lang][k]}
+function setLang(l){
+  lang=l; localStorage.setItem('wc_admin_lang',l);
+  document.documentElement.lang=l;
+  document.getElementById('aEn').classList.toggle('active',l==='en');
+  document.getElementById('aEs').classList.toggle('active',l==='es');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(A[l][k])el.textContent=A[l][k]});
+  renderAll();
+}
+
+const LS={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},set:(k,v)=>localStorage.setItem(k,JSON.stringify(v))};
+const pad=n=>String(n).padStart(2,'0');
+const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+function weekStart(off){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7)+off*7);return d}
+const TIMES=[];for(let h=9;h<=17;h++)TIMES.push(pad(h)+':00');
+
+function seed(){
+  if(!LS.get('wc_appointments',[]).length){
+    const ws=weekStart(0),mk=(dOff,time,name,service,phone,lg)=>{const d=new Date(ws);d.setDate(d.getDate()+dOff);return{id:'a'+dOff+time.replace(':',''),date:iso(d),time,name,service,phone,lang:lg}};
+    LS.set('wc_appointments',[
+      mk(0,'09:00','María López','Limpieza dental','+52 653 111 2233','es'),
+      mk(0,'11:00','John Miller','Crowns & Bridges','+1 928 555 0141','en'),
+      mk(1,'10:00','Robert Davis','Dental Implants','+1 928 555 0177','en'),
+      mk(1,'16:00','Ana Gutiérrez','Resina','+52 653 222 3344','es'),
+      mk(2,'09:00','Patricia Wilson','Teeth Whitening','+1 619 555 0122','en'),
+      mk(3,'13:00','Carlos Mendoza','Extracción','+52 686 333 4455','es'),
+      mk(4,'10:00','Linda Thompson','Veneers','+1 928 555 0165','en'),
+      mk(5,'09:00','Sofía Ramírez','Limpieza dental','+52 653 444 5566','es')
+    ]);
+  }
+  if(!LS.get('wc_requests',[]).length){
+    const nw=weekStart(1),d1=new Date(nw),d2=new Date(nw),d3=new Date(nw);
+    d2.setDate(d2.getDate()+1);d3.setDate(d3.getDate()+2);
+    LS.set('wc_requests',[
+      {id:'rq1',name:'Sarah Johnson',phone:'+1 928 555 0198',service:'Crowns & Bridges',prefDate:iso(d1),prefTime:'10:00',lang:'en',status:'pending',created:new Date().toISOString()},
+      {id:'rq2',name:'Luis Hernández',phone:'+52 653 777 8899',service:'Limpiezas y Revisiones',prefDate:iso(d2),prefTime:'09:00',lang:'es',status:'pending',created:new Date().toISOString()},
+      {id:'rq3',name:'Emily Carter',phone:'+1 623 555 0134',service:'Dental Implants',prefDate:iso(d3),prefTime:'15:00',lang:'en',status:'pending',created:new Date().toISOString()}
+    ]);
+  }
+}
+
+function tryPin(){
+  if(document.getElementById('pin').value==='1234'){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('app').hidden=false;
+  } else document.getElementById('gateErr').style.display='block';
+}
+document.getElementById('pin').addEventListener('keydown',e=>{if(e.key==='Enter')tryPin()});
+
+function showTab(x){
+  ['req','cal','an'].forEach(v=>{
+    document.getElementById('view-'+v).hidden=(v!==x);
+    document.getElementById('tab-'+v).classList.toggle('active',v===x);
+  });
+}
+
+function fmtDate(dISO){
+  return new Date(dISO+'T12:00').toLocaleDateString(lang==='es'?'es-MX':'en-US',{weekday:'long',month:'long',day:'numeric'});
+}
+function waMsg(a,kind){
+  const dStr=fmtDate(a.date),cl=(a.lang==='es');
+  let m;
+  if(kind==='confirm') m=cl
+    ?`¡Hola ${a.name}! Le saluda WE CARE Dental 🦷 Su cita de ${a.service} está confirmada para el ${dStr} a las ${a.time}. Si necesita reagendar, responda a este mensaje. ¡Nos vemos pronto!`
+    :`Hello ${a.name}! This is WE CARE Dental 🦷 Your appointment for ${a.service} is confirmed for ${dStr} at ${a.time}. If you need to reschedule, just reply to this message. See you soon!`;
+  else m=cl
+    ?`¡Hola ${a.name}! Le recordamos su cita en WE CARE Dental el ${dStr} a las ${a.time}. ¡Le esperamos!`
+    :`Hi ${a.name}! Friendly reminder of your appointment at WE CARE Dental on ${dStr} at ${a.time}. See you there!`;
+  return 'https://wa.me/'+a.phone.replace(/\D/g,'')+'?text='+encodeURIComponent(m);
+}
+
+/* ---- Requests ---- */
+function renderReqs(){
+  const reqs=LS.get('wc_requests',[]).filter(r=>r.status==='pending');
+  const appts=LS.get('wc_appointments',[]);
+  const today=iso(new Date());
+  const ws=iso(weekStart(0)),weRaw=weekStart(0);weRaw.setDate(weRaw.getDate()+6);const we=iso(weRaw);
+  document.getElementById('kPending').textContent=reqs.length;
+  document.getElementById('kToday').textContent=appts.filter(a=>a.date===today).length;
+  document.getElementById('kWeek').textContent=appts.filter(a=>a.date>=ws&&a.date<=we).length;
+  const list=document.getElementById('reqList');
+  if(!reqs.length){list.innerHTML='<p class="empty">'+t('noReq')+'</p>';return}
+  list.innerHTML=reqs.map(r=>`
+    <div class="req">
+      <div class="avatar">${r.name.split(' ').map(w=>w[0]).slice(0,2).join('')}</div>
+      <div class="info"><b>${r.name}</b> <span class="badge ${r.lang}">${r.lang}</span>
+        <small>${r.service} · ${t('prefers')} ${fmtDate(r.prefDate)}, ${r.prefTime} · ${r.phone}</small></div>
+      <div class="acts">
+        <button class="btn btn-book" onclick="openBook('${r.id}')">${t('btnBook')}</button>
+        <a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/${r.phone.replace(/\D/g,'')}">WhatsApp</a>
+        <button class="btn btn-x" onclick="declineReq('${r.id}')">${t('btnDecline')}</button>
+      </div>
+    </div>`).join('');
+}
+function declineReq(id){
+  if(!confirm(t('confDecline')))return;
+  const reqs=LS.get('wc_requests',[]);const r=reqs.find(x=>x.id===id);if(r)r.status='declined';
+  LS.set('wc_requests',reqs);renderAll();
+}
+
+/* ---- Booking modal ---- */
+let bookReqId=null;
+function openBook(id){
+  bookReqId=id;
+  const r=LS.get('wc_requests',[]).find(x=>x.id===id);
+  document.getElementById('bookWho').textContent=r.name+' · '+r.service;
+  const dEl=document.getElementById('mDate');
+  dEl.min=iso(new Date());
+  dEl.value=r.prefDate||iso(new Date());
+  fillTimes(r.prefTime);
+  document.getElementById('ovBook').classList.add('open');
+}
+function fillTimes(prefer){
+  const d=document.getElementById('mDate').value;
+  const taken=LS.get('wc_appointments',[]).filter(a=>a.date===d).map(a=>a.time);
+  const sel=document.getElementById('mTime');
+  const day=new Date(d+'T12:00').getDay();
+  sel.innerHTML='';
+  TIMES.forEach(tm=>{
+    if(day===6&&tm>='13:00')return;
+    if(day===0)return;
+    const o=document.createElement('option');
+    o.value=tm;o.textContent=tm+(taken.includes(tm)?' ✕':'');o.disabled=taken.includes(tm);
+    if(typeof prefer==='string'&&tm===prefer&&!o.disabled)o.selected=true;
+    sel.appendChild(o);
+  });
+}
+function confirmBook(){
+  const reqs=LS.get('wc_requests',[]);const r=reqs.find(x=>x.id===bookReqId);
+  const d=document.getElementById('mDate').value,tm=document.getElementById('mTime').value;
+  if(!d||!tm)return;
+  r.status='booked';
+  const appts=LS.get('wc_appointments',[]);
+  const a={id:'a'+Date.now(),date:d,time:tm,name:r.name,service:r.service,phone:r.phone,lang:r.lang};
+  appts.push(a);
+  LS.set('wc_requests',reqs);LS.set('wc_appointments',appts);
+  closeOv();renderAll();openDetail(a.id);
+}
+
+/* ---- Calendar ---- */
+let wkOff=0;
+function moveWeek(n){wkOff+=n;renderCal()}
+function renderCal(){
+  const ws=weekStart(wkOff);
+  const appts=LS.get('wc_appointments',[]);
+  const todayISO=iso(new Date());
+  const days=[];for(let i=0;i<6;i++){const d=new Date(ws);d.setDate(d.getDate()+i);days.push(d)}
+  const last=new Date(ws);last.setDate(last.getDate()+5);
+  document.getElementById('calLabel').textContent=
+    ws.toLocaleDateString(lang==='es'?'es-MX':'en-US',{month:'long',day:'numeric'})+' – '+
+    last.toLocaleDateString(lang==='es'?'es-MX':'en-US',{month:'long',day:'numeric',year:'numeric'});
+  let html='<tr><th></th>'+days.map((d,i)=>`<th class="${iso(d)===todayISO?'today':''}">${A[lang].days[i]}<br>${d.getDate()}</th>`).join('')+'</tr>';
+  TIMES.forEach(tm=>{
+    html+=`<tr><td class="time">${tm}</td>`;
+    days.forEach((d,i)=>{
+      const dISO=iso(d);
+      if(i===5&&tm>='13:00'){html+=`<td class="closed"></td>`;return}
+      const a=appts.find(x=>x.date===dISO&&x.time===tm);
+      if(a) html+=`<td><button class="appt ${dISO<todayISO?'past':''}" onclick="openDetail('${a.id}')">${a.name}<small>${a.service}</small></button></td>`;
+      else html+=`<td class="free" onclick="openAdd('${dISO}','${tm}')"></td>`;
+    });
+    html+='</tr>';
+  });
+  document.getElementById('calTable').innerHTML=html;
+}
+
+/* ---- Add appointment ---- */
+let addSlot=null;
+function openAdd(d,tm){
+  addSlot={date:d,time:tm};
+  document.getElementById('addWhen').textContent=fmtDate(d)+' · '+tm;
+  document.getElementById('mName').value='';document.getElementById('mPhone').value='';document.getElementById('mService').value='';
+  document.getElementById('ovAdd').classList.add('open');
+}
+function confirmAdd(){
+  const name=document.getElementById('mName').value.trim();
+  if(!name)return;
+  const appts=LS.get('wc_appointments',[]);
+  appts.push({id:'a'+Date.now(),date:addSlot.date,time:addSlot.time,name,
+    phone:document.getElementById('mPhone').value.trim(),
+    service:document.getElementById('mService').value.trim(),
+    lang:lang});
+  LS.set('wc_appointments',appts);
+  closeOv();renderAll();
+}
+
+/* ---- Detail ---- */
+let detId=null;
+function openDetail(id){
+  detId=id;
+  const a=LS.get('wc_appointments',[]).find(x=>x.id===id);if(!a)return;
+  document.getElementById('detBody').innerHTML=
+    `<dt>${t('dName')}</dt><dd>${a.name}</dd>
+     <dt>${t('dService')}</dt><dd>${a.service||'-'}</dd>
+     <dt>${t('dWhen')}</dt><dd>${fmtDate(a.date)} · ${a.time}</dd>
+     <dt>${t('dPhone')}</dt><dd>${a.phone||'-'}</dd>`;
+  const hasPhone=!!(a.phone&&a.phone.replace(/\D/g,''));
+  document.getElementById('detWaC').style.display=hasPhone?'':'none';
+  document.getElementById('detWaR').style.display=hasPhone?'':'none';
+  if(hasPhone){
+    document.getElementById('detWaC').href=waMsg(a,'confirm');
+    document.getElementById('detWaR').href=waMsg(a,'remind');
+  }
+  document.getElementById('ovDet').classList.add('open');
+}
+function cancelAppt(){
+  if(!confirm(t('confCancel')))return;
+  LS.set('wc_appointments',LS.get('wc_appointments',[]).filter(x=>x.id!==detId));
+  closeOv();renderAll();
+}
+function closeOv(){document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('open'))}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)closeOv()}));
+
+/* ---- Analytics charts ---- */
+function renderCharts(){
+  const data=[28,34,31,40,38,45,52,44,39,48,55,61,50,47,58,63,59,66,72,64,58,70,75,68,74,81,77,85,90,88];
+  const max=Math.max(...data),W=600,H=170,px=i=>20+(i*(W-40)/(data.length-1)),py=v=>H-25-(v/max*(H-55));
+  const pts=data.map((v,i)=>px(i)+','+py(v)).join(' ');
+  document.getElementById('lineChart').innerHTML=
+    `<polygon points="20,${H-25} ${pts} ${W-20},${H-25}" fill="#e6f4f4"/>
+     <polyline points="${pts}" fill="none" stroke="#0e8d8a" stroke-width="2.5" stroke-linejoin="round"/>
+     <line x1="20" y1="${H-25}" x2="${W-20}" y2="${H-25}" stroke="#d5e5e5"/>
+     <text x="20" y="${H-8}" font-size="11" fill="#5b6b72">-30d</text>
+     <text x="${W-20}" y="${H-8}" font-size="11" fill="#5b6b72" text-anchor="end">${lang==='es'?'hoy':'today'}</text>
+     <text x="${W-20}" y="${py(88)-8}" font-size="12" font-weight="800" fill="#0a6b69" text-anchor="end">88</text>`;
+  const svcs=lang==='es'
+    ?[['Limpiezas',14],['Coronas',9],['Implantes',8],['Blanqueamiento',7],['Endodoncias',5]]
+    :[['Cleanings',14],['Crowns',9],['Implants',8],['Whitening',7],['Root canals',5]];
+  document.getElementById('svcBars').innerHTML=svcs.map(([n,v])=>
+    `<div class="hbar"><div class="lbl"><span>${n}</span><span>${v}</span></div><div class="track"><div class="fill" style="width:${v/14*100}%"></div></div></div>`).join('');
+  const srcs=[['Facebook',44],['Google',29],[lang==='es'?'Directo':'Direct',19],[lang==='es'?'Otros':'Other',8]];
+  document.getElementById('srcBars').innerHTML=srcs.map(([n,v])=>
+    `<div class="hbar"><div class="lbl"><span>${n}</span><span>${v}%</span></div><div class="track"><div class="fill" style="width:${v}%"></div></div></div>`).join('');
+}
+
+function renderAll(){renderReqs();renderCal();renderCharts()}
+seed();
+setLang(lang);
+</script>
+</body>
+</html>

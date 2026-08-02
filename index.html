@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WE CARE Dental · San Luis Río Colorado | Dentist Near Yuma, AZ</title>
 <meta name="description" content="WE CARE Dental in San Luis Río Colorado, Mexico. Quality, affordable dental care minutes from the San Luis, Arizona border. English spoken. Book your appointment today.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%230e8d8a'/%3E%3Cpath d='M32 13C28 9 22 8 17 11 12 14 10 19 10 26 10 33 14 37 16 44 17.5 50 19 54 22.5 54 26 54 26 47 27 43 27.8 40 29.7 38 32 38 34.3 38 36.2 40 37 43 38 47 38 54 41.5 54 45 54 46.5 50 48 44 50 37 54 33 54 26 54 19 52 14 47 11 42 8 36 9 32 13Z' fill='%23ffffff' transform='translate(11.8,8) scale(0.63)'/%3E%3Cpath d='M18 49 Q32 57.5 46 49' fill='none' stroke='%23ff7a6b' stroke-width='3.8' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%237ecfcb'/%3E%3Cpath d='M12 28 Q32 50 52 28 Q33 58 12 28 Z' fill='%23ffffff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
@@ -33,7 +33,7 @@
   header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid #e4eeee}
   .nav{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.25rem;gap:1rem}
   .brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--ink)}
-  .brand svg{width:44px;height:44px;flex-shrink:0}
+  .brand svg{flex-shrink:0}
   .brand-name{font-weight:900;font-size:1.15rem;letter-spacing:.02em}
   .brand-name span{color:var(--teal)}
   .brand-tag{display:block;font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gray)}
@@ -93,6 +93,15 @@
   .booking-box{background:var(--card);border:2px dashed #bfdedd;border-radius:var(--radius);padding:2.5rem;text-align:center}
   .booking-box .note{font-size:.85rem;color:var(--gray);margin-top:1rem}
   .booking-actions{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap;margin-top:1.25rem}
+  .bform{display:grid;grid-template-columns:1fr 1fr;gap:1rem;text-align:left;max-width:640px;margin:0 auto}
+  .bform label{display:block;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:.3rem}
+  .bform input,.bform select,.bform textarea{width:100%;padding:.65rem .8rem;border:1px solid #cfe2e2;border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+  .bform input:focus,.bform select:focus,.bform textarea:focus{outline:2px solid var(--teal);border-color:var(--teal)}
+  .bform .full{grid-column:1/-1}
+  .bform button{grid-column:1/-1;justify-self:center;background:var(--teal);color:#fff;border:0;font:inherit;font-weight:800;padding:.85rem 2.2rem;border-radius:999px;cursor:pointer;box-shadow:var(--shadow)}
+  .bform button:hover{background:var(--teal-dark)}
+  .book-success{background:#e8f7ee;border:1px solid #bfe5cd;color:#1c6b3c;border-radius:10px;padding:1rem 1.25rem;font-weight:700;max-width:640px;margin:0 auto 1rem}
+  @media (max-width:600px){.bform{grid-template-columns:1fr}}
   .wa-btn{background:#25d366;color:#fff;text-decoration:none;font-weight:800;padding:.85rem 1.6rem;border-radius:999px;display:inline-flex;align-items:center;gap:.5rem}
   .wa-btn:hover{filter:brightness(1.05)}
 
@@ -132,11 +141,14 @@
 <header>
   <div class="nav">
     <a class="brand" href="#top">
-      <!-- Logo: circular smile badge, white molar + coral smile -->
-      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="WE CARE Dental logo">
-        <circle cx="32" cy="32" r="30" fill="#0e8d8a"/>
-        <path d="M32 13C28 9 22 8 17 11 12 14 10 19 10 26 10 33 14 37 16 44 17.5 50 19 54 22.5 54 26 54 26 47 27 43 27.8 40 29.7 38 32 38 34.3 38 36.2 40 37 43 38 47 38 54 41.5 54 45 54 46.5 50 48 44 50 37 54 33 54 26 54 19 52 14 47 11 42 8 36 9 32 13Z" fill="#ffffff" transform="translate(13.4,10.5) scale(0.58)"/>
-        <path d="M20 48.5 Q32 56 44 48.5" fill="none" stroke="#ff7a6b" stroke-width="3.4" stroke-linecap="round"/>
+      <!-- Logo: her original one-line "hand cradling a smile" mark, redrawn clean -->
+      <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" aria-label="WE CARE Dental logo" style="width:60px;height:42px">
+        <path d="M28 84 C22 62 44 50 72 54 C102 58 118 72 114 94 C110 116 84 128 58 121 C40 116 33 101 28 84 Z" fill="#aadedd"/>
+        <path d="M118 34 C132 22 158 24 168 40 C177 54 170 72 152 76 C134 80 116 70 112 55 C109 45 110 40 118 34 Z" fill="#ededed"/>
+        <path d="M30 18 C20 50 34 92 76 110 C114 126 158 116 172 94 C181 79 174 64 161 63 C152 62 147 70 151 78" fill="none" stroke="#23282b" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M74 56 C88 46 102 45 110 50 C120 44 136 46 144 55 C133 62 118 64 107 61 C94 66 81 62 74 56 Z" fill="#ffffff" stroke="#23282b" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M82 60 Q86 67 91 63 Q96 70 102 65 Q108 71 114 65 Q120 69 126 63 Q131 66 136 59" fill="none" stroke="#23282b" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M76 58 C88 80 128 82 142 57" fill="none" stroke="#23282b" stroke-width="2.4" stroke-linecap="round"/>
       </svg>
       <span>
         <span class="brand-name">WE <span>CARE</span> Dental</span>
@@ -175,11 +187,21 @@
         </div>
       </div>
       <div class="hero-art">
-        <!-- Large logo mark: smile badge -->
-        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="32" cy="32" r="31" fill="#0e8d8a"/>
-          <path d="M32 13C28 9 22 8 17 11 12 14 10 19 10 26 10 33 14 37 16 44 17.5 50 19 54 22.5 54 26 54 26 47 27 43 27.8 40 29.7 38 32 38 34.3 38 36.2 40 37 43 38 47 38 54 41.5 54 45 54 46.5 50 48 44 50 37 54 33 54 26 54 19 52 14 47 11 42 8 36 9 32 13Z" fill="#ffffff" transform="translate(11.8,8) scale(0.63)"/>
-          <path d="M18 49 Q32 57.5 46 49" fill="none" stroke="#ff7a6b" stroke-width="3.8" stroke-linecap="round"/>
+        <!-- Full logo lockup: refined version of her original sign -->
+        <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="316" height="256" rx="18" fill="#ffffff" stroke="#dcebeb"/>
+          <text x="160" y="58" text-anchor="middle" style="font-family:'Nunito',sans-serif;font-size:40px;font-weight:600;letter-spacing:.06em" fill="#7ecfcb">WE CARE</text>
+          <text x="160" y="84" text-anchor="middle" style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;letter-spacing:.55em" fill="#2b2f33">DENTAL</text>
+          <g transform="translate(64,92) scale(0.96)">
+            <path d="M28 84 C22 62 44 50 72 54 C102 58 118 72 114 94 C110 116 84 128 58 121 C40 116 33 101 28 84 Z" fill="#aadedd"/>
+            <path d="M118 34 C132 22 158 24 168 40 C177 54 170 72 152 76 C134 80 116 70 112 55 C109 45 110 40 118 34 Z" fill="#ededed"/>
+            <path d="M30 18 C20 50 34 92 76 110 C114 126 158 116 172 94 C181 79 174 64 161 63 C152 62 147 70 151 78" fill="none" stroke="#23282b" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M74 56 C88 46 102 45 110 50 C120 44 136 46 144 55 C133 62 118 64 107 61 C94 66 81 62 74 56 Z" fill="#ffffff" stroke="#23282b" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M82 60 Q86 67 91 63 Q96 70 102 65 Q108 71 114 65 Q120 69 126 63 Q131 66 136 59" fill="none" stroke="#23282b" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M76 58 C88 80 128 82 142 57" fill="none" stroke="#23282b" stroke-width="2.4" stroke-linecap="round"/>
+          </g>
+          <rect x="48" y="222" width="224" height="26" rx="13" fill="#7ecfcb"/>
+          <text x="160" y="239" text-anchor="middle" style="font-family:'Nunito',sans-serif;font-size:12.5px;font-weight:800" fill="#ffffff">C.D. E.E. Karina González Robles</text>
         </svg>
       </div>
     </div>
@@ -244,9 +266,26 @@
              <iframe src="https://api.leadconnectorhq.com/widget/booking/XXXXXXXX" style="width:100%;min-height:700px;border:none;" scrolling="no" id="ghl-booking"></iframe>
              <script src="https://link.msgsndr.com/js/form_embed.js"></script>
         -->
-        <p style="font-size:2.2rem">📅</p>
-        <h3 data-i18n="bookSoon">Online booking is coming soon</h3>
-        <p class="note" data-i18n="bookMeanwhile">In the meantime, message us on WhatsApp or call and we will find you a time right away.</p>
+        <div id="bookSuccess" class="book-success" hidden><span data-i18n="fSuccess">Thank you! We received your request and will confirm your appointment by WhatsApp shortly.</span></div>
+        <form id="bookForm" class="bform">
+          <div><label for="bfName" data-i18n="fName">Full name</label><input id="bfName" required></div>
+          <div><label for="bfPhone" data-i18n="fPhone">Phone / WhatsApp</label><input id="bfPhone" type="tel" required placeholder="+1 928 ..."></div>
+          <div><label for="bfService" data-i18n="fService">Service</label><select id="bfService">
+            <option data-i18n="svc1t">Cleanings &amp; Checkups</option>
+            <option data-i18n="svc2t">Teeth Whitening</option>
+            <option data-i18n="svc3t">Fillings &amp; Restorations</option>
+            <option data-i18n="svc4t">Crowns &amp; Bridges</option>
+            <option data-i18n="svc5t">Dental Implants</option>
+            <option data-i18n="svc6t">Veneers</option>
+            <option data-i18n="svc7t">Root Canals</option>
+            <option data-i18n="svc8t">Extractions</option>
+            <option data-i18n="svc9t">Dentures &amp; Partials</option>
+          </select></div>
+          <div><label for="bfDate" data-i18n="fDate">Preferred date</label><input id="bfDate" type="date"></div>
+          <div class="full"><label for="bfTime" data-i18n="fTime">Preferred time</label><select id="bfTime"></select></div>
+          <button type="submit" data-i18n="fSubmit">Request Appointment</button>
+        </form>
+        <p class="note" data-i18n="bookOr">Prefer to talk to a person right away? Message us directly:</p>
         <div class="booking-actions">
           <a class="wa-btn" href="https://wa.me/526535960691" target="_blank" rel="noopener">💬 <span data-i18n="bookWa">Book by WhatsApp</span></a>
           <a class="btn-ghost" href="tel:+526535960691" data-i18n="bookCall">Call +52 653 596 0691</a>
@@ -288,7 +327,7 @@
   <p class="brand-name" style="margin-bottom:.4rem">WE CARE Dental</p>
   <p data-i18n="footTag">Quality dental care with a personal touch · San Luis Río Colorado, Sonora, México</p>
   <p style="margin-top:.8rem"><a href="https://www.facebook.com/profile.php?id=100069799874613" target="_blank" rel="noopener" data-i18n="footFb">Follow us on Facebook</a></p>
-  <p style="margin-top:1rem;opacity:.6">© <span id="year"></span> WE CARE Dental</p>
+  <p style="margin-top:1rem;opacity:.6">© <span id="year"></span> WE CARE Dental · <a href="admin.html" style="color:inherit;opacity:.7">Admin</a></p>
 </footer>
 
 <a class="wa-float" href="https://wa.me/526535960691" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
@@ -322,8 +361,10 @@ const I18N = {
     why3t:"We Speak English", why3d:"Clear communication from your first message to your final visit. No surprises, no confusion.",
     why4t:"Care That Feels Personal", why4d:"We treat every patient like family. Honest recommendations and gentle treatment, every time.",
     bookTitle:"Book Your Appointment", bookSub:"Choose a time that works for you. We confirm every appointment personally.",
-    bookSoon:"Online booking is coming soon",
-    bookMeanwhile:"In the meantime, message us on WhatsApp or call and we will find you a time right away.",
+    fName:"Full name", fPhone:"Phone / WhatsApp", fService:"Service", fDate:"Preferred date", fTime:"Preferred time",
+    fSubmit:"Request Appointment",
+    fSuccess:"Thank you! We received your request and will confirm your appointment by WhatsApp shortly.",
+    bookOr:"Prefer to talk to a person right away? Message us directly:",
     bookWa:"Book by WhatsApp", bookCall:"Call +52 653 596 0691",
     contactTitle:"Visit Us", contactSub:"Find us in San Luis Río Colorado, Sonora, just south of the border.",
     cAddr:"Address", cPhone:"Phone / WhatsApp", cEmail:"Email", cHours:"Hours",
@@ -358,8 +399,10 @@ const I18N = {
     why3t:"Hablamos Inglés", why3d:"Comunicación clara desde tu primer mensaje hasta tu última visita. Sin sorpresas.",
     why4t:"Atención Personal", why4d:"Tratamos a cada paciente como familia. Recomendaciones honestas y trato amable, siempre.",
     bookTitle:"Agenda tu Cita", bookSub:"Elige el horario que mejor te convenga. Confirmamos cada cita personalmente.",
-    bookSoon:"Muy pronto podrás agendar en línea",
-    bookMeanwhile:"Mientras tanto, envíanos un WhatsApp o llámanos y te encontramos un horario de inmediato.",
+    fName:"Nombre completo", fPhone:"Teléfono / WhatsApp", fService:"Servicio", fDate:"Fecha preferida", fTime:"Hora preferida",
+    fSubmit:"Solicitar Cita",
+    fSuccess:"¡Gracias! Recibimos tu solicitud y confirmaremos tu cita por WhatsApp muy pronto.",
+    bookOr:"¿Prefieres hablar con una persona? Escríbenos directamente:",
     bookWa:"Agendar por WhatsApp", bookCall:"Llamar +52 653 596 0691",
     contactTitle:"Visítanos", contactSub:"Estamos en San Luis Río Colorado, Sonora, muy cerca de la línea.",
     cAddr:"Dirección", cPhone:"Teléfono / WhatsApp", cEmail:"Correo", cHours:"Horario",
@@ -391,6 +434,36 @@ const auto = (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' 
 setLang(saved || auto);
 
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Booking request form: stores requests locally; the admin panel reads them.
+// In production this submits to the GoHighLevel calendar/CRM instead.
+const timeSel = document.getElementById('bfTime');
+for (let h = 9; h <= 17; h++) {
+  const t = String(h).padStart(2,'0') + ':00';
+  const o = document.createElement('option');
+  o.value = t; o.textContent = t;
+  timeSel.appendChild(o);
+}
+document.getElementById('bfDate').min = new Date().toISOString().slice(0,10);
+document.getElementById('bookForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const reqs = JSON.parse(localStorage.getItem('wc_requests') || '[]');
+  reqs.push({
+    id: 'r' + Date.now(),
+    name: document.getElementById('bfName').value.trim(),
+    phone: document.getElementById('bfPhone').value.trim(),
+    service: document.getElementById('bfService').value || document.getElementById('bfService').selectedOptions[0].textContent,
+    prefDate: document.getElementById('bfDate').value,
+    prefTime: document.getElementById('bfTime').value,
+    lang: document.documentElement.lang,
+    status: 'pending',
+    created: new Date().toISOString()
+  });
+  localStorage.setItem('wc_requests', JSON.stringify(reqs));
+  document.getElementById('bookSuccess').hidden = false;
+  document.getElementById('bookSuccess').scrollIntoView({behavior:'smooth', block:'center'});
+  e.target.reset();
+});
 
 // Close mobile menu on link click
 document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>{
