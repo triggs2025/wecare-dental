@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WE CARE Dental · San Luis Río Colorado | Dentist Near Yuma, AZ</title>
+<meta name="description" content="WE CARE Dental in San Luis Río Colorado, Mexico. Quality, affordable dental care minutes from the San Luis, Arizona border. English spoken. Book your appointment today.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#0e8d8a;
+    --teal-dark:#0a6b69;
+    --teal-light:#e6f4f4;
+    --coral:#ff7a6b;
+    --ink:#1d3038;
+    --gray:#5b6b72;
+    --bg:#ffffff;
+    --card:#f7fbfb;
+    --radius:14px;
+    --shadow:0 6px 24px rgba(14,141,138,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+  h1,h2,h3{line-height:1.2}
+  img{max-width:100%}
+  a{color:var(--teal)}
+
+  /* ---------- Nav ---------- */
+  header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid #e4eeee}
+  .nav{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.25rem;gap:1rem}
+  .brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--ink)}
+  .brand svg{width:44px;height:44px;flex-shrink:0}
+  .brand-name{font-weight:900;font-size:1.15rem;letter-spacing:.02em}
+  .brand-name span{color:var(--teal)}
+  .brand-tag{display:block;font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gray)}
+  nav.links{display:flex;gap:1.35rem;align-items:center}
+  nav.links a{text-decoration:none;color:var(--ink);font-weight:700;font-size:.92rem}
+  nav.links a:hover{color:var(--teal)}
+  .lang-toggle{display:flex;border:2px solid var(--teal);border-radius:999px;overflow:hidden;font-weight:800;font-size:.8rem;cursor:pointer;user-select:none}
+  .lang-toggle button{border:0;background:transparent;padding:.35rem .7rem;cursor:pointer;font:inherit;color:var(--teal)}
+  .lang-toggle button.active{background:var(--teal);color:#fff}
+  .cta-btn{background:var(--coral);color:#fff !important;padding:.55rem 1.1rem;border-radius:999px;font-weight:800;text-decoration:none;font-size:.9rem;box-shadow:0 4px 14px rgba(255,122,107,.35)}
+  .cta-btn:hover{filter:brightness(1.06)}
+  .menu-btn{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer;color:var(--ink)}
+
+  /* ---------- Hero ---------- */
+  .hero{background:linear-gradient(135deg,var(--teal-light) 0%,#fff 60%);padding:4.5rem 1.25rem 4rem}
+  .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+  .eyebrow{display:inline-block;background:#fff;border:1px solid #cfe8e8;color:var(--teal-dark);font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:999px;margin-bottom:1rem}
+  .hero h1{font-family:'Merriweather',serif;font-size:clamp(2rem,4.5vw,3.1rem);margin-bottom:1rem}
+  .hero h1 em{color:var(--teal);font-style:normal}
+  .hero p.lead{font-size:1.12rem;color:var(--gray);margin-bottom:1.75rem;max-width:34rem}
+  .hero-actions{display:flex;gap:.9rem;flex-wrap:wrap}
+  .btn-primary{background:var(--teal);color:#fff;text-decoration:none;font-weight:800;padding:.85rem 1.6rem;border-radius:999px;box-shadow:var(--shadow)}
+  .btn-primary:hover{background:var(--teal-dark)}
+  .btn-ghost{border:2px solid var(--teal);color:var(--teal);text-decoration:none;font-weight:800;padding:.75rem 1.5rem;border-radius:999px}
+  .btn-ghost:hover{background:var(--teal-light)}
+  .hero-art{display:flex;justify-content:center}
+  .hero-art svg{width:100%;max-width:380px;filter:drop-shadow(0 18px 30px rgba(14,141,138,.18))}
+
+  /* ---------- Trust bar ---------- */
+  .trust{background:var(--teal);color:#fff;padding:1.4rem 1.25rem}
+  .trust-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;text-align:center}
+  .trust b{display:block;font-size:1.05rem}
+  .trust small{opacity:.85}
+
+  /* ---------- Sections ---------- */
+  section{padding:4rem 1.25rem}
+  .wrap{max-width:1100px;margin:0 auto}
+  .sec-head{text-align:center;max-width:44rem;margin:0 auto 2.75rem}
+  .sec-head h2{font-family:'Merriweather',serif;font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:.6rem}
+  .sec-head p{color:var(--gray)}
+
+  /* Services */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem}
+  .card{background:var(--card);border:1px solid #e4efef;border-radius:var(--radius);padding:1.5rem;transition:transform .15s,box-shadow .15s}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+  .card .ico{width:46px;height:46px;border-radius:12px;background:var(--teal-light);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:.9rem}
+  .card h3{font-size:1.05rem;margin-bottom:.35rem}
+  .card p{font-size:.92rem;color:var(--gray)}
+
+  /* Why us */
+  .why{background:var(--teal-light)}
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+  .why .card{background:#fff}
+  .why .num{font-family:'Merriweather',serif;font-size:1.9rem;color:var(--teal);font-weight:900}
+
+  /* Booking */
+  .booking-box{background:var(--card);border:2px dashed #bfdedd;border-radius:var(--radius);padding:2.5rem;text-align:center}
+  .booking-box .note{font-size:.85rem;color:var(--gray);margin-top:1rem}
+  .booking-actions{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap;margin-top:1.25rem}
+  .wa-btn{background:#25d366;color:#fff;text-decoration:none;font-weight:800;padding:.85rem 1.6rem;border-radius:999px;display:inline-flex;align-items:center;gap:.5rem}
+  .wa-btn:hover{filter:brightness(1.05)}
+
+  /* Contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+  .contact-list{list-style:none;display:flex;flex-direction:column;gap:1.1rem}
+  .contact-list li{display:flex;gap:.9rem;align-items:flex-start}
+  .contact-list .ico{width:42px;height:42px;flex-shrink:0;border-radius:11px;background:var(--teal-light);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+  .contact-list b{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gray)}
+  .map-frame{border:0;width:100%;height:340px;border-radius:var(--radius);box-shadow:var(--shadow)}
+  .hours-table{width:100%;border-collapse:collapse;margin-top:.4rem;font-size:.95rem}
+  .hours-table td{padding:.3rem 0;border-bottom:1px dashed #dcebeb}
+  .hours-table td:last-child{text-align:right;font-weight:700}
+
+  /* Footer */
+  footer{background:var(--ink);color:#cfdcdf;padding:2.5rem 1.25rem;text-align:center;font-size:.9rem}
+  footer .brand-name{color:#fff}
+  footer a{color:#8fd8d6}
+
+  /* Floating WhatsApp */
+  .wa-float{position:fixed;right:1.2rem;bottom:1.2rem;z-index:90;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.25);text-decoration:none;font-size:1.7rem}
+
+  @media (max-width:820px){
+    .hero-inner{grid-template-columns:1fr}
+    .hero-art{order:-1}
+    .hero-art svg{max-width:230px}
+    .trust-inner{grid-template-columns:1fr;gap:.8rem}
+    .contact-grid{grid-template-columns:1fr}
+    nav.links{position:fixed;inset:60px 0 auto 0;background:#fff;flex-direction:column;padding:1.25rem;border-bottom:1px solid #e4eeee;display:none}
+    nav.links.open{display:flex}
+    .menu-btn{display:block}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="#top">
+      <!-- Logo: tooth + heart, "We Care" mark -->
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="WE CARE Dental logo">
+        <path d="M32 6C22 6 14 13 14 24c0 8 3 12 5 20 1.5 6 2.5 12 6 12s3.5-5 4-10c.4-3.8 1.4-6 3-6s2.6 2.2 3 6c.5 5 .5 10 4 10s4.5-6 6-12c2-8 5-12 5-20C50 13 42 6 32 6z" fill="#0e8d8a"/>
+        <path d="M32 34.5c-1.2-2.6-4-4.3-6.7-3.5-3 .9-4.6 4.2-3.4 7.1 1.6 3.9 7 6.9 10.1 8.6 3.1-1.7 8.5-4.7 10.1-8.6 1.2-2.9-.4-6.2-3.4-7.1-2.7-.8-5.5.9-6.7 3.5z" fill="#ff7a6b" transform="translate(0,-14) scale(.72) translate(12,10)"/>
+      </svg>
+      <span>
+        <span class="brand-name">WE <span>CARE</span> Dental</span>
+        <span class="brand-tag" data-i18n="brandTag">San Luis Río Colorado</span>
+      </span>
+    </a>
+    <nav class="links" id="navLinks">
+      <a href="#services" data-i18n="navServices">Services</a>
+      <a href="#why" data-i18n="navWhy">Why Us</a>
+      <a href="#book" data-i18n="navBook">Book</a>
+      <a href="#contact" data-i18n="navContact">Contact</a>
+      <a class="cta-btn" href="#book" data-i18n="navCta">Book Appointment</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:.8rem">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button id="btnEn" onclick="setLang('en')">EN</button>
+        <button id="btnEs" onclick="setLang('es')">ES</button>
+      </div>
+      <button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow" data-i18n="heroEyebrow">Minutes from the San Luis, AZ border</span>
+        <h1 data-i18n-html="heroTitle">Your smile deserves a team that truly <em>cares</em></h1>
+        <p class="lead" data-i18n="heroLead">Modern, gentle dental care in San Luis Río Colorado at prices that make sense. English spoken. American patients welcome.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#book" data-i18n="heroBook">Book an Appointment</a>
+          <a class="btn-ghost" href="#services" data-i18n="heroServices">See Our Services</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <!-- Large logo mark -->
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="32" cy="32" r="31" fill="#ffffff"/>
+          <circle cx="32" cy="32" r="31" fill="none" stroke="#0e8d8a" stroke-width="1.5" opacity=".25"/>
+          <path d="M32 8C23 8 15.8 14.3 15.8 24.2c0 7.2 2.7 10.8 4.5 18 1.35 5.4 2.25 10.8 5.4 10.8s3.15-4.5 3.6-9c.36-3.42 1.26-5.4 2.7-5.4s2.34 1.98 2.7 5.4c.45 4.5.45 9 3.6 9s4.05-5.4 5.4-10.8c1.8-7.2 4.5-10.8 4.5-18C48.2 14.3 41 8 32 8z" fill="#0e8d8a"/>
+          <path d="M32 30.2c-1.35-2.9-4.5-4.8-7.5-3.9-3.35 1-5.15 4.7-3.8 7.95 1.8 4.35 7.85 7.7 11.3 9.6 3.45-1.9 9.5-5.25 11.3-9.6 1.35-3.25-.45-6.95-3.8-7.95-3-.9-6.15 1-7.5 3.9z" fill="#ff7a6b" transform="scale(.5) translate(32,4)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trust bar -->
+  <div class="trust">
+    <div class="trust-inner">
+      <div><b data-i18n="trust1b">Bilingual Team</b><small data-i18n="trust1s">English and Spanish spoken</small></div>
+      <div><b data-i18n="trust2b">Walk from the Border</b><small data-i18n="trust2s">Minutes from San Luis, Arizona</small></div>
+      <div><b data-i18n="trust3b">Honest Pricing</b><small data-i18n="trust3s">Save significantly vs. US prices</small></div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="svcTitle">Our Services</h2>
+        <p data-i18n="svcSub">Complete dental care for the whole family, from routine cleanings to full smile makeovers.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><div class="ico">🪥</div><h3 data-i18n="svc1t">Cleanings &amp; Checkups</h3><p data-i18n="svc1d">Routine cleanings, exams and X-rays to keep your smile healthy.</p></div>
+        <div class="card"><div class="ico">✨</div><h3 data-i18n="svc2t">Teeth Whitening</h3><p data-i18n="svc2d">Professional whitening for a brighter smile in a single visit.</p></div>
+        <div class="card"><div class="ico">🦷</div><h3 data-i18n="svc3t">Fillings &amp; Restorations</h3><p data-i18n="svc3d">Tooth-colored fillings that look and feel natural.</p></div>
+        <div class="card"><div class="ico">👑</div><h3 data-i18n="svc4t">Crowns &amp; Bridges</h3><p data-i18n="svc4d">Durable, natural-looking crowns and bridges to restore your bite.</p></div>
+        <div class="card"><div class="ico">🔩</div><h3 data-i18n="svc5t">Dental Implants</h3><p data-i18n="svc5d">Permanent tooth replacement that looks and works like the real thing.</p></div>
+        <div class="card"><div class="ico">😁</div><h3 data-i18n="svc6t">Veneers</h3><p data-i18n="svc6d">Cosmetic veneers for a picture-perfect smile.</p></div>
+        <div class="card"><div class="ico">🛠️</div><h3 data-i18n="svc7t">Root Canals</h3><p data-i18n="svc7d">Gentle root canal therapy to save your natural tooth.</p></div>
+        <div class="card"><div class="ico">🦷</div><h3 data-i18n="svc8t">Extractions</h3><p data-i18n="svc8d">Comfortable extractions, including wisdom teeth.</p></div>
+        <div class="card"><div class="ico">😬</div><h3 data-i18n="svc9t">Dentures &amp; Partials</h3><p data-i18n="svc9d">Full and partial dentures custom-fitted for comfort.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why us -->
+  <section id="why" class="why">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="whyTitle">Why Patients Cross the Border to See Us</h2>
+        <p data-i18n="whySub">Thousands of Americans choose San Luis Río Colorado for quality dental care. Here is why they choose WE CARE.</p>
+      </div>
+      <div class="why-grid">
+        <div class="card"><div class="num">01</div><h3 data-i18n="why1t">Real Savings</h3><p data-i18n="why1d">Save 50 to 70 percent compared to typical US prices, with no compromise on quality or materials.</p></div>
+        <div class="card"><div class="num">02</div><h3 data-i18n="why2t">Easy to Reach</h3><p data-i18n="why2d">Just minutes from the San Luis, Arizona port of entry. Park on the US side and walk across.</p></div>
+        <div class="card"><div class="num">03</div><h3 data-i18n="why3t">We Speak English</h3><p data-i18n="why3d">Clear communication from your first message to your final visit. No surprises, no confusion.</p></div>
+        <div class="card"><div class="num">04</div><h3 data-i18n="why4t">Care That Feels Personal</h3><p data-i18n="why4d">We treat every patient like family. Honest recommendations and gentle treatment, every time.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section id="book">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="bookTitle">Book Your Appointment</h2>
+        <p data-i18n="bookSub">Choose a time that works for you. We confirm every appointment personally.</p>
+      </div>
+      <div class="booking-box">
+        <!-- GHL-CALENDAR-SLOT: Replace this block with the GoHighLevel calendar embed code.
+             Example:
+             <iframe src="https://api.leadconnectorhq.com/widget/booking/XXXXXXXX" style="width:100%;min-height:700px;border:none;" scrolling="no" id="ghl-booking"></iframe>
+             <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        -->
+        <p style="font-size:2.2rem">📅</p>
+        <h3 data-i18n="bookSoon">Online booking is coming soon</h3>
+        <p class="note" data-i18n="bookMeanwhile">In the meantime, message us on WhatsApp or call and we will find you a time right away.</p>
+        <div class="booking-actions">
+          <a class="wa-btn" href="https://wa.me/526535960691" target="_blank" rel="noopener">💬 <span data-i18n="bookWa">Book by WhatsApp</span></a>
+          <a class="btn-ghost" href="tel:+526535960691" data-i18n="bookCall">Call +52 653 596 0691</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" style="background:var(--card)">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="contactTitle">Visit Us</h2>
+        <p data-i18n="contactSub">Find us in San Luis Río Colorado, Sonora, just south of the border.</p>
+      </div>
+      <div class="contact-grid">
+        <ul class="contact-list">
+          <li><div class="ico">📍</div><div><b data-i18n="cAddr">Address</b>Avenida Alvaro Obregón, Residencias, 83448<br>San Luis Río Colorado, Sonora, México</div></li>
+          <li><div class="ico">📞</div><div><b data-i18n="cPhone">Phone / WhatsApp</b><a href="tel:+526535960691">+52 653 596 0691</a></div></li>
+          <li><div class="ico">✉️</div><div><b data-i18n="cEmail">Email</b><a href="mailto:wecare.kgr@gmail.com">wecare.kgr@gmail.com</a></div></li>
+          <li><div class="ico">🕐</div><div style="flex:1"><b data-i18n="cHours">Hours</b>
+            <table class="hours-table">
+              <tr><td data-i18n="hMonFri">Monday to Friday</td><td>9:00 AM - 6:00 PM</td></tr>
+              <tr><td data-i18n="hSat">Saturday</td><td>9:00 AM - 2:00 PM</td></tr>
+              <tr><td data-i18n="hSun">Sunday</td><td data-i18n="hClosed">Closed</td></tr>
+            </table>
+          </div></li>
+        </ul>
+        <iframe class="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Avenida%20Alvaro%20Obregon%2C%20San%20Luis%20Rio%20Colorado%2C%20Sonora%2083448&z=15&output=embed"
+          title="Map to WE CARE Dental"></iframe>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p class="brand-name" style="margin-bottom:.4rem">WE CARE Dental</p>
+  <p data-i18n="footTag">Quality dental care with a personal touch · San Luis Río Colorado, Sonora, México</p>
+  <p style="margin-top:.8rem"><a href="https://www.facebook.com/profile.php?id=100069799874613" target="_blank" rel="noopener" data-i18n="footFb">Follow us on Facebook</a></p>
+  <p style="margin-top:1rem;opacity:.6">© <span id="year"></span> WE CARE Dental</p>
+</footer>
+
+<a class="wa-float" href="https://wa.me/526535960691" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+<script>
+const I18N = {
+  en: {
+    brandTag:"San Luis Río Colorado",
+    navServices:"Services", navWhy:"Why Us", navBook:"Book", navContact:"Contact", navCta:"Book Appointment",
+    heroEyebrow:"Minutes from the San Luis, AZ border",
+    heroTitle:"Your smile deserves a team that truly <em>cares</em>",
+    heroLead:"Modern, gentle dental care in San Luis Río Colorado at prices that make sense. English spoken. American patients welcome.",
+    heroBook:"Book an Appointment", heroServices:"See Our Services",
+    trust1b:"Bilingual Team", trust1s:"English and Spanish spoken",
+    trust2b:"Walk from the Border", trust2s:"Minutes from San Luis, Arizona",
+    trust3b:"Honest Pricing", trust3s:"Save significantly vs. US prices",
+    svcTitle:"Our Services", svcSub:"Complete dental care for the whole family, from routine cleanings to full smile makeovers.",
+    svc1t:"Cleanings & Checkups", svc1d:"Routine cleanings, exams and X-rays to keep your smile healthy.",
+    svc2t:"Teeth Whitening", svc2d:"Professional whitening for a brighter smile in a single visit.",
+    svc3t:"Fillings & Restorations", svc3d:"Tooth-colored fillings that look and feel natural.",
+    svc4t:"Crowns & Bridges", svc4d:"Durable, natural-looking crowns and bridges to restore your bite.",
+    svc5t:"Dental Implants", svc5d:"Permanent tooth replacement that looks and works like the real thing.",
+    svc6t:"Veneers", svc6d:"Cosmetic veneers for a picture-perfect smile.",
+    svc7t:"Root Canals", svc7d:"Gentle root canal therapy to save your natural tooth.",
+    svc8t:"Extractions", svc8d:"Comfortable extractions, including wisdom teeth.",
+    svc9t:"Dentures & Partials", svc9d:"Full and partial dentures custom-fitted for comfort.",
+    whyTitle:"Why Patients Cross the Border to See Us",
+    whySub:"Thousands of Americans choose San Luis Río Colorado for quality dental care. Here is why they choose WE CARE.",
+    why1t:"Real Savings", why1d:"Save 50 to 70 percent compared to typical US prices, with no compromise on quality or materials.",
+    why2t:"Easy to Reach", why2d:"Just minutes from the San Luis, Arizona port of entry. Park on the US side and walk across.",
+    why3t:"We Speak English", why3d:"Clear communication from your first message to your final visit. No surprises, no confusion.",
+    why4t:"Care That Feels Personal", why4d:"We treat every patient like family. Honest recommendations and gentle treatment, every time.",
+    bookTitle:"Book Your Appointment", bookSub:"Choose a time that works for you. We confirm every appointment personally.",
+    bookSoon:"Online booking is coming soon",
+    bookMeanwhile:"In the meantime, message us on WhatsApp or call and we will find you a time right away.",
+    bookWa:"Book by WhatsApp", bookCall:"Call +52 653 596 0691",
+    contactTitle:"Visit Us", contactSub:"Find us in San Luis Río Colorado, Sonora, just south of the border.",
+    cAddr:"Address", cPhone:"Phone / WhatsApp", cEmail:"Email", cHours:"Hours",
+    hMonFri:"Monday to Friday", hSat:"Saturday", hSun:"Sunday", hClosed:"Closed",
+    footTag:"Quality dental care with a personal touch · San Luis Río Colorado, Sonora, México",
+    footFb:"Follow us on Facebook"
+  },
+  es: {
+    brandTag:"San Luis Río Colorado",
+    navServices:"Servicios", navWhy:"Por Qué Nosotros", navBook:"Citas", navContact:"Contacto", navCta:"Agendar Cita",
+    heroEyebrow:"A minutos de la frontera con San Luis, AZ",
+    heroTitle:"Tu sonrisa merece un equipo que de verdad se <em>preocupa</em>",
+    heroLead:"Atención dental moderna y amable en San Luis Río Colorado, a precios justos. Hablamos inglés y español.",
+    heroBook:"Agendar una Cita", heroServices:"Ver Servicios",
+    trust1b:"Equipo Bilingüe", trust1s:"Hablamos español e inglés",
+    trust2b:"A Pasos de la Frontera", trust2s:"A minutos de San Luis, Arizona",
+    trust3b:"Precios Honestos", trust3s:"Calidad al mejor precio",
+    svcTitle:"Nuestros Servicios", svcSub:"Atención dental completa para toda la familia, desde limpiezas hasta el diseño de sonrisa.",
+    svc1t:"Limpiezas y Revisiones", svc1d:"Limpiezas, revisiones y radiografías para mantener tu sonrisa sana.",
+    svc2t:"Blanqueamiento Dental", svc2d:"Blanqueamiento profesional para una sonrisa más brillante en una sola visita.",
+    svc3t:"Resinas y Restauraciones", svc3d:"Resinas del color del diente que se ven y se sienten naturales.",
+    svc4t:"Coronas y Puentes", svc4d:"Coronas y puentes duraderos y de aspecto natural.",
+    svc5t:"Implantes Dentales", svc5d:"Reemplazo permanente que se ve y funciona como un diente natural.",
+    svc6t:"Carillas", svc6d:"Carillas estéticas para una sonrisa perfecta.",
+    svc7t:"Endodoncias", svc7d:"Tratamiento de conductos suave para salvar tu diente natural.",
+    svc8t:"Extracciones", svc8d:"Extracciones cómodas, incluyendo muelas del juicio.",
+    svc9t:"Dentaduras y Parciales", svc9d:"Dentaduras completas y parciales hechas a tu medida.",
+    whyTitle:"Por Qué Nos Eligen Pacientes de Ambos Lados de la Frontera",
+    whySub:"Miles de personas eligen San Luis Río Colorado para su atención dental. Esto es lo que nos distingue.",
+    why1t:"Ahorro Real", why1d:"Ahorra del 50 al 70 por ciento comparado con precios en Estados Unidos, sin sacrificar calidad.",
+    why2t:"Fácil de Llegar", why2d:"A minutos de la garita de San Luis, Arizona. Estaciona del lado americano y cruza caminando.",
+    why3t:"Hablamos Inglés", why3d:"Comunicación clara desde tu primer mensaje hasta tu última visita. Sin sorpresas.",
+    why4t:"Atención Personal", why4d:"Tratamos a cada paciente como familia. Recomendaciones honestas y trato amable, siempre.",
+    bookTitle:"Agenda tu Cita", bookSub:"Elige el horario que mejor te convenga. Confirmamos cada cita personalmente.",
+    bookSoon:"Muy pronto podrás agendar en línea",
+    bookMeanwhile:"Mientras tanto, envíanos un WhatsApp o llámanos y te encontramos un horario de inmediato.",
+    bookWa:"Agendar por WhatsApp", bookCall:"Llamar +52 653 596 0691",
+    contactTitle:"Visítanos", contactSub:"Estamos en San Luis Río Colorado, Sonora, muy cerca de la línea.",
+    cAddr:"Dirección", cPhone:"Teléfono / WhatsApp", cEmail:"Correo", cHours:"Horario",
+    hMonFri:"Lunes a Viernes", hSat:"Sábado", hSun:"Domingo", hClosed:"Cerrado",
+    footTag:"Atención dental de calidad con trato personal · San Luis Río Colorado, Sonora, México",
+    footFb:"Síguenos en Facebook"
+  }
+};
+
+function setLang(lang){
+  document.documentElement.lang = lang;
+  localStorage.setItem('wecare-lang', lang);
+  document.getElementById('btnEn').classList.toggle('active', lang==='en');
+  document.getElementById('btnEs').classList.toggle('active', lang==='es');
+  const dict = I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if(dict[k]) el.textContent = dict[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const k = el.getAttribute('data-i18n-html');
+    if(dict[k]) el.innerHTML = dict[k];
+  });
+}
+
+// Auto-detect: Spanish browsers default to ES, everyone else EN. Manual choice wins.
+const saved = localStorage.getItem('wecare-lang');
+const auto = (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
+setLang(saved || auto);
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Close mobile menu on link click
+document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('navLinks').classList.remove('open');
+}));
+</script>
+</body>
+</html>
