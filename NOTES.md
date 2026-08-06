@@ -36,6 +36,15 @@ Edit files, then commit and push to main. GitHub Pages redeploys automatically i
 
 ## Session log (newest first)
 
+- Aug 5, 2026 (later): Added her real clinic promo video as the hero background.
+  Source was `Downloads\cf8d9a68-53c9-4c9a-8dd3-718e633dda92.mp4` (4.72 MB,
+  1440x1080, 36.8s). Compressed with ffmpeg to `assets/hero.webm` (VP9, 912 KB)
+  and `assets/hero.mp4` (H.264, 1.15 MB) plus `assets/hero-poster.jpg`, at
+  960x720. Audio dropped (autoplay must be muted), black tail after 34.6s
+  trimmed so the loop does not flash black. Video sits at opacity .8 (the
+  requested 20% transparency) under a white scrim that keeps the headline
+  readable. Caption machinery is built but the .vtt files are NOT written yet,
+  see Next steps.
 - Aug 5, 2026: Located the project again after it went missing from chat
   history. Confirmed live pages return 200 and match the local files byte for
   byte (index 32,035 bytes, admin 32,637 bytes). Fast forwarded the local copy,
@@ -51,11 +60,22 @@ Edit files, then commit and push to main. GitHub Pages redeploys automatically i
 - Business hours (site shows Mon-Fri 9-6, Sat 9-2)
 - Exact street address beyond "Avenida Alvaro Obregon, Residencias, 83448"
 - Services list and pricing claims (50-70% savings line)
-- Spelling/format of credentials: currently "C.D. E.E. Karina González Robles"
+- Spelling/format of credentials: the clinic signage visible in her promo video
+  reads "C. D. E. E Karina González Robles". The site currently renders
+  "C.D. E.E. Karina González Robles". Same name, slightly different punctuation.
+  Confirm which form she wants before going live.
 
 ## Next steps (planned, not started)
 
-1. Reveal to her, get feedback on design and logo
+1. Hero video captions (EN + ES). Blocked on a transcript of the clip's audio:
+   nobody has written down what is said. The switching logic is already done in
+   `syncHeroCaptions()` and the `<track>` tags are commented out in index.html
+   waiting on `assets/hero.en.vtt` and `assets/hero.es.vtt`. Options: run
+   whisper locally (not installed yet), or Tony writes out the script.
+2. Custom domain. Decision pending between GitHub Pages with a CNAME file, or
+   hosting on the Plesk server using Plesk's Git deploy-on-push integration.
+   Leaning Plesk. Domain name not registered yet as of this writing.
+3. Reveal to her, get feedback on design and logo
 2. Set up GoHighLevel: booking calendar embed (slot is marked GHL-CALENDAR-SLOT in index.html), CRM, chat widget, automated reminders
 3. Real analytics tracking (GHL or Google Analytics)
 4. Custom domain, or move into GHL's site builder
