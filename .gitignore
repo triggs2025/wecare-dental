@@ -1,0 +1,9 @@
+# OneDrive conflict copies. This repo lives inside OneDrive and is edited from
+# two machines, so OneDrive occasionally drops a second copy of a file next to
+# the original, named after whichever computer lost the race. Git is the source
+# of truth, so these never belong in a commit.
+*-NT-TRIGGS-PC.*
+*-TONY-HOME.*
+*-DESKTOP-*.*
+*[Cc]onflicted copy*
+*-Copy.*
