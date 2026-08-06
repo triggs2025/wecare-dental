@@ -36,6 +36,33 @@ Edit files, then commit and push to main. GitHub Pages redeploys automatically i
 
 ## Session log (newest first)
 
+- Aug 5, 2026 (latest+1): Shrank the hero logo lockup to 25% of its old size
+  (380px -> 95px wide, 88px on mobile) so it stops covering the video, and made
+  it a link to a new About section. The credentials pill inside the SVG is
+  hidden at badge size (it would render about 4px tall) and now appears at
+  readable size in the About section instead. New `#about` section has a photo
+  of her pulled from her own promo video (`assets/karina.jpg`, frame at 16.2s,
+  cropped square, 23 KB), her name and role, and a WhatsApp button. Added an
+  "About"/"Nosotros" nav link and full EN/ES strings, plus `data-i18n-alt` and
+  `data-i18n-aria` support in setLang for the image alt text and the badge's
+  aria-label.
+  READ THIS: the About body copy deliberately states ONLY what we can verify
+  (name, credentials from her signage, location, bilingual). Her actual bio,
+  where she trained, years in practice, specialties, why she does this, has
+  never been written and must come from her. Do not let anyone (including an
+  AI) invent it. There is an HTML comment marking this in index.html.
+
+- Aug 5, 2026 (latest): Hero captions done. The clip turned out to be a music
+  bed with a single voiceover line at 18.7-23.0s: "Somos WE CARE, especialistas
+  en el cuidado de tu sonrisa." Transcribed with faster-whisper (medium model,
+  installed locally via pip) since nobody had written the script down. Wrote
+  `assets/hero.es.vtt` and `assets/hero.en.vtt` and enabled the track tags.
+  Captions follow the EN/ES toggle and render into .hero-caption below the
+  headline. Also made the hero ~10% taller (measured 458px -> 503px at 1280
+  wide) by raising its vertical padding, so more of the video shows.
+  UNVERIFIED: there is a final low-confidence word around 24.4-25.1s that
+  whisper read as "We Care!" on one pass and "¡Suscríbete!" on another. Left it
+  out of the captions on purpose. Worth an ear if you care.
 - Aug 5, 2026 (later): Added her real clinic promo video as the hero background.
   Source was `Downloads\cf8d9a68-53c9-4c9a-8dd3-718e633dda92.mp4` (4.72 MB,
   1440x1080, 36.8s). Compressed with ffmpeg to `assets/hero.webm` (VP9, 912 KB)
@@ -57,6 +84,12 @@ Edit files, then commit and push to main. GitHub Pages redeploys automatically i
 
 ## Facts still unconfirmed with her (site uses placeholders)
 
+- Her actual bio for the About section (training, years practicing, specialties,
+  what she wants patients to know). Nothing has been written; the section
+  currently carries only verifiable facts. Needs her own words.
+- Whether she is OK with the About photo and the hero video, both of which were
+  pulled from her promo clip. Also whether the patients visible in that footage
+  consented to it being reused on a website.
 - Business hours (site shows Mon-Fri 9-6, Sat 9-2)
 - Exact street address beyond "Avenida Alvaro Obregon, Residencias, 83448"
 - Services list and pricing claims (50-70% savings line)
