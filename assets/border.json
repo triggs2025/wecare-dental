@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-07T22:53:16.450Z",
+  "fetchedAt": "2026-08-07T23:10:03.277Z",
   "port": {
     "number": "260801",
     "name": "San Luis",
@@ -8,7 +8,7 @@
     "status": "Open"
   },
   "reportedDate": "8/7/2026",
-  "reportedTime": "16:49:18",
+  "reportedTime": "17:03:20",
   "vehicle": {
     "delayMinutes": 60,
     "lanesOpen": 3,
