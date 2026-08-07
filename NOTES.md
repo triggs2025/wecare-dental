@@ -14,6 +14,23 @@ current at the end of every session.
 3. If OneDrive shows a conflicted copy of a file, trust git and delete the
    conflicted copy.
 
+## Admin panel access
+
+There is deliberately NO link to `admin.html` anywhere on the public site.
+Staff reach it by typing the URL. `admin.html` carries `<meta name="robots"
+content="noindex">` so it stays out of search results.
+
+Do NOT add a robots.txt rule blocking it: blocking the crawl would stop Google
+from ever reading that noindex tag, which is worse than leaving it crawlable.
+
+Be clear-eyed about what this does and does not do. Removing the link stops
+casual clicking. It does not secure the page: anyone who guesses the URL can
+open it, and the PIN is the demo value 1234. Today the exposure is small
+because every appointment and request lives in the visitor's own localStorage,
+so a stranger opening admin.html sees an empty panel, not her patients. THAT
+CHANGES the moment a real backend (GoHighLevel or otherwise) is connected. Real
+authentication has to land before any real patient data does.
+
 ## Where things live
 
 - Live site: https://triggs2025.github.io/wecare-dental/
