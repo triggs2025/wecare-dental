@@ -231,3 +231,33 @@ it unaccented. Internal CRM label only, never shown to patients.
 - Does she want the front desk role at all, and who fills it
 - Do her patients ask for facturas
 - Where does she keep clinical records today
+
+## Test booking findings (Aug 7, 2026)
+
+A real test booking through the site worked: it created both an appointment
+(Teeth Whitening, status `new`) and a contact record. The site-to-GHL
+connection is sound.
+
+Two things looked broken and were not the same problem:
+
+1. **"I don't see it in GHL"** was a VIEW FILTER, not missing data. GHL's
+   Calendars > Calendar view shows nothing until you tick the calendar or group
+   under Manage view > Filters. Ticking "Book an Appointment" revealed it, and
+   the choice persists in the URL as `?group_ids=4wsv1jKuAhQJRO3Kn8wu`.
+   Check the filter before concluding a booking was lost.
+
+2. **"No email came through"** was real and self-inflicted. Calendars are
+   created with an EMPTY `notifications` array, so GHL had nothing to send.
+   Now set on all 9 via API:
+   `notifications: [{ type: "email", shouldSendToContact: true,
+   shouldSendToGuest: true, shouldSendToUser: true }]`
+   This only affects bookings made AFTER the fix; the original test will never
+   produce an email.
+
+STILL UNVERIFIED: `shouldSendToUser` targets the calendar's assigned user, and
+no calendar has team members yet. The patient confirmation should work; the
+clinic-side notification may go nowhere until Karina exists as a user and is
+assigned to the calendars. Retest once she has an account.
+
+Lesson for any new calendar: set notifications at creation time. It is not a
+default.
