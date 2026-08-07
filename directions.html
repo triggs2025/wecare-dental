@@ -158,7 +158,30 @@
     </div>
   </section>
 
+  <!-- Storefront in Street View, at the exact heading Tony pinned (195.76 deg
+       from 32.4784807,-114.764544). Using cbll+cbp rather than the panoid
+       (WzHNnoFXB7hRxnIfiX7PKg) so it follows Google's newest imagery instead of
+       freezing on one capture that may later be retired. Official embed, not a
+       hotlinked streetviewpixels thumbnail, so Google's attribution stays on it
+       and it does not break when that internal endpoint changes. -->
   <section class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="frontTitle">What the front looks like</h2>
+        <p data-i18n="frontSub">This is our building from the street. Drag inside the view to look up and down the avenue.</p>
+      </div>
+      <iframe class="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=&layer=c&cbll=32.4784807,-114.764544&cbp=11,195.76,0,0,0&output=svembed"
+        title="Street view of the front of WE CARE Dental"></iframe>
+      <p class="map-caption">
+        <span data-i18n="frontCap">Street view of the office on Avenida Álvaro Obregón.</span>
+        <a href="https://www.google.com/maps/@32.4784807,-114.764544,3a,27.7y,195.76h,86.22t/data=!3m7!1e1!3m5!1sWzHNnoFXB7hRxnIfiX7PKg!2e0"
+           target="_blank" rel="noopener" data-i18n="frontOpen">Open in Google Street View</a>
+      </p>
+    </div>
+  </section>
+
+  <section>
     <div class="wrap">
       <div class="sec-head">
         <h2 data-i18n="routeTitle">The route on a map</h2>
@@ -174,7 +197,7 @@
   <!-- Overhead view. Deliberately NO parking claims in the copy: nobody has
        confirmed where patients should actually park, and inventing it would
        send people to the wrong place. Ask Karina, then add it here. -->
-  <section>
+  <section class="alt">
     <div class="wrap">
       <div class="sec-head">
         <h2 data-i18n="aerialTitle">The block from above</h2>
@@ -187,7 +210,7 @@
     </div>
   </section>
 
-  <section class="alt">
+  <section>
     <div class="wrap">
       <div class="addr-card">
         <p class="eyebrow" data-i18n="addrEyebrow">Put this in your GPS</p>
@@ -212,7 +235,7 @@
     </div>
   </section>
 
-  <section>
+  <section class="alt">
     <div class="wrap sec-head">
       <h2 data-i18n="crossTitle">Before you head back</h2>
       <p data-i18n="crossSub">Check the border wait before you leave the office, so you are not sitting in line longer than your appointment took.</p>
@@ -255,6 +278,10 @@ const I18N = {
     step3d:"Keep going straight past the numbered cross streets. You are heading for the block between Calle 14 and Calle 15.",
     step4t:"Look for number 1407",
     step4d:"The office is at Avenida Álvaro Obregón 1407, on your right, between Calle 14 and Calle 15. Call or message us on WhatsApp if you go past it.",
+    frontTitle:"What the front looks like",
+    frontSub:"This is our building from the street. Drag inside the view to look up and down the avenue.",
+    frontCap:"Street view of the office on Avenida Álvaro Obregón.",
+    frontOpen:"Open in Google Street View",
     routeTitle:"The route on a map", routeSub:"From the border crossing to our door.",
     routeCap:"Route from the port of entry to Avenida Álvaro Obregón 1407.",
     aerialTitle:"The block from above",
@@ -286,6 +313,10 @@ const I18N = {
     step3d:"Continúa derecho pasando las calles numeradas. Vas hacia la cuadra entre la Calle 14 y la Calle 15.",
     step4t:"Busca el número 1407",
     step4d:"El consultorio está en Avenida Álvaro Obregón 1407, a tu derecha, entre la Calle 14 y la Calle 15. Llámanos o escríbenos por WhatsApp si te pasas.",
+    frontTitle:"Así se ve por fuera",
+    frontSub:"Este es nuestro edificio desde la calle. Arrastra dentro de la vista para mirar a lo largo de la avenida.",
+    frontCap:"Vista de calle del consultorio sobre Avenida Álvaro Obregón.",
+    frontOpen:"Abrir en Google Street View",
     routeTitle:"La ruta en el mapa", routeSub:"De la garita hasta nuestra puerta.",
     routeCap:"Ruta desde la garita hasta Avenida Álvaro Obregón 1407.",
     aerialTitle:"La cuadra desde arriba",
