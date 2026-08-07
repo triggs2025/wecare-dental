@@ -1,0 +1,36 @@
+{
+  "fetchedAt": "2026-08-07T00:52:19.785Z",
+  "port": {
+    "number": "260801",
+    "name": "San Luis",
+    "crossing": "San Luis I",
+    "hours": "24 hrs/day",
+    "status": "Open"
+  },
+  "reportedDate": "8/6/2026",
+  "reportedTime": "18:41:59",
+  "vehicle": {
+    "delayMinutes": 30,
+    "lanesOpen": 5,
+    "status": "delay",
+    "updated": "At 11:00 pm MST"
+  },
+  "vehicleSentri": {
+    "delayMinutes": 5,
+    "lanesOpen": 2,
+    "status": "no delay",
+    "updated": "At 11:00 pm MST"
+  },
+  "vehicleReady": null,
+  "pedestrian": {
+    "delayMinutes": 5,
+    "lanesOpen": 2,
+    "status": "no delay",
+    "updated": "At 11:00 pm MST"
+  },
+  "pedestrianReady": null,
+  "maxVehicleLanes": 16,
+  "maxPedestrianLanes": 9,
+  "notice": "A Ready Lane is now open at the San Luis Port of Entry from 6:00 until midnight.  Go to www.getyouhome.gov for more information on Ready Lanes.  Tune in to AM 530 for border crossing information.",
+  "source": "https://bwt.cbp.gov/"
+}

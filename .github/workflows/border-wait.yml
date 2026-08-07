@@ -1,0 +1,53 @@
+name: Border wait times
+
+# Collects the San Luis crossing delay from CBP and commits it, because CBP
+# sends no CORS header so the page cannot fetch it directly.
+#
+# Every run also appends a row to data/border-history.csv. CBP publishes only
+# the CURRENT delay, never history or a forecast, so that CSV is the only way
+# we will ever be able to say "Fridays at 4pm are usually bad". It cannot be
+# backfilled, which is why this runs even before the feature ships.
+
+on:
+  schedule:
+    # Every 20 minutes. GitHub delays scheduled runs under load, so treat this
+    # as "roughly every 20 minutes", not a guarantee.
+    - cron: '*/20 * * * *'
+  workflow_dispatch:      # lets you trigger a run by hand from the Actions tab
+
+# Scheduled workflows are disabled automatically after 60 days with no repo
+# activity. If the numbers on the site go stale, check that first.
+
+permissions:
+  contents: write
+
+concurrency:
+  group: border-wait
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch CBP wait times
+        run: node scripts/fetch-border.mjs
+
+      - name: Commit if anything changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/border.json data/border-history.csv
+          # --quiet exits non-zero when there is nothing staged, which is the
+          # normal case when the delay has not moved. Do not fail the run.
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "Border wait times: $(date -u '+%Y-%m-%d %H:%M UTC') [skip ci]"
+            git push
+          fi
