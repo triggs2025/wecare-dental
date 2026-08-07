@@ -36,6 +36,49 @@ Edit files, then commit and push to main. GitHub Pages redeploys automatically i
 
 ## Session log (newest first)
 
+- Aug 6, 2026: Removed the hero logo badge (the shrunk WE CARE lockup that
+  linked to About) and removed the video captions entirely: both `<track>` tags,
+  the `.hero-caption` renderer, `syncHeroCaptions()`, and the two .vtt files.
+  The hero is now just the video, the scrim, and the text column. The About
+  section is untouched and still reachable from the nav.
+  Researched CBP border wait times for the next feature, see below.
+
+## Border wait times (researched Aug 6, not built yet)
+
+Goal: show current San Luis crossing delays on the site, and eventually tie
+them to appointment booking so patients can see whether their slot lands in
+heavy traffic. Predictions must be clearly labeled as estimates, not fact.
+
+Data source (official, free, no key):
+- JSON, all 85 ports: https://bwt.cbp.gov/api/waittimes
+- XML equivalent: https://bwt.cbp.gov/xml/bwt.xml
+- The `bwt.cbp.gov/details/08260801/...` pages Tony found are the human UI for
+  the same data. In the feed the port is `port_number` **260801**, port_name
+  "San Luis", crossing_name "San Luis I", open 24 hrs/day. There is also
+  260802 "San Luis II" which is commercial only, 9am-5pm, usually Closed.
+
+Per crossing the feed gives, separately for passenger vehicles, pedestrians and
+commercial: `delay_minutes`, `lanes_open`, `maximum_lanes`, `operational_status`
+and an `update_time`, plus a `construction_notice` free-text field.
+
+TWO BLOCKERS, both confirmed by inspecting live response headers:
+1. CBP sends **no** `Access-Control-Allow-Origin` header, so the browser cannot
+   fetch this directly from our page. Client-side `fetch()` will fail.
+2. CBP sends `X-Frame-Options: SAMEORIGIN`, so we cannot iframe their page
+   either.
+
+So it needs a server-side fetch. Two viable designs:
+- **On GitHub Pages (works today):** a scheduled GitHub Action fetches the feed
+  every ~10 min, writes a small `assets/border.json` into the repo. The page
+  reads it same-origin. Free, no server, and every run appends a historical
+  sample, which is exactly what the prediction feature will need later.
+- **On Plesk (if the site moves there):** a small PHP proxy with a short cache.
+
+Prediction caveat: CBP publishes only the CURRENT delay. There is no historical
+or forecast data in the feed. Any "expect about X minutes at 3pm Friday" claim
+has to be built from samples we collect ourselves over weeks, and must be
+labeled an estimate based on our own observations.
+
 - Aug 5, 2026 (latest+1): Shrank the hero logo lockup to 25% of its old size
   (380px -> 95px wide, 88px on mobile) so it stops covering the video, and made
   it a link to a new About section. The credentials pill inside the SVG is

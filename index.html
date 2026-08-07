@@ -56,12 +56,7 @@
   /* Scrim keeps the dark hero text readable over the footage. */
   .hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
     background:linear-gradient(100deg,rgba(255,255,255,.94) 0%,rgba(255,255,255,.86) 34%,rgba(255,255,255,.55) 58%,rgba(226,245,244,.45) 100%)}
-  .hero-inner{position:relative;z-index:2;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
-  /* Captions: the hero video autoplays muted, so captions carry the message. */
-  .hero-caption{position:relative;z-index:2;max-width:1100px;margin:2rem auto 0;min-height:2.6em;display:flex;justify-content:center;align-items:flex-end}
-  .hero-caption span{display:inline-block;background:rgba(23,42,43,.82);color:#fff;font-size:.98rem;font-weight:600;line-height:1.45;
-    padding:.5rem .95rem;border-radius:.6rem;text-align:center;max-width:46rem;backdrop-filter:blur(2px)}
-  .hero-caption:empty{display:none}
+  .hero-inner{position:relative;z-index:2;max-width:1100px;margin:0 auto}
   @media (prefers-reduced-motion:reduce){.hero-video{display:none}.hero-scrim{display:none}}
   .eyebrow{display:inline-block;background:#fff;border:1px solid #cfe8e8;color:var(--teal-dark);font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:999px;margin-bottom:1rem}
   .hero h1{font-family:'Merriweather',serif;font-size:clamp(2rem,4.5vw,3.1rem);margin-bottom:1rem}
@@ -72,16 +67,6 @@
   .btn-primary:hover{background:var(--teal-dark)}
   .btn-ghost{border:2px solid var(--teal);color:var(--teal);text-decoration:none;font-weight:800;padding:.75rem 1.5rem;border-radius:999px}
   .btn-ghost:hover{background:var(--teal-light)}
-  /* Logo badge: reduced to 25% of its old 380px so it stops covering the
-     video, and now a link through to the About section. */
-  .hero-art{display:flex;justify-content:center;align-items:center}
-  .hero-art a{display:block;line-height:0;border-radius:14px;text-decoration:none;transition:transform .18s ease,filter .18s ease}
-  .hero-art a:hover,.hero-art a:focus-visible{transform:translateY(-3px) scale(1.04)}
-  .hero-art a:focus-visible{outline:3px solid var(--teal-dark);outline-offset:4px}
-  .hero-art svg{width:100%;max-width:95px;filter:drop-shadow(0 10px 18px rgba(14,141,138,.22))}
-  /* The credentials pill is ~4px tall at this scale, so it is hidden here and
-     shown at readable size in the About section instead. */
-  .hero-art .logo-credentials{display:none}
 
   /* ---------- About ---------- */
   .about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem;align-items:center}
@@ -156,9 +141,6 @@
   .wa-float{position:fixed;right:1.2rem;bottom:1.2rem;z-index:90;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.25);text-decoration:none;font-size:1.7rem}
 
   @media (max-width:820px){
-    .hero-inner{grid-template-columns:1fr}
-    .hero-art{order:-1}
-    .hero-art svg{max-width:88px}
     .about-grid{grid-template-columns:1fr;gap:1.75rem}
     .trust-inner{grid-template-columns:1fr;gap:.8rem}
     .contact-grid{grid-template-columns:1fr}
@@ -209,16 +191,11 @@
 
   <!-- Hero -->
   <div class="hero">
-    <!-- Clinic promo video. Muted + autoplay is required by browsers, so the
-         spoken content is carried by the caption tracks below (EN/ES, switched
-         by setLang). Captions render into .hero-caption, not over the video,
-         so they never collide with the hero headline. -->
+    <!-- Clinic promo video, decorative background. Autoplays muted and loops. -->
     <video class="hero-video" id="heroVideo" autoplay muted loop playsinline
-           preload="metadata" poster="assets/hero-poster.jpg" aria-label="WE CARE Dental clinic">
+           preload="metadata" poster="assets/hero-poster.jpg" aria-hidden="true">
       <source src="assets/hero.webm" type="video/webm">
       <source src="assets/hero.mp4" type="video/mp4">
-      <track id="heroCcEn" kind="captions" srclang="en" label="English" src="assets/hero.en.vtt" default>
-      <track id="heroCcEs" kind="captions" srclang="es" label="Español" src="assets/hero.es.vtt">
     </video>
     <div class="hero-scrim"></div>
     <div class="hero-inner">
@@ -231,29 +208,7 @@
           <a class="btn-ghost" href="#services" data-i18n="heroServices">See Our Services</a>
         </div>
       </div>
-      <div class="hero-art">
-        <!-- Full logo lockup: refined version of her original sign.
-             Links through to the About section. -->
-        <a href="#about" data-i18n-aria="aboutLinkAria" aria-label="About C.D. E.E. Karina González Robles">
-        <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="2" y="2" width="316" height="256" rx="18" fill="#ffffff" stroke="#dcebeb"/>
-          <text x="160" y="58" text-anchor="middle" style="font-family:'Nunito',sans-serif;font-size:40px;font-weight:600;letter-spacing:.06em" fill="#7ecfcb">WE CARE</text>
-          <text x="160" y="84" text-anchor="middle" style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;letter-spacing:.55em" fill="#2b2f33">DENTAL</text>
-          <g transform="translate(64,92) scale(0.96)">
-            <path d="M28 84 C22 62 44 50 72 54 C102 58 118 72 114 94 C110 116 84 128 58 121 C40 116 33 101 28 84 Z" fill="#aadedd"/>
-            <path d="M118 34 C132 22 158 24 168 40 C177 54 170 72 152 76 C134 80 116 70 112 55 C109 45 110 40 118 34 Z" fill="#ededed"/>
-            <path d="M30 18 C20 50 34 92 76 110 C114 126 158 116 172 94 C181 79 174 64 161 63 C152 62 147 70 151 78" fill="none" stroke="#23282b" stroke-width="2.6" stroke-linecap="round"/>
-            <path d="M74 56 C88 46 102 45 110 50 C120 44 136 46 144 55 C133 62 118 64 107 61 C94 66 81 62 74 56 Z" fill="#ffffff" stroke="#23282b" stroke-width="2.4" stroke-linejoin="round"/>
-            <path d="M82 60 Q86 67 91 63 Q96 70 102 65 Q108 71 114 65 Q120 69 126 63 Q131 66 136 59" fill="none" stroke="#23282b" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M76 58 C88 80 128 82 142 57" fill="none" stroke="#23282b" stroke-width="2.4" stroke-linecap="round"/>
-          </g>
-          <rect class="logo-credentials" x="48" y="222" width="224" height="26" rx="13" fill="#7ecfcb"/>
-          <text class="logo-credentials" x="160" y="239" text-anchor="middle" style="font-family:'Nunito',sans-serif;font-size:12.5px;font-weight:800" fill="#ffffff">C.D. E.E. Karina González Robles</text>
-        </svg>
-        </a>
-      </div>
     </div>
-    <div class="hero-caption" id="heroCaption" aria-live="polite"></div>
   </div>
 
   <!-- Trust bar -->
@@ -419,7 +374,6 @@ const I18N = {
     heroLead:"Modern, gentle dental care in San Luis Río Colorado at prices that make sense. English spoken. American patients welcome.",
     heroBook:"Book an Appointment", heroServices:"See Our Services",
     navAbout:"About",
-    aboutLinkAria:"About C.D. E.E. Karina González Robles",
     aboutPhotoAlt:"C.D. E.E. Karina González Robles at WE CARE Dental",
     aboutEyebrow:"Meet your dentist",
     aboutTitle:"C.D. E.E. Karina González Robles",
@@ -465,7 +419,6 @@ const I18N = {
     heroLead:"Atención dental moderna y amable en San Luis Río Colorado, a precios justos. Hablamos inglés y español.",
     heroBook:"Agendar una Cita", heroServices:"Ver Servicios",
     navAbout:"Nosotros",
-    aboutLinkAria:"Conoce a la C.D. E.E. Karina González Robles",
     aboutPhotoAlt:"C.D. E.E. Karina González Robles en WE CARE Dental",
     aboutEyebrow:"Conoce a tu dentista",
     aboutTitle:"C.D. E.E. Karina González Robles",
@@ -527,30 +480,6 @@ function setLang(lang){
     const k = el.getAttribute('data-i18n-aria');
     if(dict[k]) el.setAttribute('aria-label', dict[k]);
   });
-  syncHeroCaptions(lang);
-}
-
-// Hero video captions follow the language toggle. Tracks are kept in 'hidden'
-// mode rather than 'showing' so we render the cues into .hero-caption ourselves;
-// the browser's own caption layer would paint them over the hero headline.
-function syncHeroCaptions(lang){
-  const v = document.getElementById('heroVideo');
-  const box = document.getElementById('heroCaption');
-  if(!v || !box) return;
-  box.innerHTML = '';
-  for(const t of v.textTracks){
-    const active = (t.language === lang);
-    t.mode = active ? 'hidden' : 'disabled';
-    if(active && !t.dataset_wired){
-      t.dataset_wired = true;
-      t.addEventListener('cuechange', ()=>{
-        const cue = t.activeCues && t.activeCues[0];
-        if(!cue){ box.innerHTML = ''; return; }
-        const safe = String(cue.text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-        box.innerHTML = '<span>'+safe.replace(/\n/g,'<br>')+'</span>';
-      });
-    }
-  }
 }
 
 // Auto-detect: Spanish browsers default to ES, everyone else EN. Manual choice wins.
