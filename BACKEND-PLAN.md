@@ -97,6 +97,40 @@ Recommendation: launch with contact and scheduling data only. Keep clinical
 records wherever she keeps them today until the privacy notice exists and the
 HIPAA question has an answer.
 
+## KNOWN DEFECT: calendars can double-book her
+
+Found Aug 7 2026 by a real test booking. Two appointments were accepted that
+overlap: a 90 minute Teeth Whitening at 09:00 and another service at 10:00.
+
+Cause: each service is a SEPARATE calendar and none of them has a team member
+assigned, so no calendar knows what any other calendar has booked. Nothing
+currently enforces that Karina can only be in one place at once.
+
+Fix: assign the same user to all nine calendars. GHL then checks that user's
+availability across every calendar they belong to and blocks the overlap. This
+is what `teamMembers` is for. It was noted earlier as "zero team members" and
+wrongly dismissed as cosmetic.
+
+**Blocked on inviting Karina as a user.** Claude cannot create user accounts.
+This is now the highest priority back end item, ahead of bilingual emails,
+because the public widget can double-book her today.
+
+DO NOT just switch it on without asking her first. Overlapping appointments may
+be correct for a dental practice: two chairs, or a hygienist cleaning while she
+does restorative work, means parallel bookings are real capacity, not a bug.
+Ask her:
+- How many chairs / operatories?
+- Does she work alone, or with an assistant or hygienist?
+- Which services need her undivided attention start to finish? (implants, root
+  canals, extractions usually do; cleanings and whitening often do not)
+- How much turnaround time between patients? Buffers are currently ZERO, which
+  is almost certainly wrong.
+
+Three possible shapes depending on her answers: everything sequential (assign
+her to all calendars), partial parallelism (assign her, then raise
+`appoinmentPerSlot` on the services that can overlap), or split by room (her
+calendars separate from a hygienist's).
+
 ## Progress (Aug 7, 2026)
 
 Sub-account exists: **We Care Dental - San Luis**, location id
