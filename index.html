@@ -125,6 +125,10 @@
   .about-role{color:var(--teal-dark);font-weight:800;margin-bottom:1rem}
   #about p{color:var(--gray);max-width:40rem}
 
+  /* GoHighLevel booking widget. form_embed.js resizes the iframe to its content;
+     min-height only stops a collapse before that script runs. */
+  .ghl-booking{width:100%;min-height:720px;border:0;display:block;border-radius:14px;background:#fff}
+
   /* ---------- Border wait chip (header) ---------- */
   .bwt-chip{display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;
     background:var(--teal-light);border:1px solid #bfe3e2;color:var(--teal-dark);
@@ -427,35 +431,23 @@
         <p data-i18n="bookSub">Choose a time that works for you. We confirm every appointment personally.</p>
       </div>
       <div class="booking-box">
-        <!-- GHL-CALENDAR-SLOT: Replace this block with the GoHighLevel calendar embed code.
-             Example:
-             <iframe src="https://api.leadconnectorhq.com/widget/booking/XXXXXXXX" style="width:100%;min-height:700px;border:none;" scrolling="no" id="ghl-booking"></iframe>
-             <script src="https://link.msgsndr.com/js/form_embed.js"></script>
-        -->
-        <div id="bookSuccess" class="book-success" hidden><span data-i18n="fSuccess">Thank you! We received your request and will confirm your appointment by WhatsApp shortly.</span></div>
-        <form id="bookForm" class="bform">
-          <div><label for="bfName" data-i18n="fName">Full name</label><input id="bfName" required></div>
-          <div><label for="bfPhone" data-i18n="fPhone">Phone / WhatsApp</label><input id="bfPhone" type="tel" required placeholder="+1 928 ..."></div>
-          <!-- Required, because email is the confirmation channel: WhatsApp
-               automation costs per message and we are not paying for it yet.
-               Patients who do not use email still have the Book by WhatsApp
-               button below, which stays free because a human presses send. -->
-          <div><label for="bfEmail" data-i18n="fEmail">Email</label><input id="bfEmail" type="email" required autocomplete="email"></div>
-          <div><label for="bfService" data-i18n="fService">Service</label><select id="bfService">
-            <option data-i18n="svc1t">Cleanings &amp; Checkups</option>
-            <option data-i18n="svc2t">Teeth Whitening</option>
-            <option data-i18n="svc3t">Fillings &amp; Restorations</option>
-            <option data-i18n="svc4t">Crowns &amp; Bridges</option>
-            <option data-i18n="svc5t">Dental Implants</option>
-            <option data-i18n="svc6t">Veneers</option>
-            <option data-i18n="svc7t">Root Canals</option>
-            <option data-i18n="svc8t">Extractions</option>
-            <option data-i18n="svc9t">Dentures &amp; Partials</option>
-          </select></div>
-          <div><label for="bfDate" data-i18n="fDate">Preferred date</label><input id="bfDate" type="date"></div>
-          <div class="full"><label for="bfTime" data-i18n="fTime">Preferred time</label><select id="bfTime"></select></div>
-          <button type="submit" data-i18n="fSubmit">Request Appointment</button>
-        </form>
+        <!-- LIVE GoHighLevel booking widget (calendar group "Book an Appointment",
+             group id 4wsv1jKuAhQJRO3Kn8wu). The patient picks a service, sees
+             real availability, and the booking lands in GHL where Karina works.
+             This replaced the old localStorage form, which never reached her.
+
+             The URL uses the group ID rather than the /widget/groups/wecare-dental
+             slug on purpose: renaming the group would silently break a slug URL.
+
+             Availability here comes from GHL, so it is the single source of
+             truth for her hours. Do not reintroduce hardcoded hours on this
+             page; they will drift. -->
+        <iframe src="https://api.leadconnectorhq.com/widget/group/4wsv1jKuAhQJRO3Kn8wu"
+                id="ghl-booking" class="ghl-booking"
+                title="Book an appointment with WE CARE Dental"
+                scrolling="no"></iframe>
+        <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+
         <p class="note" data-i18n="bookOr">Prefer to talk to a person right away? Message us directly:</p>
         <div class="booking-actions">
           <a class="wa-btn" href="https://wa.me/526535960691" target="_blank" rel="noopener">💬 <span data-i18n="bookWa">Book by WhatsApp</span></a>
@@ -481,12 +473,13 @@
             <a href="directions.html" style="font-weight:800" data-i18n="cDirections">Directions from the border →</a></div></li>
           <li><div class="ico">📞</div><div><b data-i18n="cPhone">Phone / WhatsApp</b><a href="tel:+526535960691">+52 653 596 0691</a></div></li>
           <li><div class="ico">✉️</div><div><b data-i18n="cEmail">Email</b><a href="mailto:wecare.kgr@gmail.com">wecare.kgr@gmail.com</a></div></li>
+          <!-- Hours deliberately NOT hardcoded here any more. The booking widget
+               reads live availability from GHL, so Karina controls her hours in
+               one place. A printed table would drift the first time she changed
+               them. Do not add one back. -->
           <li><div class="ico">🕐</div><div style="flex:1"><b data-i18n="cHours">Hours</b>
-            <table class="hours-table">
-              <tr><td data-i18n="hMonFri">Monday to Friday</td><td>9:00 AM - 6:00 PM</td></tr>
-              <tr><td data-i18n="hSat">Saturday</td><td>9:00 AM - 2:00 PM</td></tr>
-              <tr><td data-i18n="hSun">Sunday</td><td data-i18n="hClosed">Closed</td></tr>
-            </table>
+            <span data-i18n="cHoursLive">Pick any open time on our booking calendar. It always shows current availability.</span><br>
+            <a href="#book" style="font-weight:800" data-i18n="cHoursLink">See available times →</a>
           </div></li>
         </ul>
         <iframe class="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
@@ -526,6 +519,7 @@ const I18N = {
     heroLead:"Modern, gentle dental care in San Luis Río Colorado at prices that make sense. English spoken. American patients welcome.",
     heroBook:"Book an Appointment", heroServices:"See Our Services",
     cAddrCross:"Between Calle 14 and Calle 15",
+    cHoursLive:"Pick any open time on our booking calendar. It always shows current availability.", cHoursLink:"See available times →",
     cDirections:"Directions from the border →",
     bwtChipLabel:"Border", bwtChipClosed:"Closed",
     bwtChipAria:"Current border wait to cross into Arizona:",
@@ -565,14 +559,10 @@ const I18N = {
     why3t:"We Speak English", why3d:"Clear communication from your first message to your final visit. No surprises, no confusion.",
     why4t:"Care That Feels Personal", why4d:"We treat every patient like family. Honest recommendations and gentle treatment, every time.",
     bookTitle:"Book Your Appointment", bookSub:"Choose a time that works for you. We confirm every appointment personally.",
-    fName:"Full name", fPhone:"Phone / WhatsApp", fEmail:"Email", fService:"Service", fDate:"Preferred date", fTime:"Preferred time",
-    fSubmit:"Request Appointment",
-    fSuccess:"Almost done! We opened WhatsApp with your request ready to send. Press send and we will confirm your appointment shortly. If WhatsApp did not open, message us at +52 653 596 0691.",
     bookOr:"Prefer to talk to a person right away? Message us directly:",
     bookWa:"Book by WhatsApp", bookCall:"Call +52 653 596 0691",
     contactTitle:"Contact Us", contactSub:"Call, message us on WhatsApp, or come see us in San Luis Río Colorado, about 1.2 miles from the San Luis, Arizona crossing.",
     cAddr:"Address", cPhone:"Phone / WhatsApp", cEmail:"Email", cHours:"Hours",
-    hMonFri:"Monday to Friday", hSat:"Saturday", hSun:"Sunday", hClosed:"Closed",
     footTag:"Quality dental care with a personal touch · San Luis Río Colorado, Sonora, México",
     footFb:"Follow us on Facebook"
   },
@@ -584,6 +574,7 @@ const I18N = {
     heroLead:"Atención dental moderna y amable en San Luis Río Colorado, a precios justos. Hablamos inglés y español.",
     heroBook:"Agendar una Cita", heroServices:"Ver Servicios",
     cAddrCross:"Entre la Calle 14 y la Calle 15",
+    cHoursLive:"Elige cualquier horario disponible en nuestro calendario. Siempre muestra la disponibilidad actual.", cHoursLink:"Ver horarios disponibles →",
     cDirections:"Cómo llegar desde la frontera →",
     bwtChipLabel:"Frontera", bwtChipClosed:"Cerrado",
     bwtChipAria:"Espera actual para cruzar a Arizona:",
@@ -623,14 +614,10 @@ const I18N = {
     why3t:"Hablamos Inglés", why3d:"Comunicación clara desde tu primer mensaje hasta tu última visita. Sin sorpresas.",
     why4t:"Atención Personal", why4d:"Tratamos a cada paciente como familia. Recomendaciones honestas y trato amable, siempre.",
     bookTitle:"Agenda tu Cita", bookSub:"Elige el horario que mejor te convenga. Confirmamos cada cita personalmente.",
-    fName:"Nombre completo", fPhone:"Teléfono / WhatsApp", fEmail:"Correo electrónico", fService:"Servicio", fDate:"Fecha preferida", fTime:"Hora preferida",
-    fSubmit:"Solicitar Cita",
-    fSuccess:"¡Casi listo! Abrimos WhatsApp con tu solicitud lista para enviar. Presiona enviar y confirmaremos tu cita muy pronto. Si WhatsApp no se abrió, escríbenos al +52 653 596 0691.",
     bookOr:"¿Prefieres hablar con una persona? Escríbenos directamente:",
     bookWa:"Agendar por WhatsApp", bookCall:"Llamar +52 653 596 0691",
     contactTitle:"Contáctanos", contactSub:"Llámanos, escríbenos por WhatsApp o visítanos en San Luis Río Colorado, a unos 2 km de la garita de San Luis, Arizona.",
     cAddr:"Dirección", cPhone:"Teléfono / WhatsApp", cEmail:"Correo", cHours:"Horario",
-    hMonFri:"Lunes a Viernes", hSat:"Sábado", hSun:"Domingo", hClosed:"Cerrado",
     footTag:"Atención dental de calidad con trato personal · San Luis Río Colorado, Sonora, México",
     footFb:"Síguenos en Facebook"
   }
@@ -727,48 +714,9 @@ fetch('assets/border.json', { cache: 'no-cache' })
   .then(data => { BORDER = data; renderBorder(); })
   .catch(err => { console.warn('border wait times unavailable:', err.message); });
 
-// Booking request form: stores requests locally; the admin panel reads them.
-// In production this submits to the GoHighLevel calendar/CRM instead.
-const timeSel = document.getElementById('bfTime');
-for (let h = 9; h <= 17; h++) {
-  const t = String(h).padStart(2,'0') + ':00';
-  const o = document.createElement('option');
-  o.value = t; o.textContent = t;
-  timeSel.appendChild(o);
-}
-document.getElementById('bfDate').min = new Date().toISOString().slice(0,10);
-document.getElementById('bookForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const reqs = JSON.parse(localStorage.getItem('wc_requests') || '[]');
-  reqs.push({
-    id: 'r' + Date.now(),
-    name: document.getElementById('bfName').value.trim(),
-    phone: document.getElementById('bfPhone').value.trim(),
-    email: document.getElementById('bfEmail').value.trim(),
-    service: document.getElementById('bfService').value || document.getElementById('bfService').selectedOptions[0].textContent,
-    prefDate: document.getElementById('bfDate').value,
-    prefTime: document.getElementById('bfTime').value,
-    lang: document.documentElement.lang,
-    status: 'pending',
-    created: new Date().toISOString()
-  });
-  localStorage.setItem('wc_requests', JSON.stringify(reqs));
-
-  // localStorage alone means the request never leaves the patient's browser and
-  // the clinic never learns about it. Until there is a real backend, hand the
-  // request off to WhatsApp so it actually reaches her phone. The patient still
-  // has to press send, which is why the confirmation copy says so.
-  const r = reqs[reqs.length - 1];
-  const es = document.documentElement.lang === 'es';
-  const msg = (es
-    ? `Hola WE CARE Dental, quiero agendar una cita.\n\nNombre: ${r.name}\nTeléfono: ${r.phone}${r.email ? '\nCorreo: ' + r.email : ''}\nServicio: ${r.service}\nFecha preferida: ${r.prefDate || 'sin preferencia'}\nHora preferida: ${r.prefTime || 'sin preferencia'}`
-    : `Hello WE CARE Dental, I would like to book an appointment.\n\nName: ${r.name}\nPhone: ${r.phone}${r.email ? '\nEmail: ' + r.email : ''}\nService: ${r.service}\nPreferred date: ${r.prefDate || 'no preference'}\nPreferred time: ${r.prefTime || 'no preference'}`);
-  window.open('https://wa.me/526535960691?text=' + encodeURIComponent(msg), '_blank', 'noopener');
-
-  document.getElementById('bookSuccess').hidden = false;
-  document.getElementById('bookSuccess').scrollIntoView({behavior:'smooth', block:'center'});
-  e.target.reset();
-});
+// Booking is handled entirely by the embedded GoHighLevel widget above.
+// The old localStorage form and its WhatsApp handoff were removed with it:
+// bookings now land in GHL, which is where Karina actually works.
 
 // Close mobile menu on link click
 document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>{
