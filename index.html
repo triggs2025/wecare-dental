@@ -128,6 +128,10 @@
   /* GoHighLevel booking widget. form_embed.js resizes the iframe to its content;
      min-height only stops a collapse before that script runs. */
   .ghl-booking{width:100%;min-height:720px;border:0;display:block;border-radius:14px;background:#fff}
+  .book-again{text-align:center;margin-top:.9rem}
+  .link-btn{background:none;border:0;color:var(--teal-dark);font:inherit;font-weight:800;font-size:.9rem;cursor:pointer;text-decoration:underline;padding:.3rem .5rem;border-radius:8px}
+  .link-btn:hover{background:var(--teal-light)}
+  .link-btn:focus-visible{outline:3px solid var(--teal-dark);outline-offset:2px}
 
   /* ---------- Border wait chip (header) ---------- */
   .bwt-chip{display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;
@@ -448,6 +452,15 @@
                 scrolling="no"></iframe>
         <script src="https://link.msgsndr.com/js/form_embed.js"></script>
 
+        <!-- Resets the widget so a second appointment can be booked without a
+             full page reload. Deliberately NOT an automatic timed refresh:
+             someone reading their confirmation should not have the page pulled
+             out from under them, and a reload would also discard the border
+             wait data this page already fetched. -->
+        <p class="book-again">
+          <button type="button" id="bookAgain" class="link-btn" data-i18n="bookAgain">Book another appointment</button>
+        </p>
+
         <p class="note" data-i18n="bookOr">Prefer to talk to a person right away? Message us directly:</p>
         <div class="booking-actions">
           <a class="wa-btn" href="https://wa.me/526535960691" target="_blank" rel="noopener">💬 <span data-i18n="bookWa">Book by WhatsApp</span></a>
@@ -560,7 +573,7 @@ const I18N = {
     why4t:"Care That Feels Personal", why4d:"We treat every patient like family. Honest recommendations and gentle treatment, every time.",
     bookTitle:"Book Your Appointment", bookSub:"Choose a time that works for you. We confirm every appointment personally.",
     bookOr:"Prefer to talk to a person right away? Message us directly:",
-    bookWa:"Book by WhatsApp", bookCall:"Call +52 653 596 0691",
+    bookAgain:"Book another appointment", bookWa:"Book by WhatsApp", bookCall:"Call +52 653 596 0691",
     contactTitle:"Contact Us", contactSub:"Call, message us on WhatsApp, or come see us in San Luis Río Colorado, about 1.2 miles from the San Luis, Arizona crossing.",
     cAddr:"Address", cPhone:"Phone / WhatsApp", cEmail:"Email", cHours:"Hours",
     footTag:"Quality dental care with a personal touch · San Luis Río Colorado, Sonora, México",
@@ -615,7 +628,7 @@ const I18N = {
     why4t:"Atención Personal", why4d:"Tratamos a cada paciente como familia. Recomendaciones honestas y trato amable, siempre.",
     bookTitle:"Agenda tu Cita", bookSub:"Elige el horario que mejor te convenga. Confirmamos cada cita personalmente.",
     bookOr:"¿Prefieres hablar con una persona? Escríbenos directamente:",
-    bookWa:"Agendar por WhatsApp", bookCall:"Llamar +52 653 596 0691",
+    bookAgain:"Agendar otra cita", bookWa:"Agendar por WhatsApp", bookCall:"Llamar +52 653 596 0691",
     contactTitle:"Contáctanos", contactSub:"Llámanos, escríbenos por WhatsApp o visítanos en San Luis Río Colorado, a unos 2 km de la garita de San Luis, Arizona.",
     cAddr:"Dirección", cPhone:"Teléfono / WhatsApp", cEmail:"Correo", cHours:"Horario",
     footTag:"Atención dental de calidad con trato personal · San Luis Río Colorado, Sonora, México",
@@ -656,6 +669,16 @@ const auto = (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' 
 setLang(saved || auto);
 
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// "Book another appointment": reload just the GHL iframe rather than the whole
+// page. Reassigning src forces a fresh widget; the cache-buster stops the
+// browser serving the completed-booking state back from cache.
+document.getElementById('bookAgain').addEventListener('click', () => {
+  const f = document.getElementById('ghl-booking');
+  const base = f.src.split('?')[0];
+  f.src = base + '?r=' + Date.now();
+  document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 
 function renderBorder(){
   if(!BORDER) return;
