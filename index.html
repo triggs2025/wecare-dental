@@ -255,9 +255,11 @@
            while scrolling the front page. Note this leaves #about with no
            inbound link anywhere, since the hero logo badge that used to point
            at it was removed. -->
+      <!-- No plain "Book" link: the Book Appointment button beside it already
+           goes to #book, and one target does not need two menu items. -->
       <a href="#services" data-i18n="navServices">Services</a>
-      <a href="#book" data-i18n="navBook">Book</a>
-      <a href="#contact" data-i18n="navContact">Find Us</a>
+      <a href="directions.html" data-i18n="navDirections">Directions</a>
+      <a href="#contact" data-i18n="navContact">Contact</a>
       <a class="cta-btn" href="#book" data-i18n="navCta">Book Appointment</a>
     </nav>
     <div style="display:flex;align-items:center;gap:.8rem">
@@ -462,8 +464,8 @@
   <section id="contact" style="background:var(--card)">
     <div class="wrap">
       <div class="sec-head">
-        <h2 data-i18n="contactTitle">Find Us</h2>
-        <p data-i18n="contactSub">We are in San Luis Río Colorado, Sonora, about 1.2 miles from the San Luis, Arizona border crossing.</p>
+        <h2 data-i18n="contactTitle">Contact Us</h2>
+        <p data-i18n="contactSub">Call, message us on WhatsApp, or come see us in San Luis Río Colorado, about 1.2 miles from the San Luis, Arizona crossing.</p>
       </div>
       <div class="contact-grid">
         <ul class="contact-list">
@@ -513,7 +515,7 @@ let BORDER = null;
 const I18N = {
   en: {
     brandTag:"San Luis Río Colorado",
-    navServices:"Services", navBook:"Book", navContact:"Find Us", navCta:"Book Appointment",
+    navServices:"Services", navDirections:"Directions", navContact:"Contact", navCta:"Book Appointment",
     heroEyebrow:"Minutes from the San Luis, AZ border",
     heroTitle:"Your smile deserves a team that truly <em>cares</em>",
     heroLead:"Modern, gentle dental care in San Luis Río Colorado at prices that make sense. English spoken. American patients welcome.",
@@ -563,7 +565,7 @@ const I18N = {
     fSuccess:"Almost done! We opened WhatsApp with your request ready to send. Press send and we will confirm your appointment shortly. If WhatsApp did not open, message us at +52 653 596 0691.",
     bookOr:"Prefer to talk to a person right away? Message us directly:",
     bookWa:"Book by WhatsApp", bookCall:"Call +52 653 596 0691",
-    contactTitle:"Find Us", contactSub:"We are in San Luis Río Colorado, Sonora, about 1.2 miles from the San Luis, Arizona border crossing.",
+    contactTitle:"Contact Us", contactSub:"Call, message us on WhatsApp, or come see us in San Luis Río Colorado, about 1.2 miles from the San Luis, Arizona crossing.",
     cAddr:"Address", cPhone:"Phone / WhatsApp", cEmail:"Email", cHours:"Hours",
     hMonFri:"Monday to Friday", hSat:"Saturday", hSun:"Sunday", hClosed:"Closed",
     footTag:"Quality dental care with a personal touch · San Luis Río Colorado, Sonora, México",
@@ -571,7 +573,7 @@ const I18N = {
   },
   es: {
     brandTag:"San Luis Río Colorado",
-    navServices:"Servicios", navBook:"Citas", navContact:"Cómo Llegar", navCta:"Agendar Cita",
+    navServices:"Servicios", navDirections:"Cómo Llegar", navContact:"Contacto", navCta:"Agendar Cita",
     heroEyebrow:"A minutos de la frontera con San Luis, AZ",
     heroTitle:"Tu sonrisa merece un equipo que de verdad se <em>preocupa</em>",
     heroLead:"Atención dental moderna y amable en San Luis Río Colorado, a precios justos. Hablamos inglés y español.",
@@ -621,7 +623,7 @@ const I18N = {
     fSuccess:"¡Casi listo! Abrimos WhatsApp con tu solicitud lista para enviar. Presiona enviar y confirmaremos tu cita muy pronto. Si WhatsApp no se abrió, escríbenos al +52 653 596 0691.",
     bookOr:"¿Prefieres hablar con una persona? Escríbenos directamente:",
     bookWa:"Agendar por WhatsApp", bookCall:"Llamar +52 653 596 0691",
-    contactTitle:"Cómo Llegar", contactSub:"Estamos en San Luis Río Colorado, Sonora, a unos 2 km de la garita de San Luis, Arizona.",
+    contactTitle:"Contáctanos", contactSub:"Llámanos, escríbenos por WhatsApp o visítanos en San Luis Río Colorado, a unos 2 km de la garita de San Luis, Arizona.",
     cAddr:"Dirección", cPhone:"Teléfono / WhatsApp", cEmail:"Correo", cHours:"Horario",
     hMonFri:"Lunes a Viernes", hSat:"Sábado", hSun:"Domingo", hClosed:"Cerrado",
     footTag:"Atención dental de calidad con trato personal · San Luis Río Colorado, Sonora, México",
