@@ -1,6 +1,50 @@
 # WE CARE Dental · Status and pickup notes
 
-Last worked on: August 5, 2026. Safe to resume from any computer.
+Last worked on: August 7, 2026. Safe to resume from any computer.
+
+## WHERE THINGS STAND (Aug 7, 2026)
+
+The site is connected to GoHighLevel end to end. A patient books on the site,
+it lands in GHL, and two emails fire: one on booking saying it is not confirmed
+yet, one when Karina marks it confirmed. Both workflows are Published.
+
+Read `BACKEND-PLAN.md` for the GHL build and the API recipe, and
+`GHL-EMAIL-WORKFLOWS.md` for the email workflows.
+
+### Next session, in priority order
+
+1. **FIX DOUBLE-BOOKING.** The site accepted two overlapping appointments in
+   testing. Nine separate service calendars with no team member assigned means
+   no calendar knows what the others booked. Details and the questions to ask
+   Karina are in BACKEND-PLAN.md under "KNOWN DEFECT". **Blocked on Tony
+   inviting Karina as a GHL user**; Claude cannot create accounts.
+2. **Verify the merge fields actually render.** Book a test, then mark it
+   confirmed. Check that the date shows as a real date and not as literal
+   `{{appointment.start_time}}`. Both emails use that token. It renders as a
+   chip in the editor, which is good evidence but not proof.
+3. **Deliverability.** Emails land in junk because they send from GHL's shared
+   domain. Fix is authenticating `wecaredental.com.mx` in GHL, which needs DNS
+   records. Blocked on GoDaddy access.
+4. **Spanish emails.** Both emails are English only. The plan is an if/else on
+   the "Preferred language" contact field, with the site passing the language
+   into the booking widget as a URL parameter. Get the English path proven
+   first.
+
+### Still waiting on Karina
+
+- Real working hours and appointment durations (everything currently uses the
+  website's placeholders, and those now drive real bookable slots)
+- Whether appointments may overlap, how many chairs, and whether she has an
+  assistant (see item 1)
+- Her bio for the About section, and where patients should park
+- Whether the "50 to 70 percent savings" claim is one she will stand behind
+
+### Housekeeping owed
+
+Delete or rotate the "Claude setup" private integration in GHL once
+configuration is finished. It is a plaintext write-access token at
+`C:\Users\trigg\.ghl-wecare-token.txt` and its value appeared on screen during
+setup.
 
 ## Read this first (two computer workflow)
 
@@ -93,6 +137,27 @@ sitting at `C:\Users\trigg\.ghl-wecare-token.txt` and its value was shown on
 screen during setup.
 
 ## Session log (newest first)
+
+- Aug 7, 2026 (evening): Back end connected end to end. GHL sub-account
+  configured: business profile, 10 patient custom fields, 9 service calendars
+  with per-service durations and colours, and a calendar group. The site's old
+  localStorage form was replaced with the live GHL booking widget, and the
+  hardcoded hours were deleted so GHL availability is the single source of
+  truth. Two email workflows built and published: acknowledgement on booking,
+  confirmation when Karina marks it confirmed. Added a "Book another
+  appointment" button that resets the widget without reloading the page.
+
+  Things learned the hard way, all recorded in BACKEND-PLAN.md: GHL's settings
+  UI fights browser automation, so use the API; the calendar PUT is a FULL
+  REPLACE and partial updates silently reset durations; `openHours` needs one
+  entry per day; calendar `notifications` set via API are accepted but never
+  stored, which is why workflows are used instead; and a stale builder page
+  stops accepting clicks entirely, which a fresh reload fixes.
+
+  Two defects found by real testing: the site accepted overlapping
+  appointments, and the first acknowledgement email carried no booking details
+  so two of them were indistinguishable. The second is fixed; the first is the
+  top item for next session.
 
 - Aug 7, 2026 (evening): Back end started. Decisions locked: GoHighLevel is the
   back end rather than a custom build; notifications go by EMAIL because
