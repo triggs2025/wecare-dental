@@ -41,12 +41,13 @@
   "email":"wecare.kgr@gmail.com",
   "address":{
     "@type":"PostalAddress",
-    "streetAddress":"Avenida Alvaro Obregón, Residencias",
+    "streetAddress":"Avenida Álvaro Obregón 1407",
     "addressLocality":"San Luis Río Colorado",
     "addressRegion":"Sonora",
-    "postalCode":"83448",
     "addressCountry":"MX"
   },
+  "geo":{"@type":"GeoCoordinates","latitude":32.4784807,"longitude":-114.764544},
+  "hasMap":"https://www.google.com/maps/dir/?api=1&destination=32.4784807,-114.764544",
   "founder":{"@type":"Person","name":"C.D. E.E. Karina González Robles"},
   "availableLanguage":["en","es"],
   "sameAs":["https://www.facebook.com/profile.php?id=100069799874613"]
@@ -464,7 +465,11 @@
       </div>
       <div class="contact-grid">
         <ul class="contact-list">
-          <li><div class="ico">📍</div><div><b data-i18n="cAddr">Address</b>Avenida Alvaro Obregón, Residencias, 83448<br>San Luis Río Colorado, Sonora, México</div></li>
+          <!-- Address corrected from her own Facebook post of Jul 28 2021:
+               "ubicados por la Avenida Obregón 14 y 15 #1407". The old generic
+               "Residencias, 83448" line was about 13 blocks off. -->
+          <li><div class="ico">📍</div><div><b data-i18n="cAddr">Address</b>Avenida Álvaro Obregón 1407<br><span data-i18n="cAddrCross">Between Calle 14 and Calle 15</span><br>San Luis Río Colorado, Sonora, México<br>
+            <a href="directions.html" style="font-weight:800" data-i18n="cDirections">Directions from the border →</a></div></li>
           <li><div class="ico">📞</div><div><b data-i18n="cPhone">Phone / WhatsApp</b><a href="tel:+526535960691">+52 653 596 0691</a></div></li>
           <li><div class="ico">✉️</div><div><b data-i18n="cEmail">Email</b><a href="mailto:wecare.kgr@gmail.com">wecare.kgr@gmail.com</a></div></li>
           <li><div class="ico">🕐</div><div style="flex:1"><b data-i18n="cHours">Hours</b>
@@ -476,7 +481,7 @@
           </div></li>
         </ul>
         <iframe class="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          src="https://maps.google.com/maps?q=Avenida%20Alvaro%20Obregon%2C%20San%20Luis%20Rio%20Colorado%2C%20Sonora%2083448&z=15&output=embed"
+          src="https://maps.google.com/maps?q=32.4784807,-114.764544&z=17&output=embed"
           title="Map to WE CARE Dental"></iframe>
       </div>
     </div>
@@ -509,6 +514,8 @@ const I18N = {
     heroLead:"Modern, gentle dental care in San Luis Río Colorado at prices that make sense. English spoken. American patients welcome.",
     heroBook:"Book an Appointment", heroServices:"See Our Services",
     navAbout:"About",
+    cAddrCross:"Between Calle 14 and Calle 15",
+    cDirections:"Directions from the border →",
     bwtChipLabel:"Border", bwtChipClosed:"Closed",
     bwtChipAria:"Current border wait to cross into Arizona:",
     bwtTitle:"Border crossing right now",
@@ -566,6 +573,8 @@ const I18N = {
     heroLead:"Atención dental moderna y amable en San Luis Río Colorado, a precios justos. Hablamos inglés y español.",
     heroBook:"Agendar una Cita", heroServices:"Ver Servicios",
     navAbout:"Nosotros",
+    cAddrCross:"Entre la Calle 14 y la Calle 15",
+    cDirections:"Cómo llegar desde la frontera →",
     bwtChipLabel:"Frontera", bwtChipClosed:"Cerrado",
     bwtChipAria:"Espera actual para cruzar a Arizona:",
     bwtTitle:"Cruce fronterizo ahora mismo",

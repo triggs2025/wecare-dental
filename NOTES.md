@@ -36,6 +36,17 @@ Edit files, then commit and push to main. GitHub Pages redeploys automatically i
 
 ## Session log (newest first)
 
+- Aug 7, 2026: ADDRESS RESOLVED and a new `directions.html` page built.
+  The old address on the site ("Avenida Alvaro Obregón, Residencias, 83448")
+  came from the generic field on her Facebook and was roughly 13 blocks off.
+  The real one comes from her own Facebook post of July 28 2021: "ubicados por
+  la Avenida Obregón 14 y 15 #1407". Tony also supplied a Google Street View
+  link showing the storefront, which puts it at 32.4784807, -114.764544.
+  Cross-checked and they agree: OSM has Calle 12 crossing Obregón about 335 m
+  northwest of that pin, so 2-3 blocks further southeast is Calle 14/15.
+  Fixed everywhere: contact block, map embed (now coordinate-based), and the
+  JSON-LD, which also gained `geo` coordinates and `hasMap`.
+
 - Aug 6, 2026 (later): Built the border wait times feature end to end, see its
   own section below. Also added Open Graph / Twitter card tags and Dentist
   structured data so Facebook and WhatsApp shares render a proper preview
@@ -236,7 +247,16 @@ labeled an estimate based on our own observations.
   pulled from her promo clip. Also whether the patients visible in that footage
   consented to it being reused on a website.
 - Business hours (site shows Mon-Fri 9-6, Sat 9-2)
-- Exact street address beyond "Avenida Alvaro Obregon, Residencias, 83448"
+- PARKING. `directions.html` shows a satellite view of the block but makes NO
+  parking claims, because nobody has confirmed where patients should actually
+  park. Ask Karina, then add it. Do not guess: sending people to the wrong spot
+  is worse than saying nothing.
+- Which side of Obregón the office is on. `directions.html` says "on your
+  right", inferred from the Street View camera heading (195.76 deg, facing
+  south) versus the east-southeast direction of travel from the border. Very
+  likely correct but never confirmed by a human.
+- Whether #1407 is still current. Her Facebook post announcing it is from
+  July 2021, five years old.
 - Services list and pricing claims (50-70% savings line)
 - Spelling/format of credentials: the clinic signage visible in her promo video
   reads "C. D. E. E Karina González Robles". The site currently renders
