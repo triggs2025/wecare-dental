@@ -72,8 +72,30 @@ How it works:
   `permissions: contents: write` in the workflow overrides it. Confirmed, not
   assumed.
 
+There is also a live chip in the header (`#bwtChip`) showing the current car
+wait, linking down to the section. It turns red at 60+ minutes and greys out if
+the crossing is closed. Hidden until data loads, so it never shows a
+placeholder.
+
 Gotcha: GitHub disables scheduled workflows after 60 days with no repo
 activity. If the numbers go stale, check that first.
+
+### Cameras and fresher data (researched Aug 6, NOT built)
+
+- **City of San Luis, AZ runs public border wait cameras**: https://sanluisaz.gov/BWC
+  Four Verkada cameras embedded as iframes from `vauth.command.verkada.com`.
+  Their CSP `frame-ancestors` list ends in `*`, which in modern browsers
+  overrides their `X-Frame-Options: SAMEORIGIN`, so they CAN technically be
+  embedded on our site.
+  **Do not just embed them.** They are the city's cameras on the city's Verkada
+  licence, and embedding hotlinks their stream for a commercial dental site.
+  Ask the city first, or simply link out to their page. Linking is the safe
+  default and costs us nothing.
+- **AZ511 (ADOT)** has a camera API at `az511.gov/api/v2/get/cameras` but it
+  returns 400 without an API key. Free registration required. Not yet explored.
+- Fresher numbers are not really available: CBP itself only refreshes roughly
+  hourly, so polling faster than we already do does not make the data newer.
+  The cameras are the only genuinely real-time view of the queue.
 
 Predictions are NOT built. CBP publishes only the current delay, so the
 `border-history.csv` samples are the only possible basis. It needs weeks of

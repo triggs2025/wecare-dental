@@ -124,6 +124,18 @@
   .about-role{color:var(--teal-dark);font-weight:800;margin-bottom:1rem}
   #about p{color:var(--gray);max-width:40rem}
 
+  /* ---------- Border wait chip (header) ---------- */
+  .bwt-chip{display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;
+    background:var(--teal-light);border:1px solid #bfe3e2;color:var(--teal-dark);
+    padding:.4rem .75rem;border-radius:999px;font-weight:800;font-size:.85rem;white-space:nowrap;
+    transition:background .15s ease,border-color .15s ease}
+  .bwt-chip:hover{background:#d5eeed}
+  .bwt-chip-ico{font-size:1rem;line-height:1}
+  .bwt-chip-time{font-variant-numeric:tabular-nums}
+  /* An hour or more of idling deserves a warning colour, not a calm teal. */
+  .bwt-chip.is-heavy{background:#fdecea;border-color:#f5c6c0;color:#a5342a}
+  .bwt-chip.is-closed{background:#f1f3f4;border-color:#dfe3e5;color:var(--gray)}
+
   /* ---------- Border wait times ---------- */
   .border-sec{background:var(--card)}
   .bwt-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:760px;margin:0 auto}
@@ -204,6 +216,9 @@
   @media (max-width:820px){
     .about-grid{grid-template-columns:1fr;gap:1.75rem}
     .bwt-grid{grid-template-columns:1fr}
+    /* Header gets tight on phones: keep the number, drop the word. */
+    .bwt-chip-label{display:none}
+    .bwt-chip{padding:.35rem .6rem}
     .trust-inner{grid-template-columns:1fr;gap:.8rem}
     .contact-grid{grid-template-columns:1fr}
     nav.links{position:fixed;inset:60px 0 auto 0;background:#fff;flex-direction:column;padding:1.25rem;border-bottom:1px solid #e4eeee;display:none}
@@ -240,6 +255,13 @@
       <a class="cta-btn" href="#book" data-i18n="navCta">Book Appointment</a>
     </nav>
     <div style="display:flex;align-items:center;gap:.8rem">
+      <!-- Live border wait chip. Hidden until assets/border.json loads, so it
+           never shows a placeholder or a stale number. Filled by renderBorder(). -->
+      <a class="bwt-chip" id="bwtChip" href="#border" hidden>
+        <span class="bwt-chip-ico" aria-hidden="true">🚗</span>
+        <span class="bwt-chip-label" data-i18n="bwtChipLabel">Border</span>
+        <span class="bwt-chip-time" id="bwtChipTime"></span>
+      </a>
       <div class="lang-toggle" role="group" aria-label="Language">
         <button id="btnEn" onclick="setLang('en')">EN</button>
         <button id="btnEs" onclick="setLang('es')">ES</button>
@@ -476,6 +498,8 @@ const I18N = {
     heroLead:"Modern, gentle dental care in San Luis Río Colorado at prices that make sense. English spoken. American patients welcome.",
     heroBook:"Book an Appointment", heroServices:"See Our Services",
     navAbout:"About",
+    bwtChipLabel:"Border", bwtChipClosed:"Closed",
+    bwtChipAria:"Current border wait to cross into Arizona:",
     bwtTitle:"Border crossing right now",
     bwtSub:"Reported wait to cross from San Luis Río Colorado back into San Luis, Arizona.",
     bwtCar:"By car", bwtPed:"On foot",
@@ -529,6 +553,8 @@ const I18N = {
     heroLead:"Atención dental moderna y amable en San Luis Río Colorado, a precios justos. Hablamos inglés y español.",
     heroBook:"Agendar una Cita", heroServices:"Ver Servicios",
     navAbout:"Nosotros",
+    bwtChipLabel:"Frontera", bwtChipClosed:"Cerrado",
+    bwtChipAria:"Espera actual para cruzar a Arizona:",
     bwtTitle:"Cruce fronterizo ahora mismo",
     bwtSub:"Tiempo de espera reportado para cruzar de San Luis Río Colorado a San Luis, Arizona.",
     bwtCar:"En auto", bwtPed:"A pie",
@@ -633,6 +659,23 @@ function renderBorder(){
 
   fill(BORDER.vehicle,    'bwtCarTime', 'bwtCarLanes');
   fill(BORDER.pedestrian, 'bwtPedTime', 'bwtPedLanes');
+
+  // Header chip mirrors the car number, since that is what most patients
+  // crossing for an appointment care about.
+  const chip = document.getElementById('bwtChip');
+  const chipTime = document.getElementById('bwtChipTime');
+  const closed = (BORDER.port && /closed/i.test(BORDER.port.status || '')) || !BORDER.vehicle;
+  chip.classList.remove('is-heavy','is-closed');
+  if(closed){
+    chipTime.textContent = dict.bwtChipClosed;
+    chip.classList.add('is-closed');
+  } else {
+    const mins = BORDER.vehicle.delayMinutes;
+    chipTime.textContent = mins > 0 ? mins + ' ' + dict.bwtMin : dict.bwtNoDelay;
+    if(mins >= 60) chip.classList.add('is-heavy');
+  }
+  chip.setAttribute('aria-label', dict.bwtChipAria + ' ' + chipTime.textContent);
+  chip.hidden = false;
 
   // Show OUR fetch time in the reader's own timezone. CBP's reported time is a
   // bare local string with no offset, so it cannot be converted safely.
