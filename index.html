@@ -251,9 +251,11 @@
       </span>
     </a>
     <nav class="links" id="navLinks">
-      <a href="#about" data-i18n="navAbout">About</a>
+      <!-- About and Why Us intentionally not in the nav: both are encountered
+           while scrolling the front page. Note this leaves #about with no
+           inbound link anywhere, since the hero logo badge that used to point
+           at it was removed. -->
       <a href="#services" data-i18n="navServices">Services</a>
-      <a href="#why" data-i18n="navWhy">Why Us</a>
       <a href="#book" data-i18n="navBook">Book</a>
       <a href="#contact" data-i18n="navContact">Find Us</a>
       <a class="cta-btn" href="#book" data-i18n="navCta">Book Appointment</a>
@@ -508,12 +510,11 @@ let BORDER = null;
 const I18N = {
   en: {
     brandTag:"San Luis Río Colorado",
-    navServices:"Services", navWhy:"Why Us", navBook:"Book", navContact:"Find Us", navCta:"Book Appointment",
+    navServices:"Services", navBook:"Book", navContact:"Find Us", navCta:"Book Appointment",
     heroEyebrow:"Minutes from the San Luis, AZ border",
     heroTitle:"Your smile deserves a team that truly <em>cares</em>",
     heroLead:"Modern, gentle dental care in San Luis Río Colorado at prices that make sense. English spoken. American patients welcome.",
     heroBook:"Book an Appointment", heroServices:"See Our Services",
-    navAbout:"About",
     cAddrCross:"Between Calle 14 and Calle 15",
     cDirections:"Directions from the border →",
     bwtChipLabel:"Border", bwtChipClosed:"Closed",
@@ -567,12 +568,11 @@ const I18N = {
   },
   es: {
     brandTag:"San Luis Río Colorado",
-    navServices:"Servicios", navWhy:"Por Qué Nosotros", navBook:"Citas", navContact:"Cómo Llegar", navCta:"Agendar Cita",
+    navServices:"Servicios", navBook:"Citas", navContact:"Cómo Llegar", navCta:"Agendar Cita",
     heroEyebrow:"A minutos de la frontera con San Luis, AZ",
     heroTitle:"Tu sonrisa merece un equipo que de verdad se <em>preocupa</em>",
     heroLead:"Atención dental moderna y amable en San Luis Río Colorado, a precios justos. Hablamos inglés y español.",
     heroBook:"Agendar una Cita", heroServices:"Ver Servicios",
-    navAbout:"Nosotros",
     cAddrCross:"Entre la Calle 14 y la Calle 15",
     cDirections:"Cómo llegar desde la frontera →",
     bwtChipLabel:"Frontera", bwtChipClosed:"Cerrado",
