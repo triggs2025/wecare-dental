@@ -97,6 +97,60 @@ Recommendation: launch with contact and scheduling data only. Keep clinical
 records wherever she keeps them today until the privacy notice exists and the
 HIPAA question has an answer.
 
+## Progress (Aug 7, 2026)
+
+Sub-account exists: **We Care Dental - San Luis**, location id
+`3tIu8i8uehDSpyeXiWtR`.
+
+DONE:
+- Business profile complete and correct, including the fixed address
+  (Av. Álvaro Obregón 1407). Timezone is set to `America/Phoenix`, which is
+  functionally identical to Hermosillo (both permanent UTC-7, no DST), so
+  appointment times will be correct. Cosmetic only.
+- Email sending is live on GHL's shared domain `send.lcmsgsndr.com`, 1,000
+  emails/day, account in warm-up stage 1. No DNS work needed to start.
+- **10 contact custom fields created** in the "Additional Info" folder:
+  Emergency contact name, Emergency contact phone, Reason for visit,
+  RFC (for facturas), Preferred language, Border crossing card,
+  Preferred time of day, How did you hear about us, Payment preference,
+  Needs factura (CFDI).
+- Date of birth and Country already existed as GHL standard fields, so they
+  were not duplicated.
+
+NOT done yet: calendar, services, working hours, user roles, email templates,
+embedding the booking widget on the site.
+
+### Use the API, not the browser
+
+GHL's settings UI fights browser automation: the custom-field "Folder name"
+dropdown ignores synthetic clicks and keyboard selection entirely. One field
+took a dozen attempts. The API did all nine remaining fields in seconds.
+
+A private integration named **"Claude setup"** exists with four scopes:
+`locations/customFields.readonly`, `locations/customFields.write`,
+`calendars.readonly`, `calendars.write`.
+
+The token lives at `C:\Users\trigg\.ghl-wecare-token.txt`, deliberately OUTSIDE
+this repo. Never commit it.
+
+```powershell
+$tok = (Get-Content "$env:USERPROFILE\.ghl-wecare-token.txt" -Raw).Trim()
+$h = @{ Authorization = "Bearer $tok"; Version = "2021-07-28"; Accept = "application/json" }
+Invoke-RestMethod -Uri "https://services.leadconnectorhq.com/locations/3tIu8i8uehDSpyeXiWtR/customFields" -Headers $h
+```
+
+The "Additional Info" folder id is `vEilw6nFwqW35KGmsBp2`; pass it as `parentId`
+when creating fields so they land in the right folder.
+
+**Housekeeping:** that token is a plaintext credential with write access to the
+CRM, and its value was displayed on screen during setup. Delete the private
+integration in GHL once configuration is finished, or rotate it. It only needs
+to exist while we are building.
+
+Known cosmetic issue: the "Preferred language" options read "English" and
+"Espanol". The API accepts an accented "Español" and reports success but stores
+it unaccented. Internal CRM label only, never shown to patients.
+
 ## Build order
 
 1. Tony creates the sub-account. **Claude cannot do this**; creating accounts is
