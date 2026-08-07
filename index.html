@@ -146,6 +146,9 @@
   .bwt-time.is-heavy{color:#c0392b}
   .bwt-time.is-closed{font-size:1.3rem;color:var(--gray)}
   .bwt-meta{color:var(--gray);font-size:.9rem;margin-top:.35rem;min-height:1.2em}
+  .bwt-cams{max-width:760px;margin:1.75rem auto 0;text-align:center}
+  .bwt-cams .btn-primary{display:inline-block}
+  .bwt-cams-note{color:var(--gray);font-size:.86rem;margin-top:.7rem}
   .bwt-foot{max-width:760px;margin:1.5rem auto 0;text-align:center;color:var(--gray);font-size:.86rem;line-height:1.6}
   .bwt-foot a{color:var(--teal-dark);font-weight:700}
   .bwt-foot span{display:block}
@@ -395,6 +398,14 @@
           <div class="bwt-meta" id="bwtPedLanes"></div>
         </div>
       </div>
+      <!-- Live cameras. Deliberately a LINK, not an embed: these are the City
+           of San Luis's cameras on the city's own Verkada licence. Embedding
+           would hotlink their stream for a private business. -->
+      <div class="bwt-cams">
+        <a class="btn-primary" href="https://sanluisaz.gov/BWC" target="_blank" rel="noopener" data-i18n="bwtCams">Watch the live border cameras</a>
+        <p class="bwt-cams-note" data-i18n="bwtCamsNote">Four public cameras showing the crossing, provided by the City of San Luis, Arizona.</p>
+      </div>
+
       <p class="bwt-foot">
         <span id="bwtUpdated"></span>
         <span data-i18n="bwtDisclaimer">Wait times are published by U.S. Customs and Border Protection and change constantly. Treat them as a snapshot, not a guarantee.</span>
@@ -506,6 +517,8 @@ const I18N = {
     bwtMin:"min", bwtNoDelay:"No delay", bwtClosed:"Lanes closed",
     bwtLanes:"lanes open", bwtPortClosed:"Crossing closed",
     bwtUpdatedPrefix:"Updated",
+    bwtCams:"Watch the live border cameras",
+    bwtCamsNote:"Four public cameras showing the crossing, provided by the City of San Luis, Arizona.",
     bwtDisclaimer:"Wait times are published by U.S. Customs and Border Protection and change constantly. Treat them as a snapshot, not a guarantee.",
     bwtSource:"Check the official CBP page",
     aboutPhotoAlt:"C.D. E.E. Karina González Robles at WE CARE Dental",
@@ -561,6 +574,8 @@ const I18N = {
     bwtMin:"min", bwtNoDelay:"Sin demora", bwtClosed:"Carriles cerrados",
     bwtLanes:"carriles abiertos", bwtPortClosed:"Cruce cerrado",
     bwtUpdatedPrefix:"Actualizado",
+    bwtCams:"Ver las cámaras en vivo de la frontera",
+    bwtCamsNote:"Cuatro cámaras públicas que muestran el cruce, cortesía de la Ciudad de San Luis, Arizona.",
     bwtDisclaimer:"Los tiempos de espera los publica la Oficina de Aduanas y Protección Fronteriza de EE. UU. y cambian constantemente. Tómalos como una referencia, no como una garantía.",
     bwtSource:"Consulta la página oficial de CBP",
     aboutPhotoAlt:"C.D. E.E. Karina González Robles en WE CARE Dental",
