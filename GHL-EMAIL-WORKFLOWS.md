@@ -1,7 +1,50 @@
 # Appointment emails · what to finish in GHL
 
-Status as of Aug 7, 2026: **not working yet.** No confirmation email is sent
-when a patient books. This document is the fix.
+## CURRENT STATE (Aug 7, 2026)
+
+**Workflow 1 is DONE and PUBLISHED.** "Booking received (patient
+acknowledgement)". Trigger: Customer booked appointment. One action: sends the
+patient an email saying the request is received and NOT yet confirmed. It fires
+on real bookings now.
+
+**Workflow 2 is BUILT but NOT PUBLISHED**, so it sends nothing yet.
+Id `73e9ca96-f1c4-467c-b011-f67771e57ce5`, still named "New Workflow : ...".
+It has the Appointment Status trigger and a "Send Appointment Confirmation
+Email" action with the full copy, including the directions link, the border
+wait link and the same-timezone note.
+
+### Four things left, all clicks (GHL's builder stopped accepting automated input)
+
+1. **Fix the email body.** Open the "Send Appointment Confirmation Email"
+   action. At the bottom, below "WE CARE Dental", there are TWO identical lines
+   reading `When: {{appointment.start_time}}`. Delete one of them, and move the
+   other up so it sits directly under "Your appointment with WE CARE Dental is
+   confirmed." That is where it belongs; it ended up at the bottom because the
+   editor kept refusing cursor placement.
+2. **Check the trigger.** Open the Appointment Status trigger and confirm the
+   second filter reads **Appointment status is "confirmed"**. The card shows it
+   truncated as "+ 1 more" so it could not be verified from the outside. If it
+   is missing, add filter > Appointment status is > confirmed.
+3. **Rename** the workflow to "Appointment confirmed".
+4. **Publish**: flip the Draft toggle to Publish, then click Save. A draft
+   sends nothing.
+
+### Then test
+
+Book a test appointment on the site. You should get the acknowledgement email
+immediately. Then mark that appointment confirmed in GHL, and you should get
+the second email.
+
+**Watch the `{{appointment.start_time}} `line in that second email.** Typing it
+produced a proper merge-field chip, which suggests GHL recognises it, but it has
+NOT been verified end to end. If the email arrives showing the literal text
+`{{appointment.start_time}}`, the token is wrong: delete that line, then re-add
+it using the `{}` Custom values button in the editor toolbar, under the
+Appointment category.
+
+---
+
+## Background: why this was built the way it was
 
 ## Why the obvious approach failed
 
