@@ -134,8 +134,30 @@ DONE:
   `daysOfTheWeek: [1,2,3,4,5]` fails with "must be a valid day of week"; you
   need five separate objects.
 
-NOT done yet: user roles, email templates, embedding the booking widget on the
-site, and deleting the hardcoded hours text from index.html.
+- **Calendar group "Book an Appointment"** created, id `4wsv1jKuAhQJRO3Kn8wu`,
+  slug `wecare-dental`. All 9 calendars assigned to it, each with its own slug.
+  Creating groups needs the `calendars/groups.readonly` and
+  `calendars/groups.write` scopes, which were added to the integration after the
+  fact. Adding scopes does NOT rotate the token.
+- **THE SITE IS CONNECTED.** `index.html` now embeds the group widget at
+  `https://api.leadconnectorhq.com/widget/group/4wsv1jKuAhQJRO3Kn8wu`, plus
+  GHL's `form_embed.js` which auto-resizes the iframe.
+  The group also answers to `/widget/groups/wecare-dental`, but the ID form is
+  used deliberately: renaming the group would silently break a slug URL.
+- The old localStorage booking form, its submit handler and its WhatsApp
+  handoff were all deleted. A booking now lands in GHL instead of dying in the
+  patient's browser.
+- The hardcoded hours table is gone from the contact block. GHL availability is
+  the single source of truth; the block links to the calendar instead. Do not
+  reintroduce printed hours, they will drift.
+
+- Calendar descriptions rewritten as patient-facing copy. The first version
+  leaked build notes ("Duration and hours are provisional...") into the live
+  widget. GHL caches the widget, so a stale iframe can lag a change by minutes;
+  check the widget HTML rather than the rendered page when verifying.
+
+NOT done yet: user roles (needs Tony to invite Karina, Claude cannot create
+accounts), email templates, and payments.
 
 ### Use the API, not the browser
 
