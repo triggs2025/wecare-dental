@@ -276,10 +276,10 @@ labeled an estimate based on our own observations.
   parking claims, because nobody has confirmed where patients should actually
   park. Ask Karina, then add it. Do not guess: sending people to the wrong spot
   is worse than saying nothing.
-- Which side of Obregón the office is on. `directions.html` says "on your
-  right", inferred from the Street View camera heading (195.76 deg, facing
-  south) versus the east-southeast direction of travel from the border. Very
-  likely correct but never confirmed by a human.
+- ~~Which side of Obregón the office is on.~~ RESOLVED Aug 7 2026: it is on the
+  LEFT coming from the border. Tony confirmed from local knowledge. An earlier
+  inference from the Street View camera heading said "right" and was wrong, so
+  do not re-derive this from the pano angle.
 - Whether #1407 is still current. Her Facebook post announcing it is from
   July 2021, five years old.
 - Services list and pricing claims (50-70% savings line)
