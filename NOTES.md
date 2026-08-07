@@ -27,9 +27,17 @@ Be clear-eyed about what this does and does not do. Removing the link stops
 casual clicking. It does not secure the page: anyone who guesses the URL can
 open it, and the PIN is the demo value 1234. Today the exposure is small
 because every appointment and request lives in the visitor's own localStorage,
-so a stranger opening admin.html sees an empty panel, not her patients. THAT
-CHANGES the moment a real backend (GoHighLevel or otherwise) is connected. Real
-authentication has to land before any real patient data does.
+so a stranger opening admin.html sees an empty panel, not her patients.
+
+DECISION (Tony, Aug 7 2026): leaving the demo PIN 1234 as is for now. Front end
+work comes first; auth gets dealt with after. This is a deliberate choice, not
+an oversight, so do not keep flagging it during front end work.
+
+THE CONDITION ON THAT: it holds only while there is no backend. The moment
+GoHighLevel or any other real store is connected, admin.html is holding real
+patient names and phone numbers on a public URL behind a four digit demo PIN.
+Real authentication has to land in the same piece of work that connects the
+backend, not after it.
 
 ## Where things live
 
