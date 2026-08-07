@@ -77,8 +77,20 @@ wait, linking down to the section. It turns red at 60+ minutes and greys out if
 the crossing is closed. Hidden until data loads, so it never shows a
 placeholder.
 
-Gotcha: GitHub disables scheduled workflows after 60 days with no repo
-activity. If the numbers go stale, check that first.
+Live camera link sits in the same section, pointing at the City of San Luis
+page. Linked, not embedded, on purpose (see Cameras below).
+
+Observed cadence: the cron says every 20 minutes but GitHub throttles scheduled
+workflows. Actual observed runs on Aug 7 were 01:50, 02:58, 04:01 UTC, so
+roughly hourly. That is fine and not worth fighting, because CBP only refreshes
+its own numbers about hourly anyway. Leaving the cron at */20 means it fires as
+often as GitHub is willing to allow.
+
+Gotchas:
+- GitHub disables scheduled workflows after 60 days with no repo activity. If
+  the numbers go stale, check that first.
+- The bot commits every run, so ALWAYS `git pull` before working or your push
+  will be rejected as non-fast-forward.
 
 ### Cameras and fresher data (researched Aug 6, NOT built)
 
