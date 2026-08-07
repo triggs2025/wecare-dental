@@ -71,7 +71,45 @@ Edit files, then commit and push to main. GitHub Pages redeploys automatically i
 - Admin panel: requests inbox, week calendar with click-to-book, prefilled bilingual WhatsApp confirm/reminder links (these really work), analytics tab with labeled sample data
 - Demo limitation: requests/appointments are localStorage, same-browser only. Real backend comes with GoHighLevel
 
+## START HERE TOMORROW (Aug 8, 2026)
+
+Back end work is underway in GoHighLevel. Read `BACKEND-PLAN.md` first, it has
+the decisions, the API recipe and the progress list.
+
+Next task: **build the calendar** in GHL. It is the thing Karina actually works
+in. Blocked on two answers from her, which are the critical path now:
+1. Her real working hours, per day
+2. Her real service list with appointment durations
+
+Everything else in the back end can proceed without her.
+
+Do NOT configure GHL through the browser UI. Its settings pages ignore
+synthetic clicks (the custom-field folder dropdown especially). Use the API,
+recipe is in BACKEND-PLAN.md.
+
+**Housekeeping owed:** delete or rotate the "Claude setup" private integration
+in GHL once configuration is finished. It is a plaintext write-access token
+sitting at `C:\Users\trigg\.ghl-wecare-token.txt` and its value was shown on
+screen during setup.
+
 ## Session log (newest first)
+
+- Aug 7, 2026 (evening): Back end started. Decisions locked: GoHighLevel is the
+  back end rather than a custom build; notifications go by EMAIL because
+  automated WhatsApp is billed per message by Meta no matter who sends it; her
+  WhatsApp number stays on the free app as a human line, so the site keeps its
+  free wa.me links. Booking form now requires email since email is the
+  confirmation channel. Admin gate moved off the demo PIN to a password stored
+  as a SHA-256 hash (repo is public, so the plaintext is deliberately not
+  written down anywhere; ask Tony). Nav reworked to Services / Directions /
+  Contact around what patients actually do. Admin link removed from the footer.
+  Domain `wecaredental.com.mx` is registered and owned; GoDaddy access pending,
+  so all DNS work is parked.
+  Site content editing (hours text, promo popups, open/closed badge) is still
+  an open design question: GHL controls bookable slots but cannot drive website
+  copy on a static site. Agreed plan is to embed the GHL booking widget and let
+  it be the single source of truth for hours, dropping the hardcoded hours
+  text, and revisit a content editor only if promos become a real need.
 
 - Aug 7, 2026: ADDRESS RESOLVED and a new `directions.html` page built.
   The old address on the site ("Avenida Alvaro Obregón, Residencias, 83448")

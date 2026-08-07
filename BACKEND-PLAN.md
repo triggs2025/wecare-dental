@@ -117,8 +117,25 @@ DONE:
 - Date of birth and Country already existed as GHL standard fields, so they
   were not duplicated.
 
-NOT done yet: calendar, services, working hours, user roles, email templates,
-embedding the booking widget on the site.
+- **9 service calendars created**, each bookable with its own duration:
+  Cleaning & Checkup 60, Teeth Whitening 90, Fillings & Restorations 60,
+  Crowns & Bridges 90, Dental Implants 120, Veneers 90, Root Canal 90,
+  Extraction 60, Dentures & Partials 60.
+  `autoConfirm` is FALSE on all of them, so requests arrive pending and she
+  confirms each one. That matches how she works now.
+  Verified against the free-slots endpoint: Friday 9 slots, Saturday 5 slots,
+  Monday 9 slots, Sunday closed, times rendering at -07:00. Hours are correct.
+
+  HOURS AND DURATIONS ARE PLACEHOLDERS (Mon-Fri 9-18, Sat 9-14, matching the
+  website copy). Karina has confirmed neither. Both are easy for her to change
+  in GHL, but they should not go in front of patients unconfirmed.
+
+  API gotcha: `openHours` validates ONE day per entry. Passing
+  `daysOfTheWeek: [1,2,3,4,5]` fails with "must be a valid day of week"; you
+  need five separate objects.
+
+NOT done yet: user roles, email templates, embedding the booking widget on the
+site, and deleting the hardcoded hours text from index.html.
 
 ### Use the API, not the browser
 
