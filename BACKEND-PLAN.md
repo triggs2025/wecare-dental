@@ -102,9 +102,22 @@ HIPAA question has an answer.
 1. Tony creates the sub-account. **Claude cannot do this**; creating accounts is
    off limits.
 2. Business profile: name, address (Av. Álvaro Obregón 1407), phone, timezone
-   America/Hermosillo. Note Sonora does NOT observe daylight saving, so it is
-   permanently UTC-7 and diverges from Arizona for part of the year. Get this
-   wrong and every appointment time is off by an hour for half the year.
+   **America/Hermosillo**.
+
+   Timezone facts, verified rather than assumed:
+   - Sonora is permanently UTC-7 and does NOT observe daylight saving.
+   - Arizona is also permanently UTC-7 with no DST.
+   - So Sonora and Arizona are on the SAME clock all year. There is no
+     divergence. Sonora stays on permanent MST precisely to stay aligned with
+     Arizona for cross-border business.
+   - America/Phoenix would behave identically, but Hermosillo is the correct
+     zone for a Sonora business.
+   - The real hazard is picking the wrong Mexican zone. America/Mexico_City is
+     UTC-6 and would put every appointment an hour off permanently.
+     America/Tijuana observes DST and would drift an hour twice a year.
+
+   Worth knowing for the site copy too: American patients never change their
+   watch when they cross. That is a small but real reassurance.
 3. Calendar: services as separate calendars or appointment types, real
    durations, real working hours, buffer time.
 4. Custom fields from the list above.
