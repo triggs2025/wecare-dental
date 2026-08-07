@@ -20,6 +20,18 @@ There is deliberately NO link to `admin.html` anywhere on the public site.
 Staff reach it by typing the URL. `admin.html` carries `<meta name="robots"
 content="noindex">` so it stays out of search results.
 
+Aug 7 2026: the demo PIN 1234 was replaced with a staff password Tony chose.
+**The password itself is not written down in this repo on purpose** — the repo
+is public, so a plaintext password would be readable on github.com and kept in
+git history forever. `admin.html` stores only a SHA-256 hash of it. Ask Tony
+for the password. If it ever needs changing, compute a new hash with
+`node -e "console.log(require('crypto').createHash('sha256').update('NEWPASS').digest('hex'))"`
+and replace `GATE_HASH` in `admin.html`.
+
+Hashing does NOT make the gate stronger. The check still runs in the browser
+and anyone with devtools bypasses it in seconds. It exists so the password is
+not literally published, because people reuse passwords.
+
 Do NOT add a robots.txt rule blocking it: blocking the crawl would stop Google
 from ever reading that noindex tag, which is worse than leaving it crawlable.
 

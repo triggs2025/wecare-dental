@@ -22,7 +22,8 @@
   .gate-card svg{width:64px;height:64px;margin-bottom:1rem}
   .gate-card h1{font-size:1.2rem;margin-bottom:.25rem}
   .gate-card p{font-size:.85rem;color:var(--gray);margin-bottom:1.25rem}
-  .gate-card input{width:100%;text-align:center;font-size:1.4rem;letter-spacing:.4em;padding:.6rem;border:1px solid #cfe2e2;border-radius:10px;margin-bottom:1rem}
+  /* Letter spacing reduced from .4em: this holds a password now, not 4 digits. */
+  .gate-card input{width:100%;text-align:center;font-size:1.1rem;letter-spacing:.15em;padding:.7rem;border:1px solid #cfe2e2;border-radius:10px;margin-bottom:1rem}
   .gate-card button{width:100%;background:var(--teal);color:#fff;border:0;padding:.75rem;border-radius:999px;font-weight:800}
   .gate-err{color:#c0392b;font-size:.85rem;margin-top:.6rem;display:none}
 
@@ -116,10 +117,9 @@
     <svg viewBox="0 0 200 140" style="width:110px;height:77px;margin-bottom:1rem"><path d="M28 84 C22 62 44 50 72 54 C102 58 118 72 114 94 C110 116 84 128 58 121 C40 116 33 101 28 84 Z" fill="#aadedd"/><path d="M118 34 C132 22 158 24 168 40 C177 54 170 72 152 76 C134 80 116 70 112 55 C109 45 110 40 118 34 Z" fill="#ededed"/><path d="M30 18 C20 50 34 92 76 110 C114 126 158 116 172 94 C181 79 174 64 161 63 C152 62 147 70 151 78" fill="none" stroke="#23282b" stroke-width="2.6" stroke-linecap="round"/><path d="M74 56 C88 46 102 45 110 50 C120 44 136 46 144 55 C133 62 118 64 107 61 C94 66 81 62 74 56 Z" fill="#ffffff" stroke="#23282b" stroke-width="2.4" stroke-linejoin="round"/><path d="M82 60 Q86 67 91 63 Q96 70 102 65 Q108 71 114 65 Q120 69 126 63 Q131 66 136 59" fill="none" stroke="#23282b" stroke-width="1.8" stroke-linecap="round"/><path d="M76 58 C88 80 128 82 142 57" fill="none" stroke="#23282b" stroke-width="2.4" stroke-linecap="round"/></svg>
     <h1>WE CARE Dental</h1>
     <p data-i18n="gateTitle">Staff access</p>
-    <input id="pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off">
+    <input id="pin" type="password" placeholder="••••••••••" autocomplete="current-password">
     <button onclick="tryPin()" data-i18n="gateBtn">Enter</button>
-    <p style="margin-top:.8rem;font-size:.78rem;color:var(--gray)" data-i18n="gateHint">Demo PIN: 1234</p>
-    <p class="gate-err" id="gateErr" data-i18n="gateErr">Wrong PIN</p>
+    <p class="gate-err" id="gateErr" data-i18n="gateErr">Wrong password</p>
   </div>
 </div>
 
@@ -256,7 +256,7 @@
 
 <script>
 const A = {
-  en:{gateTitle:"Staff access",gateBtn:"Enter",gateHint:"Demo PIN: 1234",gateErr:"Wrong PIN",
+  en:{gateTitle:"Staff access",gateBtn:"Enter",gateErr:"Wrong password",
     adminSub:"Admin panel",viewSite:"View site",tabReq:"Requests",tabCal:"Calendar",tabAn:"Analytics",
     kPending:"Pending requests",kToday:"Appointments today",kWeek:"Appointments this week",
     reqTitle:"Appointment requests",noReq:"No pending requests. New requests from the website appear here.",
@@ -273,7 +273,7 @@ const A = {
     aGeoNote:"Most US visitors arrive from Facebook posts and Google searches for \"dentist San Luis Mexico\".",
     confDecline:"Decline this request?",confCancel:"Cancel this appointment?",
     days:["Mon","Tue","Wed","Thu","Fri","Sat"]},
-  es:{gateTitle:"Acceso del personal",gateBtn:"Entrar",gateHint:"PIN de demostración: 1234",gateErr:"PIN incorrecto",
+  es:{gateTitle:"Acceso del personal",gateBtn:"Entrar",gateErr:"Contraseña incorrecta",
     adminSub:"Panel de administración",viewSite:"Ver sitio",tabReq:"Solicitudes",tabCal:"Calendario",tabAn:"Analíticas",
     kPending:"Solicitudes pendientes",kToday:"Citas hoy",kWeek:"Citas esta semana",
     reqTitle:"Solicitudes de cita",noReq:"No hay solicitudes pendientes. Las nuevas solicitudes del sitio aparecen aquí.",
@@ -333,8 +333,28 @@ function seed(){
   }
 }
 
-function tryPin(){
-  if(document.getElementById('pin').value==='1234'){
+// Staff gate.
+//
+// BE HONEST ABOUT WHAT THIS IS. The check runs in the browser on a static
+// site, so it is a doorknob, not a lock. Anyone who opens devtools can skip it
+// in seconds. It stops casual snooping and nothing more. Real authentication
+// has to arrive with the real back end, before any actual patient data does.
+//
+// The password is stored as a SHA-256 hash rather than plain text for one
+// specific reason: this repository is PUBLIC. A plaintext password would be
+// readable on github.com and preserved in git history forever, and people
+// reuse passwords across accounts. The hash does not make the gate harder to
+// bypass, it just avoids publishing the password itself.
+const GATE_HASH = '1f9ac5a0a8055a332f50ed163c421515090be7a08d2a3827ffb4315f2a9b3a72';
+
+async function sha256Hex(text){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function tryPin(){
+  const entered = document.getElementById('pin').value;
+  if(await sha256Hex(entered) === GATE_HASH){
     document.getElementById('gate').style.display='none';
     document.getElementById('app').hidden=false;
   } else document.getElementById('gateErr').style.display='block';

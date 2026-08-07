@@ -436,6 +436,11 @@
         <form id="bookForm" class="bform">
           <div><label for="bfName" data-i18n="fName">Full name</label><input id="bfName" required></div>
           <div><label for="bfPhone" data-i18n="fPhone">Phone / WhatsApp</label><input id="bfPhone" type="tel" required placeholder="+1 928 ..."></div>
+          <!-- Required, because email is the confirmation channel: WhatsApp
+               automation costs per message and we are not paying for it yet.
+               Patients who do not use email still have the Book by WhatsApp
+               button below, which stays free because a human presses send. -->
+          <div><label for="bfEmail" data-i18n="fEmail">Email</label><input id="bfEmail" type="email" required autocomplete="email"></div>
           <div><label for="bfService" data-i18n="fService">Service</label><select id="bfService">
             <option data-i18n="svc1t">Cleanings &amp; Checkups</option>
             <option data-i18n="svc2t">Teeth Whitening</option>
@@ -560,7 +565,7 @@ const I18N = {
     why3t:"We Speak English", why3d:"Clear communication from your first message to your final visit. No surprises, no confusion.",
     why4t:"Care That Feels Personal", why4d:"We treat every patient like family. Honest recommendations and gentle treatment, every time.",
     bookTitle:"Book Your Appointment", bookSub:"Choose a time that works for you. We confirm every appointment personally.",
-    fName:"Full name", fPhone:"Phone / WhatsApp", fService:"Service", fDate:"Preferred date", fTime:"Preferred time",
+    fName:"Full name", fPhone:"Phone / WhatsApp", fEmail:"Email", fService:"Service", fDate:"Preferred date", fTime:"Preferred time",
     fSubmit:"Request Appointment",
     fSuccess:"Almost done! We opened WhatsApp with your request ready to send. Press send and we will confirm your appointment shortly. If WhatsApp did not open, message us at +52 653 596 0691.",
     bookOr:"Prefer to talk to a person right away? Message us directly:",
@@ -618,7 +623,7 @@ const I18N = {
     why3t:"Hablamos Inglés", why3d:"Comunicación clara desde tu primer mensaje hasta tu última visita. Sin sorpresas.",
     why4t:"Atención Personal", why4d:"Tratamos a cada paciente como familia. Recomendaciones honestas y trato amable, siempre.",
     bookTitle:"Agenda tu Cita", bookSub:"Elige el horario que mejor te convenga. Confirmamos cada cita personalmente.",
-    fName:"Nombre completo", fPhone:"Teléfono / WhatsApp", fService:"Servicio", fDate:"Fecha preferida", fTime:"Hora preferida",
+    fName:"Nombre completo", fPhone:"Teléfono / WhatsApp", fEmail:"Correo electrónico", fService:"Servicio", fDate:"Fecha preferida", fTime:"Hora preferida",
     fSubmit:"Solicitar Cita",
     fSuccess:"¡Casi listo! Abrimos WhatsApp con tu solicitud lista para enviar. Presiona enviar y confirmaremos tu cita muy pronto. Si WhatsApp no se abrió, escríbenos al +52 653 596 0691.",
     bookOr:"¿Prefieres hablar con una persona? Escríbenos directamente:",
@@ -739,6 +744,7 @@ document.getElementById('bookForm').addEventListener('submit', e => {
     id: 'r' + Date.now(),
     name: document.getElementById('bfName').value.trim(),
     phone: document.getElementById('bfPhone').value.trim(),
+    email: document.getElementById('bfEmail').value.trim(),
     service: document.getElementById('bfService').value || document.getElementById('bfService').selectedOptions[0].textContent,
     prefDate: document.getElementById('bfDate').value,
     prefTime: document.getElementById('bfTime').value,
@@ -755,8 +761,8 @@ document.getElementById('bookForm').addEventListener('submit', e => {
   const r = reqs[reqs.length - 1];
   const es = document.documentElement.lang === 'es';
   const msg = (es
-    ? `Hola WE CARE Dental, quiero agendar una cita.\n\nNombre: ${r.name}\nTeléfono: ${r.phone}\nServicio: ${r.service}\nFecha preferida: ${r.prefDate || 'sin preferencia'}\nHora preferida: ${r.prefTime || 'sin preferencia'}`
-    : `Hello WE CARE Dental, I would like to book an appointment.\n\nName: ${r.name}\nPhone: ${r.phone}\nService: ${r.service}\nPreferred date: ${r.prefDate || 'no preference'}\nPreferred time: ${r.prefTime || 'no preference'}`);
+    ? `Hola WE CARE Dental, quiero agendar una cita.\n\nNombre: ${r.name}\nTeléfono: ${r.phone}${r.email ? '\nCorreo: ' + r.email : ''}\nServicio: ${r.service}\nFecha preferida: ${r.prefDate || 'sin preferencia'}\nHora preferida: ${r.prefTime || 'sin preferencia'}`
+    : `Hello WE CARE Dental, I would like to book an appointment.\n\nName: ${r.name}\nPhone: ${r.phone}${r.email ? '\nEmail: ' + r.email : ''}\nService: ${r.service}\nPreferred date: ${r.prefDate || 'no preference'}\nPreferred time: ${r.prefTime || 'no preference'}`);
   window.open('https://wa.me/526535960691?text=' + encodeURIComponent(msg), '_blank', 'noopener');
 
   document.getElementById('bookSuccess').hidden = false;
