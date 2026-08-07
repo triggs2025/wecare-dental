@@ -29,6 +29,48 @@ wait link and the same-timezone note.
 4. **Publish**: flip the Draft toggle to Publish, then click Save. A draft
    sends nothing.
 
+### Aug 7 test results and the two remaining edits
+
+Both workflows are Published. Enrolment counts told the story cleanly:
+"Booking received" = **2**, confirmation workflow = **0**. So the two identical
+emails were both acknowledgements, one per booking (two overlapping test
+appointments were made). The confirmation workflow is not broken, it has simply
+never been triggered because no appointment has been marked confirmed yet.
+
+**Edit 1 — the acknowledgement email needs the booking details.** It currently
+contains no date, time or service, which is why two of them were
+indistinguishable. Open workflow "Booking received (patient acknowledgement)"
+> "Send Booking Acknowledgement Email", and after the line "Thank you for
+requesting an appointment with WE CARE Dental." add:
+
+```
+What you requested:
+When: {{appointment.start_time}}
+```
+
+Add the service too if you can find a suitable field: click the `{}` Custom
+values button in the editor toolbar and look under the **Appointment** and
+**Calendar** categories. Use the picker rather than typing, since only
+`{{contact.name}}` and `{{appointment.start_time}}` have been seen to chip
+correctly, and neither has been proven to actually render in a delivered email.
+
+**This next test doubles as the merge-field check.** The acknowledgement fires
+on every booking, so the very next test booking will show whether
+`{{appointment.start_time}}` renders as a real date or as literal text. If it
+comes through literal, replace it using the picker and the same fix applies to
+the confirmation email, which uses the same token.
+
+**Edit 2 — rename workflow 2.** It is still called
+"New Workflow : 1786116795073". Rename to "Appointment confirmed".
+
+### Deliverability: emails are landing in junk
+
+Expected, and not yet addressed. Mail is going out on GHL's shared sending
+domain `send.lcmsgsndr.com`, which has no relationship to this business, so
+spam filters treat it with suspicion. The fix is authenticating
+`wecaredental.com.mx` as a dedicated sending domain in GHL, which requires
+adding DNS records. **Blocked on GoDaddy access.** Until then expect junk.
+
 ### Then test
 
 Book a test appointment on the site. You should get the acknowledgement email
