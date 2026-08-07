@@ -1,0 +1,13 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "deniedMcpServers": [
+    { "serverName": "c47a3c77-ca34-436b-8352-b3258787e574" },
+    { "serverName": "ee2554d7-546d-47a2-869f-8648f134b7d7" }
+  ],
+  "permissions": {
+    "deny": [
+      "mcp__c47a3c77-ca34-436b-8352-b3258787e574",
+      "mcp__ee2554d7-546d-47a2-869f-8648f134b7d7"
+    ]
+  }
+}
