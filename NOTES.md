@@ -105,6 +105,37 @@ Gotchas:
   default and costs us nothing.
 - **AZ511 (ADOT)** has a camera API at `az511.gov/api/v2/get/cameras` but it
   returns 400 without an API key. Free registration required. Not yet explored.
+
+**Hunt for a MEXICAN-side camera (the northbound queue) — no good option found.**
+This is the view that actually matters for a patient leaving the clinic. What
+was checked on Aug 7:
+- `camarasanluisaz.com` — YouTube-based, so technically embeddable, BUT its own
+  heading reads "Para Cruzar a San Luis Rio Colorado", i.e. the SOUTHBOUND line
+  into Mexico. Wrong direction. Also 2 of its 3 YouTube stream IDs already
+  return 404, and the site is an advertising vehicle for RL Jones Insurance.
+  Not reliable enough for her site.
+- `bordertraffic.com` / `lalineaenvivo.com` — advertises exactly the right
+  views ("San Luis Passenger Standard", "Pedestrian", "Commercial") but the
+  page still depends on Adobe Flash (18 SWF references). Flash died in December
+  2020, so those feeds do not play in any current browser. Abandoned.
+- `garitasreporte.com` — no cameras at all, just CBP wait times, which we
+  already pull straight from the source. Adds nothing.
+- The City of San Luis cameras we DO link are official and reliable, but the
+  city labels them only "Camera1" through "Camera4" with no direction stated,
+  and press coverage of their installation described them as facing Main Street,
+  the route drivers take INTO Mexico. So they may also be southbound. Could not
+  visually confirm: the Verkada iframes need a rendered browser.
+
+OPEN QUESTION for Tony: open https://sanluisaz.gov/BWC and look. If one of the
+four shows the northbound line, we can link that specific camera instead of the
+whole page. Karina and local patients will also know which camera page people
+around there actually use, which is probably the fastest route to a good answer.
+Community pages worth asking about: facebook.com/Sanluisborder and
+facebook.com/bordercams.
+
+Current site copy says "Four public cameras showing the crossing", which claims
+no direction, so it is not wrong today. It should get more specific once the
+direction is known.
 - Fresher numbers are not really available: CBP itself only refreshes roughly
   hourly, so polling faster than we already do does not make the data newer.
   The cameras are the only genuinely real-time view of the queue.
