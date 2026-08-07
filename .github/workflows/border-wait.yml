@@ -29,11 +29,9 @@ jobs:
   fetch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+      # No setup-node step: ubuntu-latest already ships a current Node, and the
+      # script uses only built-ins (fetch, node:fs). One less action to age out.
+      - uses: actions/checkout@v5
 
       - name: Fetch CBP wait times
         run: node scripts/fetch-border.mjs

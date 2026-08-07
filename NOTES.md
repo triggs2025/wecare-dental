@@ -36,6 +36,17 @@ Edit files, then commit and push to main. GitHub Pages redeploys automatically i
 
 ## Session log (newest first)
 
+- Aug 6, 2026 (later): Built the border wait times feature end to end, see its
+  own section below. Also added Open Graph / Twitter card tags and Dentist
+  structured data so Facebook and WhatsApp shares render a proper preview
+  (og:url and og:image are ABSOLUTE and will need updating if the site moves to
+  a custom domain). Deliberately left openingHours out of the structured data
+  because the hours are still placeholders and search engines would surface
+  them. Booking form no longer dead-ends: it still writes to localStorage for
+  the admin demo, but now also opens WhatsApp with the request prefilled to her
+  number, so a real patient request actually reaches her. Fixed a temporal dead
+  zone bug found during testing that would have killed the entire script.
+
 - Aug 6, 2026: Removed the hero logo badge (the shrunk WE CARE lockup that
   linked to About) and removed the video captions entirely: both `<track>` tags,
   the `.hero-caption` renderer, `syncHeroCaptions()`, and the two .vtt files.
@@ -43,7 +54,33 @@ Edit files, then commit and push to main. GitHub Pages redeploys automatically i
   section is untouched and still reachable from the nav.
   Researched CBP border wait times for the next feature, see below.
 
-## Border wait times (researched Aug 6, not built yet)
+## Border wait times (BUILT and running as of Aug 6, 2026)
+
+Live on the site between "Why Us" and "Book". Shows the CURRENT reported delay
+for cars and pedestrians at San Luis I. No predictions yet, see below.
+
+How it works:
+- `.github/workflows/border-wait.yml` runs `scripts/fetch-border.mjs` every ~20
+  minutes and on manual dispatch from the Actions tab.
+- The script writes `assets/border.json` (what the page reads) and appends a row
+  to `data/border-history.csv`.
+- `index.html` fetches `assets/border.json` same-origin. The section stays
+  hidden if that fetch fails, so a stalled workflow shows nothing rather than
+  stale numbers.
+- Verified working: run 31136449223 succeeded and committed on its own. The
+  repo's default workflow permission is "read", but the explicit
+  `permissions: contents: write` in the workflow overrides it. Confirmed, not
+  assumed.
+
+Gotcha: GitHub disables scheduled workflows after 60 days with no repo
+activity. If the numbers go stale, check that first.
+
+Predictions are NOT built. CBP publishes only the current delay, so the
+`border-history.csv` samples are the only possible basis. It needs weeks of
+data before any "Fridays at 4pm are usually bad" claim is honest, and the copy
+must say it is our own estimate, not CBP data.
+
+## Original research notes (Aug 6)
 
 Goal: show current San Luis crossing delays on the site, and eventually tie
 them to appointment booking so patients can see whether their slot lands in
