@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-08T02:43:36.521Z",
+  "fetchedAt": "2026-08-08T03:29:01.134Z",
   "port": {
     "number": "260801",
     "name": "San Luis",
@@ -8,25 +8,25 @@
     "status": "Open"
   },
   "reportedDate": "8/7/2026",
-  "reportedTime": "20:34:02",
+  "reportedTime": "21:23:12",
   "vehicle": {
-    "delayMinutes": 60,
+    "delayMinutes": 45,
     "lanesOpen": 4,
     "status": "delay",
-    "updated": "At 7:00 pm MST"
+    "updated": "At 8:00 pm MST"
   },
   "vehicleSentri": {
     "delayMinutes": 5,
     "lanesOpen": 2,
     "status": "no delay",
-    "updated": "At 7:00 pm MST"
+    "updated": "At 8:00 pm MST"
   },
   "vehicleReady": null,
   "pedestrian": {
     "delayMinutes": 5,
     "lanesOpen": 2,
     "status": "no delay",
-    "updated": "At 7:00 pm MST"
+    "updated": "At 8:00 pm MST"
   },
   "pedestrianReady": null,
   "maxVehicleLanes": 16,
