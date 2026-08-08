@@ -58,6 +58,38 @@ const ALIAS = { 'Extractions': 'Extraction' };
   const dupes = [...new Set(seen.filter((c, i) => seen.indexOf(c) !== i))];
   if (dupes.length) { console.log('\n  DUPLICATE COLOURS: ' + dupes.join(', ')); bad++; }
 
-  console.log('\n' + (bad ? bad + ' problem(s)' : 'all cards match their calendar, no duplicate colours'));
+  // The booking picker carries a hardcoded calendar id per card. A wrong id is
+  // the worst failure mode on this page: it books silently, into the wrong
+  // service, with the wrong duration, and nothing on screen looks broken. So
+  // check every id against the live calendar, and that the picker's colour and
+  // order still match the Services cards.
+  const byId = new Map((await (await fetch(
+    'https://services.leadconnectorhq.com/calendars/?locationId=' + LOCATION_ID,
+    { headers: {
+        Authorization: 'Bearer ' + fs.readFileSync(tokenPath, 'utf8').trim(),
+        Version: '2021-04-15', Accept: 'application/json',
+    } })).json()).calendars.map(c => [c.id, c]));
+
+  const picks = [...html.matchAll(
+    /<button type="button" class="pick" data-cal="([^"]+)" data-key="(svc\d+t)" style="--svc:(#[0-9A-Fa-f]{6})">/g)];
+  console.log('\npicker cards: ' + picks.length);
+  if (picks.length !== cards.length) {
+    console.log('  COUNT MISMATCH: ' + picks.length + ' picker vs ' + cards.length + ' service cards'); bad++;
+  }
+  picks.forEach(([, id, key, colour], i) => {
+    const cal = byId.get(id);
+    const expectedTitle = cards[i] ? cards[i][2] : '(no service card)';
+    const expectedColour = cards[i] ? cards[i][1] : '';
+    const problems = [];
+    if (!cal) problems.push('unknown calendar id');
+    else if (cal.name !== (ALIAS[expectedTitle] || expectedTitle)) problems.push('id belongs to "' + cal.name + '"');
+    if (expectedColour && colour.toUpperCase() !== expectedColour.toUpperCase()) problems.push('colour differs from the service card');
+    if (key !== 'svc' + (i + 1) + 't') problems.push('i18n key out of order');
+    if (problems.length) bad++;
+    console.log((problems.length ? '  BAD ' : '  ok  ') + '  ' + expectedTitle.padEnd(28) +
+      (cal ? cal.name : id).padEnd(28) + (problems.length ? problems.join('; ') : ''));
+  });
+
+  console.log('\n' + (bad ? bad + ' problem(s)' : 'service cards and picker both match GHL'));
   process.exitCode = bad ? 1 : 0;
 })();

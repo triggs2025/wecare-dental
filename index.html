@@ -133,6 +133,29 @@
   /* GoHighLevel booking widget. form_embed.js resizes the iframe to its content;
      min-height only stops a collapse before that script runs. */
   .ghl-booking{width:100%;min-height:720px;border:0;display:block;border-radius:14px;background:#fff}
+
+  /* ---------- Service picker (booking) ----------
+     Our own cards in front of GoHighLevel's booking widget. GHL renders its
+     group widget in an iframe on api.leadconnectorhq.com, a different origin,
+     so no CSS here can reach inside it. Owning the picker is what makes the
+     booking step match the Services section: same colours, same order, and
+     names that follow the EN/ES toggle. Picking a card loads that one
+     calendar's widget, so bookings still land in GHL exactly as before. */
+  .picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.85rem;text-align:left}
+  .pick{display:flex;align-items:center;gap:.7rem;background:#fff;border:1px solid #e4efef;
+    border-left:5px solid var(--svc);border-radius:12px;padding:.85rem .95rem;cursor:pointer;
+    font:inherit;color:var(--ink);text-align:left;width:100%;
+    transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease}
+  .pick:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+  .pick:focus-visible{outline:3px solid var(--svc);outline-offset:2px}
+  .pick-ico{width:34px;height:34px;flex-shrink:0;border-radius:9px;display:flex;align-items:center;
+    justify-content:center;font-size:1.05rem;background:var(--teal-light)}
+  .pick-ico{background:color-mix(in srgb, var(--svc) 15%, #fff)}
+  .pick-name{font-weight:800;font-size:.92rem;line-height:1.25}
+  /* Header above the loaded widget, so the chosen service stays visible. */
+  .picked{display:flex;align-items:center;gap:.6rem;justify-content:center;margin-bottom:1rem;flex-wrap:wrap}
+  .picked-dot{width:14px;height:14px;border-radius:4px;background:var(--svc,var(--teal));flex-shrink:0}
+  .picked-name{font-weight:900;font-size:1.05rem}
   .book-again{text-align:center;margin-top:.9rem}
   .link-btn{background:none;border:0;color:var(--teal-dark);font:inherit;font-weight:800;font-size:.9rem;cursor:pointer;text-decoration:underline;padding:.3rem .5rem;border-radius:8px}
   .link-btn:hover{background:var(--teal-light)}
@@ -481,31 +504,72 @@
         <p data-i18n="bookSub">Choose a time that works for you. We confirm every appointment personally.</p>
       </div>
       <div class="booking-box">
-        <!-- LIVE GoHighLevel booking widget (calendar group "Book an Appointment",
-             group id 4wsv1jKuAhQJRO3Kn8wu). The patient picks a service, sees
-             real availability, and the booking lands in GHL where Karina works.
-             This replaced the old localStorage form, which never reached her.
+        <!-- STEP 1: our own service picker. This replaced GoHighLevel's calendar
+             group widget (group id 4wsv1jKuAhQJRO3Kn8wu), which rendered its own
+             service cards in a cross-origin iframe we could not style, listed
+             the services in an arbitrary order with Full Denture first and
+             General Consultation fourth, and showed English only.
 
-             The URL uses the group ID rather than the /widget/groups/wecare-dental
-             slug on purpose: renaming the group would silently break a slug URL.
+             data-cal is the GHL calendar id. The names reuse the same svcNt i18n
+             keys as the Services section, so the two can never disagree and both
+             follow the EN/ES toggle for free. Order and colours also match that
+             section deliberately: a patient who read about a service recognises
+             the same card here.
 
-             Availability here comes from GHL, so it is the single source of
-             truth for her hours. Do not reintroduce hardcoded hours on this
-             page; they will drift. -->
-        <iframe src="https://api.leadconnectorhq.com/widget/group/4wsv1jKuAhQJRO3Kn8wu"
-                id="ghl-booking" class="ghl-booking"
-                title="Book an appointment with WE CARE Dental"
-                scrolling="no"></iframe>
+             Durations are NOT shown. They are still my estimates rather than
+             Karina's numbers, and the widget prints the real one once a service
+             is chosen. Do not add them here until she confirms them.
+
+             If a service is added or removed, it needs changing in FOUR places:
+             here, the Services cards, both i18n blocks, and GHL. -->
+        <div id="bookPicker">
+          <p class="note" style="margin:0 0 1.25rem" data-i18n="pickLead">Choose the service you need and we will show you the next available times.</p>
+          <div class="picker-grid">
+            <button type="button" class="pick" data-cal="7cgezWdgdgncfC9QtF3g" data-key="svc1t" style="--svc:#00897B"><span class="pick-ico">🔎</span><span class="pick-name" data-i18n="svc1t">General Consultation</span></button>
+            <button type="button" class="pick" data-cal="aJGVsWxkVSpW8l3DNIcn" data-key="svc2t" style="--svc:#00ACC1"><span class="pick-ico">🪥</span><span class="pick-name" data-i18n="svc2t">Dental Cleaning</span></button>
+            <button type="button" class="pick" data-cal="SfG3FkK668CKTCYf1JWe" data-key="svc3t" style="--svc:#039BE5"><span class="pick-ico">🦷</span><span class="pick-name" data-i18n="svc3t">Fillings</span></button>
+            <button type="button" class="pick" data-cal="1rjEXLMaQ2geQoduWOoZ" data-key="svc4t" style="--svc:#7E57C2"><span class="pick-ico">✨</span><span class="pick-name" data-i18n="svc4t">Teeth Whitening</span></button>
+            <button type="button" class="pick" data-cal="9ihRa4gev3eNtQlwB7RL" data-key="svc5t" style="--svc:#616161"><span class="pick-ico">🩺</span><span class="pick-name" data-i18n="svc5t">Extractions</span></button>
+            <button type="button" class="pick" data-cal="uC87Av2KAJjDNwplE8Ya" data-key="svc6t" style="--svc:#C0392B"><span class="pick-ico">🛠️</span><span class="pick-name" data-i18n="svc6t">Root Canal</span></button>
+            <button type="button" class="pick" data-cal="NW9RTCF4hqj2vsL4Tb1y" data-key="svc7t" style="--svc:#AD1457"><span class="pick-ico">🔁</span><span class="pick-name" data-i18n="svc7t">Root Canal Retreatment</span></button>
+            <button type="button" class="pick" data-cal="PNkFD6J9t00mBsObK0X2" data-key="svc8t" style="--svc:#FB8C00"><span class="pick-ico">📌</span><span class="pick-name" data-i18n="svc8t">Dental Post</span></button>
+            <button type="button" class="pick" data-cal="LxcIzn4MEzyCRZaczVab" data-key="svc9t" style="--svc:#F4511E"><span class="pick-ico">👑</span><span class="pick-name" data-i18n="svc9t">Crowns</span></button>
+            <button type="button" class="pick" data-cal="FP4tRZwfXONaK4OzewxI" data-key="svc10t" style="--svc:#E91E63"><span class="pick-ico">😁</span><span class="pick-name" data-i18n="svc10t">Veneers</span></button>
+            <button type="button" class="pick" data-cal="4QXLSGVVEFAMpMusedRF" data-key="svc11t" style="--svc:#5D4037"><span class="pick-ico">⚕️</span><span class="pick-name" data-i18n="svc11t">Dental Surgery</span></button>
+            <button type="button" class="pick" data-cal="CcTwgKBjE1eQsGdaFmHb" data-key="svc12t" style="--svc:#0B8043"><span class="pick-ico">😬</span><span class="pick-name" data-i18n="svc12t">Removable Partial Denture</span></button>
+            <button type="button" class="pick" data-cal="oxQsyNluT57fhtHbChk6" data-key="svc13t" style="--svc:#33691E"><span class="pick-ico">😃</span><span class="pick-name" data-i18n="svc13t">Full Denture</span></button>
+            <button type="button" class="pick" data-cal="pKSGdq2SA3ks9C6IIUvb" data-key="svc14t" style="--svc:#3F51B5"><span class="pick-ico">🔩</span><span class="pick-name" data-i18n="svc14t">Dental Implants</span></button>
+          </div>
+        </div>
+
+        <!-- STEP 2: the chosen service's own GHL widget. src is set in JS, so
+             nothing loads until a service is picked and the page does not pay
+             for an iframe nobody looked at.
+
+             Availability comes from GHL, so it is the single source of truth for
+             her hours. Do not reintroduce hardcoded hours here; they will drift.
+
+             The widget's own date and time UI stays English whatever the site is
+             set to. ?locale=es is ignored, so that is GHL's to fix, not ours. -->
+        <div id="bookWidget" hidden>
+          <div class="picked" id="pickedHead">
+            <span class="picked-dot"></span>
+            <span class="picked-name" id="pickedName"></span>
+          </div>
+          <iframe id="ghl-booking" class="ghl-booking"
+                  title="Book an appointment with WE CARE Dental"
+                  scrolling="no"></iframe>
+          <p class="book-again">
+            <button type="button" id="pickBack" class="link-btn" data-i18n="pickBack">Choose a different service</button>
+          </p>
+        </div>
         <script src="https://link.msgsndr.com/js/form_embed.js"></script>
 
-        <!-- Resets the widget so a second appointment can be booked without a
-             full page reload. Deliberately NOT an automatic timed refresh:
-             someone reading their confirmation should not have the page pulled
-             out from under them, and a reload would also discard the border
-             wait data this page already fetched. -->
-        <p class="book-again">
-          <button type="button" id="bookAgain" class="link-btn" data-i18n="bookAgain">Book another appointment</button>
-        </p>
+        <!-- The old "Book another appointment" button lived here. It reloaded
+             the group widget in place; "Choose a different service" now does the
+             same job and says what actually happens. Still deliberately NOT an
+             automatic timed refresh: someone reading their confirmation should
+             not have the page pulled out from under them. -->
 
         <p class="note" data-i18n="bookOr">Prefer to talk to a person right away? Message us directly:</p>
         <div class="booking-actions">
@@ -644,7 +708,9 @@ const I18N = {
     why4t:"Care That Feels Personal", why4d:"We treat every patient like family. Honest recommendations and gentle treatment, every time.",
     bookTitle:"Book Your Appointment", bookSub:"Choose a time that works for you. We confirm every appointment personally.",
     bookOr:"Prefer to talk to a person right away? Message us directly:",
-    bookAgain:"Book another appointment", bookWa:"Book by WhatsApp", bookCall:"Call +52 653 596 0691",
+    pickLead:"Choose the service you need and we will show you the next available times.",
+    pickBack:"Choose a different service",
+    bookWa:"Book by WhatsApp", bookCall:"Call +52 653 596 0691",
     waSoon:"Coming soon",
     contactTitle:"Contact Us", contactSub:"Call, message us on WhatsApp, or come see us in San Luis Río Colorado, about 1.2 miles from the San Luis, Arizona crossing.",
     cAddr:"Address", cPhone:"Phone / WhatsApp", cEmail:"Email", cHours:"Hours",
@@ -706,7 +772,9 @@ const I18N = {
     why4t:"Atención Personal", why4d:"Tratamos a cada paciente como familia. Recomendaciones honestas y trato amable, siempre.",
     bookTitle:"Agenda tu Cita", bookSub:"Elige el horario que mejor te convenga. Confirmamos cada cita personalmente.",
     bookOr:"¿Prefieres hablar con una persona? Escríbenos directamente:",
-    bookAgain:"Agendar otra cita", bookWa:"Agendar por WhatsApp", bookCall:"Llamar +52 653 596 0691",
+    pickLead:"Elige el servicio que necesitas y te mostramos los próximos horarios disponibles.",
+    pickBack:"Elegir otro servicio",
+    bookWa:"Agendar por WhatsApp", bookCall:"Llamar +52 653 596 0691",
     waSoon:"Próximamente",
     contactTitle:"Contáctanos", contactSub:"Llámanos, escríbenos por WhatsApp o visítanos en San Luis Río Colorado, a unos 2 km de la garita de San Luis, Arizona.",
     cAddr:"Dirección", cPhone:"Teléfono / WhatsApp", cEmail:"Correo", cHours:"Horario",
@@ -779,13 +847,43 @@ initLang();
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// "Book another appointment": reload just the GHL iframe rather than the whole
-// page. Reassigning src forces a fresh widget; the cache-buster stops the
-// browser serving the completed-booking state back from cache.
-document.getElementById('bookAgain').addEventListener('click', () => {
-  const f = document.getElementById('ghl-booking');
-  const base = f.src.split('?')[0];
-  f.src = base + '?r=' + Date.now();
+// ---------- Service picker ----------
+// Swaps between our card grid and the chosen service's GHL booking widget.
+// Loading one calendar's widget rather than the group widget is what lets the
+// cards above be ours: same colours, same order and same names as the Services
+// section. The booking itself is unchanged and still lands in GHL.
+const bookPicker = document.getElementById('bookPicker');
+const bookWidget = document.getElementById('bookWidget');
+const bookFrame  = document.getElementById('ghl-booking');
+const pickedName = document.getElementById('pickedName');
+const pickedHead = document.getElementById('pickedHead');
+
+function choose(btn){
+  // The cache-buster matters on the way back in: without it the browser can
+  // serve the completed-booking state from cache, so a patient booking a second
+  // appointment would land on someone's "thanks, you're booked" screen.
+  bookFrame.src = 'https://api.leadconnectorhq.com/widget/booking/' +
+                  btn.dataset.cal + '?r=' + Date.now();
+  // Handing the name element the same i18n key the card uses means setLang
+  // retranslates the heading on a language switch with no extra wiring.
+  pickedName.setAttribute('data-i18n', btn.dataset.key);
+  pickedName.textContent = (I18N[document.documentElement.lang] || I18N.en)[btn.dataset.key];
+  pickedHead.style.setProperty('--svc', btn.style.getPropertyValue('--svc'));
+  bookPicker.hidden = true;
+  bookWidget.hidden = false;
+}
+
+document.querySelectorAll('.pick').forEach(btn => {
+  btn.addEventListener('click', () => choose(btn));
+});
+
+document.getElementById('pickBack').addEventListener('click', () => {
+  bookWidget.hidden = true;
+  bookPicker.hidden = false;
+  // Drop the iframe so the next pick always loads fresh, and so a half-filled
+  // form is not sitting there if the patient comes back to the same service.
+  bookFrame.removeAttribute('src');
+  pickedName.removeAttribute('data-i18n');
   document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 

@@ -76,6 +76,43 @@ update BOTH places.**
 - Whether appointments may overlap, how many chairs, and whether she has an
   assistant (the double-booking defect, item 1 above)
 
+### The booking section is our own picker now (Aug 8, 2026)
+
+The GoHighLevel **calendar group widget is gone** from the home page. It is
+replaced by our own 14 service cards; picking one loads that single calendar's
+widget at `api.leadconnectorhq.com/widget/booking/<calendarId>`. Bookings still
+land in GHL exactly as before, and availability still comes from GHL.
+
+Why, since the group widget worked:
+
+- Its service cards render in a cross-origin iframe, so **no CSS of ours can
+  reach them**. They could never match the Services section.
+- It listed services in an arbitrary order: Full Denture first, General
+  Consultation fourth. We deliberately order everyday-first.
+- It was English only. `?locale=es` is ignored.
+
+The calendar ids are hardcoded in `index.html` on each `.pick` button. A wrong
+id is the nastiest failure this page has: it books silently, into the wrong
+service, with the wrong duration, and nothing looks broken. `scripts/check-
+calendar-colours.js` now resolves every id against the live calendar and checks
+the picker's colour and order against the Services cards, so run it after
+touching either.
+
+Card names reuse the same `svcNt` i18n keys as the Services section, so the two
+cannot disagree and both follow the EN/ES toggle. The chosen-service heading is
+given the same key at pick time, which is how it retranslates on a switch.
+
+**Still English:** the widget's own date and time UI, and the service name and
+description inside it, because those are GHL's. Making the GHL calendar
+*descriptions* bilingual would help and is not done yet.
+
+**Durations are deliberately not shown on the cards.** They are still estimates,
+not Karina's numbers. The widget prints the real value once a service is picked.
+Do not add them to the cards until she confirms them.
+
+Adding or removing a service now needs FOUR edits: the Services card, the picker
+button, both i18n blocks, and GHL.
+
 ### Service cards carry their GHL calendar colour (Aug 8, 2026)
 
 Each of the 14 service cards on the home page has a thin stripe across the top
