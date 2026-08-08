@@ -30,14 +30,42 @@ Read `BACKEND-PLAN.md` for the GHL build and the API recipe, and
    into the booking widget as a URL parameter. Get the English path proven
    first.
 
+### Karina answered on Aug 7, 2026 — all of this is APPLIED
+
+- **Hours (real, now live in GHL and printed on the site):** Mon-Fri 9am-2pm,
+  CLOSED 2-4pm for lunch, then 4pm-7pm. Saturday 9am-2pm. Sunday closed. The
+  old placeholder was a continuous 9-6, which both allowed bookings during her
+  lunch and threw away her 6-7pm hour.
+- **Parking:** on the street directly in front of the office. There is no lot.
+- **Savings claim:** she confirmed 50-70 percent is accurate and she is
+  comfortable with it. No change needed.
+- **Bio:** Cirujano Dentista, Universidad Autonoma de Baja California, 14 years
+  practising, specialty in ENDODONTICS plus diplomas in dental aesthetics. Her
+  own words are on the site now. The Spanish is verbatim from her and the
+  English is a translation of it. Do not rewrite it into marketing copy without
+  asking her.
+
+Note: hours are now printed on the site AND set in GHL. That is a deliberate
+reversal of the earlier "never print hours" rule, because her 2-4pm closure
+would otherwise look like a fully booked afternoon. **If her hours change,
+update BOTH places.**
+
 ### Still waiting on Karina
 
-- Real working hours and appointment durations (everything currently uses the
-  website's placeholders, and those now drive real bookable slots)
+- **Appointment durations per service.** She sent her service list but not how
+  long each takes. Durations in GHL are still my guesses, and guessing is what
+  caused the earlier problems.
+- **Her service list does not match the site.** She lists 14 services; the site
+  and GHL have 9. Missing: general consultation with x-rays, dental surgery,
+  endodontic retreatment, and dental post. She lists Crowns without bridges,
+  and separates removable partial from full dentures. Both the site cards and
+  the GHL calendars need restructuring to match.
+- **New WhatsApp number**, which she said would arrive within a day or two.
+  When it does, it must change in BOTH `index.html` and `directions.html`, and
+  in the GHL email copy. The current +52 653 596 0691 appears in several
+  places including the floating button.
 - Whether appointments may overlap, how many chairs, and whether she has an
-  assistant (see item 1)
-- Her bio for the About section, and where patients should park
-- Whether the "50 to 70 percent savings" claim is one she will stand behind
+  assistant (the double-booking defect, item 1 above)
 
 ### Housekeeping owed
 

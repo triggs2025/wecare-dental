@@ -27,9 +27,9 @@
 <meta name="twitter:description" content="Quality, affordable dental care minutes from the San Luis, Arizona border. English and Spanish spoken.">
 <meta name="twitter:image" content="https://triggs2025.github.io/wecare-dental/assets/karina.jpg">
 
-<!-- Local business structured data. Hours are PLACEHOLDERS and are marked as
-     unconfirmed in NOTES.md; correct them before this is promoted anywhere,
-     because search engines will surface them. -->
+<!-- Local business structured data. Hours below are REAL, confirmed by Karina
+     on Aug 7 2026. The 2-4pm lunch closure is expressed as two separate
+     weekday ranges, which is how schema.org represents a split day. -->
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -47,6 +47,11 @@
     "addressCountry":"MX"
   },
   "geo":{"@type":"GeoCoordinates","latitude":32.4784807,"longitude":-114.764544},
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"14:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"16:00","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"14:00"}
+  ],
   "hasMap":"https://www.google.com/maps/dir/?api=1&destination=32.4784807,-114.764544",
   "founder":{"@type":"Person","name":"C.D. E.E. Karina González Robles"},
   "availableLanguage":["en","es"],
@@ -337,8 +342,12 @@
         <div>
           <span class="eyebrow" data-i18n="aboutEyebrow">Meet your dentist</span>
           <h2 data-i18n="aboutTitle">C.D. E.E. Karina González Robles</h2>
-          <p class="about-role" data-i18n="aboutRole">Founder, WE CARE Dental &middot; San Luis Río Colorado, Sonora</p>
-          <p data-i18n="aboutBody">WE CARE Dental is her practice, minutes from the San Luis, Arizona border. She and her team care for patients from both sides of the line, in English and in Spanish.</p>
+          <p class="about-role" data-i18n="aboutRole">Dental Surgeon &middot; Endodontics specialist &middot; 14 years in practice</p>
+          <!-- Her own words, sent Aug 7 2026. The Spanish is verbatim from her;
+               the English is a translation of it. Do not rewrite this into
+               marketing copy without asking her. -->
+          <p data-i18n="aboutBody">I studied at the Universidad Autónoma de Baja California and I have spent 14 years caring for my patients&rsquo; oral health. I hold a specialty in Endodontics and diplomas in dental aesthetics, because my commitment is to keep learning so I can give my patients the quality of care they deserve.</p>
+          <p style="margin-top:1rem" data-i18n="aboutBody2">Since I was small I wanted to do something that would let me help others. It is a beautiful thing to see that through my work I can give people back their confidence, their self-esteem, and the smile they had lost, and take their pain away. The extra part is that we have fun along the way. I always try to make the dentist a pleasant experience.</p>
           <div class="hero-actions" style="margin-top:1.5rem">
             <a class="btn-primary" href="#book" data-i18n="heroBook">Book an Appointment</a>
             <a class="btn-ghost" href="https://wa.me/526535960691" target="_blank" rel="noopener" data-i18n="aboutWa">Message on WhatsApp</a>
@@ -486,12 +495,18 @@
             <a href="directions.html" style="font-weight:800" data-i18n="cDirections">Directions from the border →</a></div></li>
           <li><div class="ico">📞</div><div><b data-i18n="cPhone">Phone / WhatsApp</b><a href="tel:+526535960691">+52 653 596 0691</a></div></li>
           <li><div class="ico">✉️</div><div><b data-i18n="cEmail">Email</b><a href="mailto:wecare.kgr@gmail.com">wecare.kgr@gmail.com</a></div></li>
-          <!-- Hours deliberately NOT hardcoded here any more. The booking widget
-               reads live availability from GHL, so Karina controls her hours in
-               one place. A printed table would drift the first time she changed
-               them. Do not add one back. -->
+          <!-- REAL hours, confirmed by Karina Aug 7 2026. Printed on purpose,
+               even though the booking widget is the source of truth: she closes
+               2-4pm for lunch, and without the printed hours a patient who sees
+               no 3pm slots assumes she is fully booked rather than closed.
+               If her hours change, update BOTH here and the GHL calendars. -->
           <li><div class="ico">🕐</div><div style="flex:1"><b data-i18n="cHours">Hours</b>
-            <span data-i18n="cHoursLive">Pick any open time on our booking calendar. It always shows current availability.</span><br>
+            <table class="hours-table">
+              <tr><td data-i18n="hMonFri">Monday to Friday</td><td>9:00 AM - 2:00 PM<br>4:00 PM - 7:00 PM</td></tr>
+              <tr><td data-i18n="hSat">Saturday</td><td>9:00 AM - 2:00 PM</td></tr>
+              <tr><td data-i18n="hSun">Sunday</td><td data-i18n="hClosed">Closed</td></tr>
+            </table>
+            <p style="font-size:.85rem;margin-top:.4rem;color:var(--gray)" data-i18n="hLunch">Closed 2:00 to 4:00 PM for lunch.</p>
             <a href="#book" style="font-weight:800" data-i18n="cHoursLink">See available times →</a>
           </div></li>
         </ul>
@@ -532,7 +547,7 @@ const I18N = {
     heroLead:"Modern, gentle dental care in San Luis Río Colorado at prices that make sense. English spoken. American patients welcome.",
     heroBook:"Book an Appointment", heroServices:"See Our Services",
     cAddrCross:"Between Calle 14 and Calle 15",
-    cHoursLive:"Pick any open time on our booking calendar. It always shows current availability.", cHoursLink:"See available times →",
+    hMonFri:"Monday to Friday", hSat:"Saturday", hSun:"Sunday", hClosed:"Closed", hLunch:"Closed 2:00 to 4:00 PM for lunch.", cHoursLink:"See available times →",
     cDirections:"Directions from the border →",
     bwtChipLabel:"Border", bwtChipClosed:"Closed",
     bwtChipAria:"Current border wait to cross into Arizona:",
@@ -549,8 +564,9 @@ const I18N = {
     aboutPhotoAlt:"C.D. E.E. Karina González Robles at WE CARE Dental",
     aboutEyebrow:"Meet your dentist",
     aboutTitle:"C.D. E.E. Karina González Robles",
-    aboutRole:"Founder, WE CARE Dental · San Luis Río Colorado, Sonora",
-    aboutBody:"WE CARE Dental is her practice, minutes from the San Luis, Arizona border. She and her team care for patients from both sides of the line, in English and in Spanish.",
+    aboutRole:"Dental Surgeon · Endodontics specialist · 14 years in practice",
+    aboutBody:"I studied at the Universidad Autónoma de Baja California and I have spent 14 years caring for my patients' oral health. I hold a specialty in Endodontics and diplomas in dental aesthetics, because my commitment is to keep learning so I can give my patients the quality of care they deserve.",
+    aboutBody2:"Since I was small I wanted to do something that would let me help others. It is a beautiful thing to see that through my work I can give people back their confidence, their self-esteem, and the smile they had lost, and take their pain away. The extra part is that we have fun along the way. I always try to make the dentist a pleasant experience.",
     aboutWa:"Message on WhatsApp",
     trust1b:"Bilingual Team", trust1s:"English and Spanish spoken",
     trust2b:"Walk from the Border", trust2s:"Minutes from San Luis, Arizona",
@@ -587,7 +603,7 @@ const I18N = {
     heroLead:"Atención dental moderna y amable en San Luis Río Colorado, a precios justos. Hablamos inglés y español.",
     heroBook:"Agendar una Cita", heroServices:"Ver Servicios",
     cAddrCross:"Entre la Calle 14 y la Calle 15",
-    cHoursLive:"Elige cualquier horario disponible en nuestro calendario. Siempre muestra la disponibilidad actual.", cHoursLink:"Ver horarios disponibles →",
+    hMonFri:"Lunes a viernes", hSat:"Sábado", hSun:"Domingo", hClosed:"Cerrado", hLunch:"Cerrado de 2:00 a 4:00 PM por comida.", cHoursLink:"Ver horarios disponibles →",
     cDirections:"Cómo llegar desde la frontera →",
     bwtChipLabel:"Frontera", bwtChipClosed:"Cerrado",
     bwtChipAria:"Espera actual para cruzar a Arizona:",
@@ -604,8 +620,9 @@ const I18N = {
     aboutPhotoAlt:"C.D. E.E. Karina González Robles en WE CARE Dental",
     aboutEyebrow:"Conoce a tu dentista",
     aboutTitle:"C.D. E.E. Karina González Robles",
-    aboutRole:"Fundadora, WE CARE Dental · San Luis Río Colorado, Sonora",
-    aboutBody:"WE CARE Dental es su consultorio, a minutos de la frontera con San Luis, Arizona. Ella y su equipo atienden a pacientes de ambos lados de la línea, en español y en inglés.",
+    aboutRole:"Cirujano Dentista · Especialidad en Endodoncia · 14 años de experiencia",
+    aboutBody:"Estudié en la Universidad Autónoma de Baja California y llevo 14 años trabajando en el cuidado de la salud bucal. Mi compromiso con mis pacientes es seguir actualizándome para brindarles el servicio de calidad que se merecen, por lo cual he realizado diplomados en estética dental y tengo una especialidad en Endodoncia.",
+    aboutBody2:"Desde pequeña quise dedicarme a algo que me permitiera ayudar a los demás, y es muy bonito mirar que por medio de mi trabajo puedo devolverles la seguridad, el autoestima y la confianza a mis pacientes al regresarles la sonrisa que perdieron, y también cuando puedo eliminarles el dolor. El extra es que nos divertimos en el proceso, tratando siempre de que su experiencia en el dentista sea agradable.",
     aboutWa:"Escríbenos por WhatsApp",
     trust1b:"Equipo Bilingüe", trust1s:"Hablamos español e inglés",
     trust2b:"A Pasos de la Frontera", trust2s:"A minutos de San Luis, Arizona",
