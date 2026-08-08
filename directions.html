@@ -35,6 +35,18 @@
   .brand-name{font-weight:900;font-size:1.15rem;letter-spacing:.02em}
   .brand-name span{color:var(--teal)}
   .brand-tag{display:block;font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gray)}
+  /* Border wait chip. Same rules as index.html, kept in sync by hand. It
+     matters more on this page than on the home page: someone reading driving
+     directions is about to cross. */
+  .bwt-chip{display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;
+    background:var(--teal-light);border:1px solid #bfe3e2;color:var(--teal-dark);
+    padding:.4rem .75rem;border-radius:999px;font-weight:800;font-size:.85rem;white-space:nowrap;
+    transition:background .15s ease,border-color .15s ease}
+  .bwt-chip:hover{background:#d5eeed}
+  .bwt-chip-ico{font-size:1rem;line-height:1}
+  .bwt-chip-time{font-variant-numeric:tabular-nums}
+  .bwt-chip.is-heavy{background:#fdecea;border-color:#f5c6c0;color:#a5342a}
+  .bwt-chip.is-closed{background:#f1f3f4;border-color:#dfe3e5;color:var(--gray)}
   .lang-toggle{display:flex;border:2px solid var(--teal);border-radius:999px;overflow:hidden;font-weight:800;font-size:.8rem;user-select:none}
   .lang-toggle button{border:0;background:transparent;padding:.35rem .7rem;cursor:pointer;font:inherit;color:var(--teal)}
   .lang-toggle button.active{background:var(--teal);color:#fff}
@@ -90,6 +102,9 @@
   @media (max-width:820px){
     .facts{grid-template-columns:1fr}
     .map-frame{height:340px}
+    /* Header gets tight on phones: keep the number, drop the word. */
+    .bwt-chip-label{display:none}
+    .bwt-chip{padding:.35rem .6rem}
     .steps li{padding-left:3rem}
     /* Same collapsing menu as index.html so the two pages behave identically. */
     nav.links{position:fixed;inset:60px 0 auto 0;background:#fff;flex-direction:column;padding:1.25rem;border-bottom:1px solid #e4eeee;display:none;z-index:99}
@@ -123,6 +138,15 @@
       <a class="cta-btn" href="index.html#book" data-i18n="navCta">Book Appointment</a>
     </nav>
     <div style="display:flex;align-items:center;gap:.8rem">
+      <!-- The border chip lives on both pages. It points back at the full
+           breakdown on the home page, since that section is not duplicated
+           here. Starts hidden and is revealed only once border.json loads, so
+           a failed fetch shows nothing rather than an empty chip. -->
+      <a class="bwt-chip" id="bwtChip" href="index.html#border" hidden>
+        <span class="bwt-chip-ico" aria-hidden="true">🚗</span>
+        <span class="bwt-chip-label" data-i18n="bwtChipLabel">Border</span>
+        <span class="bwt-chip-time" id="bwtChipTime"></span>
+      </a>
       <div class="lang-toggle" role="group" aria-label="Language">
         <button id="btnEn" onclick="setLang('en')">EN</button>
         <button id="btnEs" onclick="setLang('es')">ES</button>
@@ -288,6 +312,13 @@
 -->
 
 <script>
+// Border wait snapshot, loaded from assets/border.json at the bottom of this
+// script. Declared up here on purpose: setLang() reads it and runs first, and a
+// `let` declared lower would be in the temporal dead zone, where even a
+// `typeof` guard throws and takes the whole script down with it. Same reason as
+// the identical declaration in index.html.
+let BORDER = null;
+
 const I18N = {
   en:{
     brandTag:"San Luis Río Colorado",
@@ -323,6 +354,8 @@ const I18N = {
     crossSub:"Check the border wait before you leave the office, so you are not sitting in line longer than your appointment took.",
     crossBtn:"See current border wait times",
     waSoonInline:"(coming soon)",
+    bwtChipLabel:"Border", bwtChipClosed:"Closed", bwtMin:"min", bwtNoDelay:"No delay",
+    bwtChipAria:"Current border wait to cross into Arizona:",
     footHome:"Home"
   },
   es:{
@@ -359,6 +392,8 @@ const I18N = {
     crossSub:"Revisa la espera en la garita antes de salir del consultorio, para no pasar más tiempo en la fila que en tu cita.",
     crossBtn:"Ver tiempos de espera en la garita",
     waSoonInline:"(próximamente)",
+    bwtChipLabel:"Frontera", bwtChipClosed:"Cerrado", bwtMin:"min", bwtNoDelay:"Sin demora",
+    bwtChipAria:"Espera actual para cruzar a Arizona:",
     footHome:"Inicio"
   }
 };
@@ -375,6 +410,31 @@ function setLang(lang, persist){
     // addrLine2 carries a <br>, so a couple of keys need innerHTML.
     if(dict[k]) { if(/<br>/.test(dict[k])) el.innerHTML = dict[k]; else el.textContent = dict[k]; }
   });
+  // The chip's number is built in JS, so it needs redrawing on a language
+  // switch. Guarded because setLang runs before the fetch resolves.
+  if(BORDER) renderChip();
+}
+
+// Only the header chip, not the full car/pedestrian breakdown: that section
+// lives on the home page and the chip links to it. Mirrors the car number,
+// since that is what a patient driving to an appointment cares about.
+function renderChip(){
+  const dict = I18N[document.documentElement.lang] || I18N.en;
+  const chip = document.getElementById('bwtChip');
+  const time = document.getElementById('bwtChipTime');
+  const shut = (BORDER.port && /closed/i.test(BORDER.port.status || '')) || !BORDER.vehicle;
+  chip.classList.remove('is-heavy','is-closed');
+  if(shut){
+    time.textContent = dict.bwtChipClosed;
+    chip.classList.add('is-closed');
+  } else {
+    const mins = BORDER.vehicle.delayMinutes;
+    time.textContent = mins > 0 ? mins + ' ' + dict.bwtMin : dict.bwtNoDelay;
+    // An hour or more of idling deserves a warning colour, not a calm teal.
+    if(mins >= 60) chip.classList.add('is-heavy');
+  }
+  chip.setAttribute('aria-label', dict.bwtChipAria + ' ' + time.textContent);
+  chip.hidden = false;
 }
 
 // Same storage key as index.html, so the choice carries across pages, and the
@@ -392,6 +452,12 @@ function initLang(){
   setLang(es ? 'es' : 'en', false);
 }
 initLang();
+
+// Same file the home page reads, committed hourly by the border-wait Action.
+fetch('assets/border.json', { cache: 'no-cache' })
+  .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+  .then(data => { BORDER = data; renderChip(); })
+  .catch(err => { console.warn('border wait times unavailable:', err.message); });
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
