@@ -364,16 +364,25 @@
         <h2 data-i18n="svcTitle">Our Services</h2>
         <p data-i18n="svcSub">Complete dental care for the whole family, from routine cleanings to full smile makeovers.</p>
       </div>
+      <!-- These 14 are Karina's own service list, sent Aug 7 2026, and they match
+           the 14 bookable calendars in GHL one for one. Keep the two in sync: if
+           a service is added or removed here it needs the same change in GHL, or
+           the site advertises something nobody can book. -->
       <div class="grid">
-        <div class="card"><div class="ico">🪥</div><h3 data-i18n="svc1t">Cleanings &amp; Checkups</h3><p data-i18n="svc1d">Routine cleanings, exams and X-rays to keep your smile healthy.</p></div>
-        <div class="card"><div class="ico">✨</div><h3 data-i18n="svc2t">Teeth Whitening</h3><p data-i18n="svc2d">Professional whitening for a brighter smile in a single visit.</p></div>
-        <div class="card"><div class="ico">🦷</div><h3 data-i18n="svc3t">Fillings &amp; Restorations</h3><p data-i18n="svc3d">Tooth-colored fillings that look and feel natural.</p></div>
-        <div class="card"><div class="ico">👑</div><h3 data-i18n="svc4t">Crowns &amp; Bridges</h3><p data-i18n="svc4d">Durable, natural-looking crowns and bridges to restore your bite.</p></div>
-        <div class="card"><div class="ico">🔩</div><h3 data-i18n="svc5t">Dental Implants</h3><p data-i18n="svc5d">Permanent tooth replacement that looks and works like the real thing.</p></div>
-        <div class="card"><div class="ico">😁</div><h3 data-i18n="svc6t">Veneers</h3><p data-i18n="svc6d">Cosmetic veneers for a picture-perfect smile.</p></div>
-        <div class="card"><div class="ico">🛠️</div><h3 data-i18n="svc7t">Root Canals</h3><p data-i18n="svc7d">Gentle root canal therapy to save your natural tooth.</p></div>
-        <div class="card"><div class="ico">🦷</div><h3 data-i18n="svc8t">Extractions</h3><p data-i18n="svc8d">Comfortable extractions, including wisdom teeth.</p></div>
-        <div class="card"><div class="ico">😬</div><h3 data-i18n="svc9t">Dentures &amp; Partials</h3><p data-i18n="svc9d">Full and partial dentures custom-fitted for comfort.</p></div>
+        <div class="card"><div class="ico">🔎</div><h3 data-i18n="svc1t">General Consultation</h3><p data-i18n="svc1d">Exam, X-rays and a personalised treatment plan. Start here if you are not sure what you need.</p></div>
+        <div class="card"><div class="ico">🪥</div><h3 data-i18n="svc2t">Dental Cleaning</h3><p data-i18n="svc2d">Tartar removal and prophylaxis to protect the health of your gums.</p></div>
+        <div class="card"><div class="ico">🦷</div><h3 data-i18n="svc3t">Fillings</h3><p data-i18n="svc3d">Decay removed and the tooth restored with tooth-coloured resin.</p></div>
+        <div class="card"><div class="ico">✨</div><h3 data-i18n="svc4t">Teeth Whitening</h3><p data-i18n="svc4d">Professional whitening for a brighter smile in a single visit.</p></div>
+        <div class="card"><div class="ico">🩺</div><h3 data-i18n="svc5t">Extractions</h3><p data-i18n="svc5d">Comfortable extractions, including wisdom teeth.</p></div>
+        <div class="card"><div class="ico">🛠️</div><h3 data-i18n="svc6t">Root Canal</h3><p data-i18n="svc6d">Endodontic treatment to save your natural tooth, by an endodontics specialist.</p></div>
+        <div class="card"><div class="ico">🔁</div><h3 data-i18n="svc7t">Root Canal Retreatment</h3><p data-i18n="svc7d">Redoing a previous root canal that has failed or become reinfected.</p></div>
+        <div class="card"><div class="ico">📌</div><h3 data-i18n="svc8t">Dental Post</h3><p data-i18n="svc8d">A post placed after root canal treatment to support a crown.</p></div>
+        <div class="card"><div class="ico">👑</div><h3 data-i18n="svc9t">Crowns</h3><p data-i18n="svc9d">Durable, natural-looking crowns to restore a damaged tooth.</p></div>
+        <div class="card"><div class="ico">😁</div><h3 data-i18n="svc10t">Veneers</h3><p data-i18n="svc10d">Cosmetic veneers for a picture-perfect smile.</p></div>
+        <div class="card"><div class="ico">⚕️</div><h3 data-i18n="svc11t">Dental Surgery</h3><p data-i18n="svc11d">Surgical procedures carried out here in the clinic.</p></div>
+        <div class="card"><div class="ico">😬</div><h3 data-i18n="svc12t">Removable Partial Denture</h3><p data-i18n="svc12d">A custom-fitted partial denture to replace some missing teeth.</p></div>
+        <div class="card"><div class="ico">😃</div><h3 data-i18n="svc13t">Full Denture</h3><p data-i18n="svc13d">A custom-fitted full denture to replace a complete arch.</p></div>
+        <div class="card"><div class="ico">🔩</div><h3 data-i18n="svc14t">Dental Implants</h3><p data-i18n="svc14d">Permanent tooth replacement that looks and works like the real thing.</p></div>
       </div>
     </div>
   </section>
@@ -572,15 +581,20 @@ const I18N = {
     trust2b:"Walk from the Border", trust2s:"Minutes from San Luis, Arizona",
     trust3b:"Honest Pricing", trust3s:"Save significantly vs. US prices",
     svcTitle:"Our Services", svcSub:"Complete dental care for the whole family, from routine cleanings to full smile makeovers.",
-    svc1t:"Cleanings & Checkups", svc1d:"Routine cleanings, exams and X-rays to keep your smile healthy.",
-    svc2t:"Teeth Whitening", svc2d:"Professional whitening for a brighter smile in a single visit.",
-    svc3t:"Fillings & Restorations", svc3d:"Tooth-colored fillings that look and feel natural.",
-    svc4t:"Crowns & Bridges", svc4d:"Durable, natural-looking crowns and bridges to restore your bite.",
-    svc5t:"Dental Implants", svc5d:"Permanent tooth replacement that looks and works like the real thing.",
-    svc6t:"Veneers", svc6d:"Cosmetic veneers for a picture-perfect smile.",
-    svc7t:"Root Canals", svc7d:"Gentle root canal therapy to save your natural tooth.",
-    svc8t:"Extractions", svc8d:"Comfortable extractions, including wisdom teeth.",
-    svc9t:"Dentures & Partials", svc9d:"Full and partial dentures custom-fitted for comfort.",
+    svc1t:"General Consultation", svc1d:"Exam, X-rays and a personalised treatment plan. Start here if you are not sure what you need.",
+    svc2t:"Dental Cleaning", svc2d:"Tartar removal and prophylaxis to protect the health of your gums.",
+    svc3t:"Fillings", svc3d:"Decay removed and the tooth restored with tooth-coloured resin.",
+    svc4t:"Teeth Whitening", svc4d:"Professional whitening for a brighter smile in a single visit.",
+    svc5t:"Extractions", svc5d:"Comfortable extractions, including wisdom teeth.",
+    svc6t:"Root Canal", svc6d:"Endodontic treatment to save your natural tooth, by an endodontics specialist.",
+    svc7t:"Root Canal Retreatment", svc7d:"Redoing a previous root canal that has failed or become reinfected.",
+    svc8t:"Dental Post", svc8d:"A post placed after root canal treatment to support a crown.",
+    svc9t:"Crowns", svc9d:"Durable, natural-looking crowns to restore a damaged tooth.",
+    svc10t:"Veneers", svc10d:"Cosmetic veneers for a picture-perfect smile.",
+    svc11t:"Dental Surgery", svc11d:"Surgical procedures carried out here in the clinic.",
+    svc12t:"Removable Partial Denture", svc12d:"A custom-fitted partial denture to replace some missing teeth.",
+    svc13t:"Full Denture", svc13d:"A custom-fitted full denture to replace a complete arch.",
+    svc14t:"Dental Implants", svc14d:"Permanent tooth replacement that looks and works like the real thing.",
     whyTitle:"Why Patients Cross the Border to See Us",
     whySub:"Thousands of Americans choose San Luis Río Colorado for quality dental care. Here is why they choose WE CARE.",
     why1t:"Real Savings", why1d:"Save 50 to 70 percent compared to typical US prices, with no compromise on quality or materials.",
@@ -628,15 +642,20 @@ const I18N = {
     trust2b:"A Pasos de la Frontera", trust2s:"A minutos de San Luis, Arizona",
     trust3b:"Precios Honestos", trust3s:"Calidad al mejor precio",
     svcTitle:"Nuestros Servicios", svcSub:"Atención dental completa para toda la familia, desde limpiezas hasta el diseño de sonrisa.",
-    svc1t:"Limpiezas y Revisiones", svc1d:"Limpiezas, revisiones y radiografías para mantener tu sonrisa sana.",
-    svc2t:"Blanqueamiento Dental", svc2d:"Blanqueamiento profesional para una sonrisa más brillante en una sola visita.",
-    svc3t:"Resinas y Restauraciones", svc3d:"Resinas del color del diente que se ven y se sienten naturales.",
-    svc4t:"Coronas y Puentes", svc4d:"Coronas y puentes duraderos y de aspecto natural.",
-    svc5t:"Implantes Dentales", svc5d:"Reemplazo permanente que se ve y funciona como un diente natural.",
-    svc6t:"Carillas", svc6d:"Carillas estéticas para una sonrisa perfecta.",
-    svc7t:"Endodoncias", svc7d:"Tratamiento de conductos suave para salvar tu diente natural.",
-    svc8t:"Extracciones", svc8d:"Extracciones cómodas, incluyendo muelas del juicio.",
-    svc9t:"Dentaduras y Parciales", svc9d:"Dentaduras completas y parciales hechas a tu medida.",
+    svc1t:"Consulta General", svc1d:"Revisión, radiografías y un plan de tratamiento personalizado. Empieza aquí si no sabes qué necesitas.",
+    svc2t:"Limpieza Dental", svc2d:"Eliminación de sarro y profilaxis para cuidar la salud periodontal.",
+    svc3t:"Resinas", svc3d:"Eliminación de caries y restauración estética del diente.",
+    svc4t:"Blanqueamiento Dental", svc4d:"Blanqueamiento profesional para una sonrisa más brillante en una sola visita.",
+    svc5t:"Extracciones", svc5d:"Extracciones cómodas, incluyendo muelas del juicio.",
+    svc6t:"Endodoncia", svc6d:"Tratamiento de conductos para salvar tu diente natural, con especialista en Endodoncia.",
+    svc7t:"Retratamiento de Endodoncia", svc7d:"Repetir una endodoncia previa que falló o se reinfectó.",
+    svc8t:"Poste Dental", svc8d:"Poste colocado después de la endodoncia para sostener la corona.",
+    svc9t:"Coronas", svc9d:"Coronas duraderas y de aspecto natural para restaurar un diente dañado.",
+    svc10t:"Carillas", svc10d:"Carillas estéticas para una sonrisa de revista.",
+    svc11t:"Cirugías Dentales", svc11d:"Procedimientos quirúrgicos realizados aquí en el consultorio.",
+    svc12t:"Prótesis Parcial Removible", svc12d:"Prótesis parcial hecha a tu medida para reemplazar algunos dientes.",
+    svc13t:"Prótesis Total", svc13d:"Prótesis total hecha a tu medida para reemplazar una arcada completa.",
+    svc14t:"Implantes Dentales", svc14d:"Reemplazo permanente que se ve y funciona como un diente real.",
     whyTitle:"Por Qué Nos Eligen Pacientes de Ambos Lados de la Frontera",
     whySub:"Miles de personas eligen San Luis Río Colorado para su atención dental. Esto es lo que nos distingue.",
     why1t:"Ahorro Real", why1d:"Ahorra del 50 al 70 por ciento comparado con precios en Estados Unidos, sin sacrificar calidad.",
