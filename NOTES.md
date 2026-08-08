@@ -55,17 +55,57 @@ update BOTH places.**
 - **Appointment durations per service.** She sent her service list but not how
   long each takes. Durations in GHL are still my guesses, and guessing is what
   caused the earlier problems.
-- **Her service list does not match the site.** She lists 14 services; the site
-  and GHL have 9. Missing: general consultation with x-rays, dental surgery,
-  endodontic retreatment, and dental post. She lists Crowns without bridges,
-  and separates removable partial from full dentures. Both the site cards and
-  the GHL calendars need restructuring to match.
 - **New WhatsApp number**, which she said would arrive within a day or two.
-  When it does, it must change in BOTH `index.html` and `directions.html`, and
-  in the GHL email copy. The current +52 653 596 0691 appears in several
-  places including the floating button.
+  **WhatsApp is switched off on the site until it arrives** (Aug 8) so nobody
+  messages a number that may be wrong. What that means in the files:
+  - `index.html`: the "Book by WhatsApp" button and the About "Message on
+    WhatsApp" button are `<span class="... is-soon">`, not links, with a
+    "Coming soon" / "Próximamente" caption under each (`waSoon` i18n key).
+  - `directions.html`: the footer WhatsApp link is plain text with
+    "(coming soon)" (`waSoonInline`).
+  - The floating green bubble is **commented out** on both pages rather than
+    greyed out. A permanent circle that does nothing reads as a broken site.
+  - Every spot is marked with a `COMING SOON:` HTML comment saying exactly what
+    to undo. Search the repo for `COMING SOON:` to find all five.
+  - The `tel:` links still point at +52 653 596 0691 and still work. If that
+    number is also changing, it is in `index.html` (twice), `directions.html`
+    (footer), and the GHL email copy.
+  - Prose still mentions WhatsApp in three places (the contact subheading, the
+    "Phone / WhatsApp" label, and directions step 4). Left alone deliberately:
+    the channel is coming, it is just not clickable yet.
 - Whether appointments may overlap, how many chairs, and whether she has an
   assistant (the double-booking defect, item 1 above)
+
+### Language now auto-detects by country (Aug 8, 2026)
+
+The page used to open in Spanish only if the *browser* was set to Spanish. It
+now opens in Spanish for a device physically in Mexico. Order of precedence, in
+`initLang()` at the bottom of both `index.html` and `directions.html`:
+
+1. `?lang=es` / `?lang=en` in the URL. Sticks, so it carries to the other page.
+   This is also how to test: open `?lang=es` and it forces Spanish.
+2. A previous tap on the EN/ES toggle. An explicit choice always wins.
+3. **Time zone.** IANA names tell the two sides of this border apart even
+   though the clocks match, since both are permanently UTC-7: a phone in San
+   Luis Río Colorado reports `America/Hermosillo`, one in San Luis, Arizona
+   reports `America/Phoenix`. Chosen over an IP geolocation service on purpose:
+   no third-party request, nothing to pay for or rate limit, no consent banner,
+   and the answer is synchronous so the page never flashes the wrong language.
+4. Browser language. A Spanish-set phone in Arizona still gets Spanish, since
+   many patients on the US side are Spanish-dominant.
+5. English.
+
+`setLang()` gained a second argument: `setLang(lang, false)` applies a language
+without saving it. Auto-detected values are never written to storage, so a
+guess never gets frozen in and detection re-runs on the next visit. The toggle
+buttons call `setLang(lang)` with no second argument and do save.
+
+The `MX_TZ` regex and `initLang()` are **duplicated in both HTML files** and
+must be kept in sync. There is no shared JS file; these pages are single-file
+by design.
+
+Caveat worth knowing: a VPN or a wrongly-set device clock changes the answer.
+The EN/ES toggle is always right there, so the cost of a wrong guess is one tap.
 
 ### Housekeeping owed
 

@@ -275,13 +275,17 @@
   <p><strong>WE CARE Dental</strong> · Avenida Álvaro Obregón 1407, San Luis Río Colorado, Sonora</p>
   <p style="margin-top:.4rem">
     <a href="tel:+526535960691">+52 653 596 0691</a> ·
-    <a href="https://wa.me/526535960691" target="_blank" rel="noopener">WhatsApp</a> ·
+    <!-- COMING SOON: plain text, not a link, until the WhatsApp number is
+         confirmed. See the matching notes in index.html. -->
+    <span style="opacity:.6">WhatsApp <span data-i18n="waSoonInline">(coming soon)</span></span> ·
     <a href="index.html" data-i18n="footHome">Home</a>
   </p>
   <p style="margin-top:.8rem;font-size:.8rem;opacity:.75">&copy; <span id="year"></span> WE CARE Dental</p>
 </footer>
 
+<!-- COMING SOON: hidden to match index.html. Restore when the number is set.
 <a class="wa-float" href="https://wa.me/526535960691" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+-->
 
 <script>
 const I18N = {
@@ -318,6 +322,7 @@ const I18N = {
     crossTitle:"Before you head back",
     crossSub:"Check the border wait before you leave the office, so you are not sitting in line longer than your appointment took.",
     crossBtn:"See current border wait times",
+    waSoonInline:"(coming soon)",
     footHome:"Home"
   },
   es:{
@@ -353,13 +358,15 @@ const I18N = {
     crossTitle:"Antes de regresar",
     crossSub:"Revisa la espera en la garita antes de salir del consultorio, para no pasar más tiempo en la fila que en tu cita.",
     crossBtn:"Ver tiempos de espera en la garita",
+    waSoonInline:"(próximamente)",
     footHome:"Inicio"
   }
 };
 
-function setLang(lang){
+// Same contract as index.html: persist=false marks an auto-detected guess.
+function setLang(lang, persist){
   document.documentElement.lang = lang;
-  localStorage.setItem('wecare-lang', lang);
+  if(persist !== false) localStorage.setItem('wecare-lang', lang);
   document.getElementById('btnEn').classList.toggle('active', lang==='en');
   document.getElementById('btnEs').classList.toggle('active', lang==='es');
   const dict = I18N[lang];
@@ -370,10 +377,21 @@ function setLang(lang){
   });
 }
 
-// Same storage key as index.html, so the choice carries across pages.
-const saved = localStorage.getItem('wecare-lang');
-const auto = (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
-setLang(saved || auto);
+// Same storage key as index.html, so the choice carries across pages, and the
+// same detection order: URL, saved choice, Mexican time zone, browser language,
+// English. The long explanation lives in index.html. Keep the two in sync.
+const MX_TZ = /^(America\/(Mexico_City|Cancun|Merida|Monterrey|Matamoros|Chihuahua|Ciudad_Juarez|Ojinaga|Hermosillo|Mazatlan|Bahia_Banderas|Tijuana|Ensenada|Santa_Isabel)|Mexico\/)/;
+function initLang(){
+  const q = new URLSearchParams(location.search).get('lang');
+  if(q === 'es' || q === 'en'){ setLang(q); return; }
+  const saved = localStorage.getItem('wecare-lang');
+  if(saved === 'es' || saved === 'en'){ setLang(saved, false); return; }
+  let tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e){}
+  const es = MX_TZ.test(tz) || (navigator.language || 'en').toLowerCase().startsWith('es');
+  setLang(es ? 'es' : 'en', false);
+}
+initLang();
 
 document.getElementById('year').textContent = new Date().getFullYear();
 

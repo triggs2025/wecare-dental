@@ -114,7 +114,7 @@
   .hero h1{font-family:'Merriweather',serif;font-size:clamp(2rem,4.5vw,3.1rem);margin-bottom:1rem}
   .hero h1 em{color:var(--teal);font-style:normal}
   .hero p.lead{font-size:1.12rem;color:var(--gray);margin-bottom:1.75rem;max-width:34rem}
-  .hero-actions{display:flex;gap:.9rem;flex-wrap:wrap}
+  .hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;align-items:flex-start}
   .btn-primary{background:var(--teal);color:#fff;text-decoration:none;font-weight:800;padding:.85rem 1.6rem;border-radius:999px;box-shadow:var(--shadow)}
   .btn-primary:hover{background:var(--teal-dark)}
   .btn-ghost{border:2px solid var(--teal);color:var(--teal);text-decoration:none;font-weight:800;padding:.75rem 1.5rem;border-radius:999px}
@@ -198,7 +198,7 @@
   /* Booking */
   .booking-box{background:var(--card);border:2px dashed #bfdedd;border-radius:var(--radius);padding:2.5rem;text-align:center}
   .booking-box .note{font-size:.85rem;color:var(--gray);margin-top:1rem}
-  .booking-actions{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap;margin-top:1.25rem}
+  .booking-actions{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap;margin-top:1.25rem;align-items:flex-start}
   .bform{display:grid;grid-template-columns:1fr 1fr;gap:1rem;text-align:left;max-width:640px;margin:0 auto}
   .bform label{display:block;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:.3rem}
   .bform input,.bform select,.bform textarea{width:100%;padding:.65rem .8rem;border:1px solid #cfe2e2;border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
@@ -210,6 +210,14 @@
   @media (max-width:600px){.bform{grid-template-columns:1fr}}
   .wa-btn{background:#25d366;color:#fff;text-decoration:none;font-weight:800;padding:.85rem 1.6rem;border-radius:999px;display:inline-flex;align-items:center;gap:.5rem}
   .wa-btn:hover{filter:brightness(1.05)}
+  /* WhatsApp is switched off until Karina sends the number she actually wants
+     on the site. The button stays visible so patients know it is coming, but
+     it is a <span>, not a link, so there is nothing to click and nothing for a
+     screen reader to announce as a link. See the "COMING SOON" notes below. */
+  .wa-wrap{display:flex;flex-direction:column;align-items:center;gap:.4rem}
+  .wa-btn.is-soon,.btn-ghost.is-soon{opacity:.55;cursor:default;filter:grayscale(.35)}
+  .wa-btn.is-soon:hover,.btn-ghost.is-soon:hover{filter:grayscale(.35)}
+  .soon-note{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--gray)}
 
   /* Contact */
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
@@ -350,7 +358,11 @@
           <p style="margin-top:1rem" data-i18n="aboutBody2">Since I was small I wanted to do something that would let me help others. It is a beautiful thing to see that through my work I can give people back their confidence, their self-esteem, and the smile they had lost, and take their pain away. The extra part is that we have fun along the way. I always try to make the dentist a pleasant experience.</p>
           <div class="hero-actions" style="margin-top:1.5rem">
             <a class="btn-primary" href="#book" data-i18n="heroBook">Book an Appointment</a>
-            <a class="btn-ghost" href="https://wa.me/526535960691" target="_blank" rel="noopener" data-i18n="aboutWa">Message on WhatsApp</a>
+            <!-- COMING SOON: see the note at the booking section. -->
+            <span class="wa-wrap">
+              <span class="btn-ghost is-soon" aria-disabled="true" data-i18n="aboutWa">Message on WhatsApp</span>
+              <small class="soon-note" data-i18n="waSoon">Coming soon</small>
+            </span>
           </div>
         </div>
       </div>
@@ -481,7 +493,15 @@
 
         <p class="note" data-i18n="bookOr">Prefer to talk to a person right away? Message us directly:</p>
         <div class="booking-actions">
-          <a class="wa-btn" href="https://wa.me/526535960691" target="_blank" rel="noopener">💬 <span data-i18n="bookWa">Book by WhatsApp</span></a>
+          <!-- COMING SOON: not a link on purpose. To switch WhatsApp back on,
+               make this an <a href="https://wa.me/NUMBER" target="_blank"
+               rel="noopener"> again, drop is-soon and the .soon-note line, and
+               do the same at the About button, the floating bubble, and in
+               directions.html. -->
+          <div class="wa-wrap">
+            <span class="wa-btn is-soon" aria-disabled="true">💬 <span data-i18n="bookWa">Book by WhatsApp</span></span>
+            <small class="soon-note" data-i18n="waSoon">Coming soon</small>
+          </div>
           <a class="btn-ghost" href="tel:+526535960691" data-i18n="bookCall">Call +52 653 596 0691</a>
         </div>
       </div>
@@ -538,7 +558,12 @@
   <p style="margin-top:1rem;opacity:.6">© <span id="year"></span> WE CARE Dental</p>
 </footer>
 
+<!-- COMING SOON: the floating bubble is hidden rather than greyed out. A
+     permanent circle that does nothing when tapped reads as a broken site,
+     and on a phone it would sit over the content for no reason. Restore this
+     line when the WhatsApp number is confirmed.
 <a class="wa-float" href="https://wa.me/526535960691" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+-->
 
 <script>
 // Border wait snapshot, loaded from assets/border.json further down. Declared
@@ -604,6 +629,7 @@ const I18N = {
     bookTitle:"Book Your Appointment", bookSub:"Choose a time that works for you. We confirm every appointment personally.",
     bookOr:"Prefer to talk to a person right away? Message us directly:",
     bookAgain:"Book another appointment", bookWa:"Book by WhatsApp", bookCall:"Call +52 653 596 0691",
+    waSoon:"Coming soon",
     contactTitle:"Contact Us", contactSub:"Call, message us on WhatsApp, or come see us in San Luis Río Colorado, about 1.2 miles from the San Luis, Arizona crossing.",
     cAddr:"Address", cPhone:"Phone / WhatsApp", cEmail:"Email", cHours:"Hours",
     footTag:"Quality dental care with a personal touch · San Luis Río Colorado, Sonora, México",
@@ -665,6 +691,7 @@ const I18N = {
     bookTitle:"Agenda tu Cita", bookSub:"Elige el horario que mejor te convenga. Confirmamos cada cita personalmente.",
     bookOr:"¿Prefieres hablar con una persona? Escríbenos directamente:",
     bookAgain:"Agendar otra cita", bookWa:"Agendar por WhatsApp", bookCall:"Llamar +52 653 596 0691",
+    waSoon:"Próximamente",
     contactTitle:"Contáctanos", contactSub:"Llámanos, escríbenos por WhatsApp o visítanos en San Luis Río Colorado, a unos 2 km de la garita de San Luis, Arizona.",
     cAddr:"Dirección", cPhone:"Teléfono / WhatsApp", cEmail:"Correo", cHours:"Horario",
     footTag:"Atención dental de calidad con trato personal · San Luis Río Colorado, Sonora, México",
@@ -672,9 +699,12 @@ const I18N = {
   }
 };
 
-function setLang(lang){
+// persist=false means "this was a guess, not a choice". Only a real tap on the
+// EN/ES toggle is written to storage, so an auto-detected language never gets
+// frozen in and re-detection still happens on the next visit.
+function setLang(lang, persist){
   document.documentElement.lang = lang;
-  localStorage.setItem('wecare-lang', lang);
+  if(persist !== false) localStorage.setItem('wecare-lang', lang);
   document.getElementById('btnEn').classList.toggle('active', lang==='en');
   document.getElementById('btnEs').classList.toggle('active', lang==='es');
   const dict = I18N[lang];
@@ -699,10 +729,37 @@ function setLang(lang){
   if(BORDER) renderBorder();
 }
 
-// Auto-detect: Spanish browsers default to ES, everyone else EN. Manual choice wins.
-const saved = localStorage.getItem('wecare-lang');
-const auto = (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
-setLang(saved || auto);
+// Which language the page opens in, in priority order:
+//
+//   1. ?lang=es or ?lang=en in the URL. Lets a shared link force a language,
+//      and it is how to test this without changing device settings. It sticks,
+//      so it carries over to the directions page.
+//   2. A previous tap on the EN/ES toggle. An explicit choice always wins.
+//   3. The device's own time zone. IANA names tell the two sides of this border
+//      apart even though the clocks are identical (both are permanently UTC-7):
+//      a phone in San Luis Rio Colorado reports America/Hermosillo, one in
+//      San Luis, Arizona reports America/Phoenix. Chosen over an IP geolocation
+//      service on purpose: no third-party request, nothing to pay for or rate
+//      limit, no consent banner, and the answer is available synchronously so
+//      the page never flashes the wrong language first.
+//   4. Browser language. A Spanish-set phone in Arizona still gets Spanish:
+//      many patients on the US side are Spanish-dominant, and their own phone
+//      setting is a better signal than which country they happen to be in.
+//   5. English.
+//
+// Keep this block in sync with the copy in directions.html.
+const MX_TZ = /^(America\/(Mexico_City|Cancun|Merida|Monterrey|Matamoros|Chihuahua|Ciudad_Juarez|Ojinaga|Hermosillo|Mazatlan|Bahia_Banderas|Tijuana|Ensenada|Santa_Isabel)|Mexico\/)/;
+function initLang(){
+  const q = new URLSearchParams(location.search).get('lang');
+  if(q === 'es' || q === 'en'){ setLang(q); return; }
+  const saved = localStorage.getItem('wecare-lang');
+  if(saved === 'es' || saved === 'en'){ setLang(saved, false); return; }
+  let tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e){}
+  const es = MX_TZ.test(tz) || (navigator.language || 'en').toLowerCase().startsWith('es');
+  setLang(es ? 'es' : 'en', false);
+}
+initLang();
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
