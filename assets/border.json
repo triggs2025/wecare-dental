@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-08T05:53:53.975Z",
+  "fetchedAt": "2026-08-08T06:12:05.719Z",
   "port": {
     "number": "260801",
     "name": "San Luis",
@@ -7,28 +7,38 @@
     "hours": "24 hrs/day",
     "status": "Open"
   },
-  "reportedDate": "8/7/2026",
-  "reportedTime": "23:43:38",
+  "reportedDate": "8/8/2026",
+  "reportedTime": "00:04:42",
   "vehicle": {
-    "delayMinutes": 30,
-    "lanesOpen": 5,
-    "status": "delay",
-    "updated": "At 10:00 pm MST"
+    "delayMinutes": 0,
+    "lanesOpen": null,
+    "status": "Update Pending",
+    "updated": null
   },
   "vehicleSentri": {
-    "delayMinutes": 5,
-    "lanesOpen": 2,
-    "status": "no delay",
-    "updated": "At 10:00 pm MST"
+    "delayMinutes": 0,
+    "lanesOpen": null,
+    "status": "Update Pending",
+    "updated": null
   },
-  "vehicleReady": null,
+  "vehicleReady": {
+    "delayMinutes": 0,
+    "lanesOpen": null,
+    "status": "Update Pending",
+    "updated": null
+  },
   "pedestrian": {
-    "delayMinutes": 5,
-    "lanesOpen": 2,
-    "status": "no delay",
-    "updated": "At 10:00 pm MST"
+    "delayMinutes": 0,
+    "lanesOpen": null,
+    "status": "Update Pending",
+    "updated": null
   },
-  "pedestrianReady": null,
+  "pedestrianReady": {
+    "delayMinutes": 0,
+    "lanesOpen": null,
+    "status": "Update Pending",
+    "updated": null
+  },
   "maxVehicleLanes": 16,
   "maxPedestrianLanes": 9,
   "notice": "A Ready Lane is now open at the San Luis Port of Entry from 6:00 until midnight.  Go to www.getyouhome.gov for more information on Ready Lanes.  Tune in to AM 530 for border crossing information.",
