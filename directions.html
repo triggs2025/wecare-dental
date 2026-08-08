@@ -111,6 +111,17 @@
     nav.links.open{display:flex}
     .menu-btn{display:block}
   }
+  /* Small phones: the header ran 421px wide in a 375px window once the border
+     chip joined the brand, language toggle and menu button. Shave the padding
+     and gaps, and drop the tagline under the logo, which is the widest part of
+     the brand block and the least load-bearing thing in the header. */
+  @media (max-width:430px){
+    .nav{padding:.65rem .85rem;gap:.5rem}
+    .brand-tag{display:none}
+    .nav-right{gap:.45rem !important}
+    .bwt-chip{padding:.3rem .5rem;font-size:.8rem}
+    .lang-toggle button{padding:.35rem .5rem}
+  }
 </style>
 </head>
 <body>
@@ -137,7 +148,7 @@
       <a href="index.html#contact" data-i18n="navContact">Contact</a>
       <a class="cta-btn" href="index.html#book" data-i18n="navCta">Book Appointment</a>
     </nav>
-    <div style="display:flex;align-items:center;gap:.8rem">
+    <div class="nav-right" style="display:flex;align-items:center;gap:.8rem">
       <!-- The border chip lives on both pages. It points back at the full
            breakdown on the home page, since that section is not duplicated
            here. Starts hidden and is revealed only once border.json loads, so

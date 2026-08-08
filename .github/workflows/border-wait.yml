@@ -36,11 +36,17 @@ jobs:
       - name: Fetch CBP wait times
         run: node scripts/fetch-border.mjs
 
+      # Recomputes the typical delay for each hour of the local day. The booking
+      # page uses it to suggest appointment times whose END lands on a shorter
+      # queue home. Rebuilt every run, so it sharpens as history accumulates.
+      - name: Rebuild the hourly pattern
+        run: node scripts/build-border-pattern.js
+
       - name: Commit if anything changed
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/border.json data/border-history.csv
+          git add assets/border.json assets/border-pattern.json data/border-history.csv
           # --quiet exits non-zero when there is nothing staged, which is the
           # normal case when the delay has not moved. Do not fail the run.
           if git diff --cached --quiet; then

@@ -64,9 +64,20 @@ const ALIAS = { 'Extractions': 'Extraction' };
   // done by visiting specialists, so they have a card and a page but no
   // calendar and no picker button. A card with no picker button is expected;
   // a picker button with no calendar is not.
-  const allPicks = [...html.matchAll(
-    /<button type="button" class="pick( is-consult)?" data-cal="([^"]+)"( data-consult="1")? data-slug="([a-z0-9-]+)" data-key="svc(\d+)t" style="--svc:(#[0-9A-Fa-f]{6})">/g)]
-    .map(m => ({ consult: Boolean(m[3]), cal: m[2], slug: m[4], n: Number(m[5]), colour: m[6] }));
+  // Attributes are read individually rather than in a fixed order. A positional
+  // regex here silently matched zero buttons the moment data-mins was added,
+  // and a checker that quietly matches nothing is worse than no checker.
+  const attr = (s, n) => (s.match(new RegExp(n + '="([^"]*)"')) || [])[1];
+  const allPicks = [...html.matchAll(/<button type="button" class="pick([^"]*)"([^>]*)>/g)]
+    .map(([, cls, a]) => ({
+      consult: /is-consult/.test(cls),
+      cal: attr(a, 'data-cal'),
+      slug: attr(a, 'data-slug'),
+      mins: Number(attr(a, 'data-mins')),
+      n: Number((attr(a, 'data-key') || '').replace(/\D/g, '')),
+      colour: (attr(a, 'style') || '').replace('--svc:', ''),
+    }));
+  if (!allPicks.length) { console.error('no picker buttons matched, the markup has changed'); process.exit(2); }
   // The picker must show EVERY service, in the same order as the cards. Skipping
   // the two specialist ones made the two grids stop lining up, and a reader
   // tracking down the list clicked the wrong service.

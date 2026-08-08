@@ -1,0 +1,206 @@
+{
+ "generatedAt": "2026-08-08T05:44:50.354Z",
+ "source": "U.S. Customs and Border Protection, port 260801 San Luis, collected hourly",
+ "timezone": "America/Phoenix",
+ "note": "Median northbound (into Arizona) delay by local hour. An estimate from collected history, not a forecast and not a promise.",
+ "samples": 59,
+ "days": 1.2,
+ "firstSample": "2026-08-07T00:52:19.785Z",
+ "lastSample": "2026-08-08T05:32:11.045Z",
+ "minSamples": 3,
+ "reliableHours": 12,
+ "hours": {
+  "0": {
+   "n": 1,
+   "vehicle": 35,
+   "pedestrian": 5,
+   "low": 35,
+   "high": 35,
+   "reliable": false
+  },
+  "1": {
+   "n": 2,
+   "vehicle": 35,
+   "pedestrian": 5,
+   "low": 35,
+   "high": 35,
+   "reliable": false
+  },
+  "2": {
+   "n": 2,
+   "vehicle": 35,
+   "pedestrian": 5,
+   "low": 35,
+   "high": 35,
+   "reliable": false
+  },
+  "3": {
+   "n": 3,
+   "vehicle": 35,
+   "pedestrian": 5,
+   "low": 35,
+   "high": 35,
+   "reliable": true
+  },
+  "4": {
+   "n": 2,
+   "vehicle": 35,
+   "pedestrian": 5,
+   "low": 35,
+   "high": 35,
+   "reliable": false
+  },
+  "5": {
+   "n": 3,
+   "vehicle": 35,
+   "pedestrian": 5,
+   "low": 35,
+   "high": 45,
+   "reliable": true
+  },
+  "6": {
+   "n": 1,
+   "vehicle": 50,
+   "pedestrian": 10,
+   "low": 50,
+   "high": 50,
+   "reliable": false
+  },
+  "7": {
+   "n": 2,
+   "vehicle": 50,
+   "pedestrian": 10,
+   "low": 50,
+   "high": 50,
+   "reliable": false
+  },
+  "8": {
+   "n": 2,
+   "vehicle": 55,
+   "pedestrian": 10,
+   "low": 50,
+   "high": 60,
+   "reliable": false
+  },
+  "9": {
+   "n": 3,
+   "vehicle": 60,
+   "pedestrian": 5,
+   "low": 60,
+   "high": 60,
+   "reliable": true
+  },
+  "10": {
+   "n": 2,
+   "vehicle": 60,
+   "pedestrian": 5,
+   "low": 60,
+   "high": 60,
+   "reliable": false
+  },
+  "11": {
+   "n": 3,
+   "vehicle": 60,
+   "pedestrian": 5,
+   "low": 60,
+   "high": 60,
+   "reliable": true
+  },
+  "12": {
+   "n": 2,
+   "vehicle": 60,
+   "pedestrian": 5,
+   "low": 60,
+   "high": 60,
+   "reliable": false
+  },
+  "13": {
+   "n": 3,
+   "vehicle": 60,
+   "pedestrian": 5,
+   "low": 60,
+   "high": 60,
+   "reliable": true
+  },
+  "14": {
+   "n": 3,
+   "vehicle": 60,
+   "pedestrian": 5,
+   "low": 60,
+   "high": 70,
+   "reliable": true
+  },
+  "15": {
+   "n": 3,
+   "vehicle": 60,
+   "pedestrian": 5,
+   "low": 60,
+   "high": 60,
+   "reliable": true
+  },
+  "16": {
+   "n": 3,
+   "vehicle": 60,
+   "pedestrian": 5,
+   "low": 60,
+   "high": 60,
+   "reliable": true
+  },
+  "17": {
+   "n": 4,
+   "vehicle": 50,
+   "pedestrian": 5,
+   "low": 30,
+   "high": 70,
+   "reliable": true
+  },
+  "18": {
+   "n": 3,
+   "vehicle": 60,
+   "pedestrian": 5,
+   "low": 30,
+   "high": 80,
+   "reliable": true
+  },
+  "19": {
+   "n": 2,
+   "vehicle": 45,
+   "pedestrian": 5,
+   "low": 30,
+   "high": 60,
+   "reliable": false
+  },
+  "20": {
+   "n": 1,
+   "vehicle": 45,
+   "pedestrian": 5,
+   "low": 45,
+   "high": 45,
+   "reliable": false
+  },
+  "21": {
+   "n": 4,
+   "vehicle": 30,
+   "pedestrian": 5,
+   "low": 30,
+   "high": 30,
+   "reliable": true
+  },
+  "22": {
+   "n": 3,
+   "vehicle": 30,
+   "pedestrian": 5,
+   "low": 30,
+   "high": 30,
+   "reliable": true
+  },
+  "23": {
+   "n": 2,
+   "vehicle": 33,
+   "pedestrian": 5,
+   "low": 30,
+   "high": 35,
+   "reliable": false
+  }
+ }
+}

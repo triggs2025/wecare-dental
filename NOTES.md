@@ -108,6 +108,43 @@ item.
 - Whether appointments may overlap, how many chairs, and whether she has an
   assistant (the double-booking defect, item 1 above)
 
+### Best time to book, from the border data (Aug 8, 2026)
+
+Live in the Book section. Once a service is picked, a panel suggests appointment
+start times ranked by how long the queue home usually is **when that appointment
+ENDS**, because that is the moment the patient drives back into Arizona.
+
+    node scripts/build-border-pattern.js     # rebuilds assets/border-pattern.json
+
+It runs automatically in the border-wait workflow after every fetch, so the
+pattern sharpens on its own. **Nothing to do to keep it current.**
+
+How it works:
+
+- `data/border-history.csv` has been collecting since Aug 6. CBP publishes only
+  the CURRENT delay, no history and no forecast anywhere, so that CSV is the
+  only possible source. It cannot be backfilled.
+- The pattern is the **median** delay per local hour, not the mean: one 80
+  minute spike would otherwise make a normally quiet hour look bad, and with
+  these sample sizes that matters.
+- An hour with fewer than 3 samples is treated as unknown and skipped rather
+  than shown. If fewer than 2 usable start times survive, the panel says we do
+  not have enough data instead of guessing.
+- Opening hours come from the **JSON-LD in the page head**, parsed at runtime.
+  There are already two copies of her hours (the printed table and the GHL
+  calendars) and a third would drift.
+- Local hour is UTC minus 7, flat. Both San Luis AZ and San Luis Rio Colorado
+  are permanently UTC-7 with no DST. Do not "fix" this with a DST conversion.
+
+As of writing there is only about 1.2 days of history, so the advice is thin but
+real: the queue home sits near 60 minutes through the middle of the day and eases
+late afternoon. It will get sharper every day it runs. The copy calls it a
+pattern and not a promise, in both languages, as agreed.
+
+`PATTERN` and `pickedBtn` are declared at the TOP of the index.html script with
+`BORDER`, for the same temporal dead zone reason: `setLang()` calls
+`renderCrossBack()` and runs long before the picker code further down.
+
 ### Deep Cleaning and Orthodontics added, NOT bookable (Aug 8, 2026)
 
 Both come from Karina's Aug 8 answer: her periodontist handles deep cleanings
