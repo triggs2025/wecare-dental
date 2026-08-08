@@ -76,6 +76,27 @@ update BOTH places.**
 - Whether appointments may overlap, how many chairs, and whether she has an
   assistant (the double-booking defect, item 1 above)
 
+### Service cards carry their GHL calendar colour (Aug 8, 2026)
+
+Each of the 14 service cards on the home page has a thin stripe across the top
+in the same colour as that service's appointment block on Karina's GHL calendar,
+plus a faint tint of it on the icon tile. The colour is an inline `--svc` custom
+property on each card; the CSS is `.svc-card` and `.svc-card::before`.
+
+**These are a copy of live data, so they can drift.** The values were read back
+from the GHL API, not invented. If a calendar's colour is changed in GHL, change
+the matching card here. There is a checker that proves the two still agree:
+`scripts/check-calendar-colours.js`. Run it after touching either side.
+
+One name differs between the two systems: the site card says "Extractions" and
+the GHL calendar is "Extraction". The checker has an alias for it. If more names
+drift apart, add them to `ALIAS` there rather than papering over it with fuzzy
+matching, so a genuine mismatch still fails loudly.
+
+The icon tint uses `color-mix()`. On a browser too old to support it the whole
+declaration is dropped and the original teal tile shows, which is a clean
+fallback rather than a broken one.
+
 ### Language now auto-detects by country (Aug 8, 2026)
 
 The page used to open in Spanish only if the *browser* was set to Spanish. It
