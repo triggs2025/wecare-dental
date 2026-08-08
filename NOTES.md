@@ -102,9 +102,24 @@ Card names reuse the same `svcNt` i18n keys as the Services section, so the two
 cannot disagree and both follow the EN/ES toggle. The chosen-service heading is
 given the same key at pick time, which is how it retranslates on a switch.
 
-**Still English:** the widget's own date and time UI, and the service name and
-description inside it, because those are GHL's. Making the GHL calendar
-*descriptions* bilingual would help and is not done yet.
+**Calendar descriptions are bilingual** as of Aug 8, 2026. Both languages come
+straight out of the `svcNd` i18n keys in index.html, so the site and the widget
+cannot drift. Re-run after editing any service copy:
+
+    node scripts/sync-calendar-descriptions.js
+
+A newline between the two languages does **not** work. The widget renders the
+description in a `div` with `white-space:normal`, so the break collapses and the
+sentences run together. The separator is ` · `, which survives that. Verified on
+the live widget rather than assumed.
+
+**Still English:** the widget's date and time UI, and the service *name*. Those
+are GHL's. `?locale=es` is ignored.
+
+There is a `language` field on the calendar provider config, currently empty.
+Setting it would likely flip the widget to Spanish, but for **everyone**,
+including the American patients this site is aimed at. Not a win. Leave it empty
+unless GHL adds a per-visitor option.
 
 **Durations are deliberately not shown on the cards.** They are still estimates,
 not Karina's numbers. The widget prints the real value once a service is picked.
