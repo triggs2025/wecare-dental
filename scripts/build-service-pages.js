@@ -3,18 +3,23 @@
 //   node scripts/build-service-pages.js
 //
 // WHY GENERATED RATHER THAN HAND-WRITTEN
-// Fourteen hand-maintained pages drift. Every shared part of these pages comes
-// from somewhere that already exists:
+// Sixteen hand-maintained pages drift. Every shared part comes from a file that
+// already owns it:
 //
+//   slugs, colours, display order       index.html Services cards
 //   service names, short descriptions   index.html i18n blocks
-//   colours, calendar ids, durations    index.html picker buttons
+//   calendar ids and durations          index.html picker buttons
 //   header, footer, nav, base CSS       directions.html
 //   the long educational copy           content/service-pages.js
 //
-// So a change to a service name, colour or duration reaches all 14 pages by
+// So a change to a service name, colour or duration reaches every page by
 // re-running this. The only file that exists solely for these pages is the
 // content one. Editing services/*.html by hand is pointless: the next build
 // overwrites it.
+//
+// Not every service is bookable online. Deep Cleaning and Orthodontics are
+// carried out by specialists who visit Karina's office, so they get a card and
+// a page but no calendar, and their call to action is a consultation.
 //
 // SEO is the point of separate pages rather than one page with anchors: each
 // gets its own title, meta description, canonical, H1 and MedicalProcedure
@@ -47,25 +52,46 @@ const key = (dict, k) => {
   return m ? m[1] : null;
 };
 
-// The picker buttons are the single source for colour, calendar id and duration.
-// Attributes are read individually rather than in a fixed order, so adding one
-// to the button does not silently produce zero matches.
-const picks = [...index.matchAll(
-  /<button type="button" class="pick"([^>]*)>[\s\S]*?<span class="pick-meta">([^<]+)<\/span>/g)]
-  .map(([, attrs, duration]) => {
-    const at = n => (attrs.match(new RegExp(n + '="([^"]+)"')) || [])[1];
-    return [null, at('data-cal'), (at('data-key') || '').replace(/\D/g, ''), at('style').replace('--svc:', ''), duration];
-  });
-if (picks.length !== content.length) {
-  die('index.html has ' + picks.length + ' picker cards but content/service-pages.js has ' + content.length);
+// The Services cards are the master list: every service gets a page, including
+// the ones that are not bookable online. Attributes are read individually
+// rather than in a fixed order, so adding one does not silently match nothing.
+const attrs = s => n => (s.match(new RegExp(n + '="([^"]+)"')) || [])[1];
+const cards = [...index.matchAll(/<a class="card svc-card"([^>]*)>[\s\S]*?data-i18n="svc(\d+)t"/g)]
+  .map(([, a, n]) => ({
+    slug: (attrs(a)('href') || '').replace('services/', '').replace('.html', ''),
+    colour: (attrs(a)('style') || '').replace('--svc:', ''),
+    n: Number(n),
+  }));
+if (cards.length !== content.length) {
+  die('index.html has ' + cards.length + ' service cards but content/service-pages.js has ' + content.length);
 }
 
-const services = picks.map(([, cal, n, colour, duration], i) => {
+// Booking details, for the services that can be booked online. Deep Cleaning
+// and Orthodontics have none: Karina's periodontist and orthodontist visit her
+// office, so those appointments depend on coordinating a specialist and are not
+// something a stranger should be able to drop into a fixed slot.
+const picks = new Map([...index.matchAll(
+  /<button type="button" class="pick"([^>]*)>[\s\S]*?<span class="pick-meta">([^<]+)<\/span>/g)]
+  .map(([, a, duration]) => [attrs(a)('data-slug'), { cal: attrs(a)('data-cal'), duration }]));
+
+const services = cards.map((card, i) => {
   const c = content[i];
+  if (c.slug !== card.slug) {
+    die('order mismatch at position ' + (i + 1) + ': card is "' + card.slug +
+        '" but content/service-pages.js has "' + c.slug + '"');
+  }
+  const n = card.n;
   const en = { name: key(EN_DICT, 'svc' + n + 't'), short: key(EN_DICT, 'svc' + n + 'd') };
   const es = { name: key(ES_DICT, 'svc' + n + 't'), short: key(ES_DICT, 'svc' + n + 'd') };
   if (!en.name || !es.name) die('missing i18n for svc' + n);
-  return { ...c, cal, colour, duration, n: Number(n), en: { ...c.en, ...en }, es: { ...c.es, ...es } };
+  const booking = picks.get(card.slug) || null;
+  return {
+    ...c, colour: card.colour, n,
+    cal: booking && booking.cal,
+    duration: booking && booking.duration,
+    bookable: Boolean(booking),
+    en: { ...c.en, ...en }, es: { ...c.es, ...es },
+  };
 });
 
 // A slug should look like the English name. Not enforced, but a mismatch almost
@@ -93,9 +119,12 @@ const PAGE_CSS = `
   .svc-fact{display:inline-flex;align-items:center;gap:.45rem;background:#fff;border:1px solid #e4efef;
     border-radius:999px;padding:.45rem .9rem;font-size:.85rem;font-weight:700}
   .svc-fact b{font-weight:900}
-  .svc-body{max-width:820px;margin:0 auto;padding:2.5rem 1.25rem 1rem}
-  .svc-body section{margin-bottom:2.25rem}
-  .svc-body h2{font-size:1.25rem;margin-bottom:.7rem;display:flex;align-items:center;gap:.55rem}
+  .svc-body{max-width:820px;margin:0 auto;padding:2.25rem 1.25rem .5rem}
+  /* The base stylesheet sets section{padding:3rem 0} for the full-width bands on
+     the other pages. These sections are inside a wrapper, so that padding stacks
+     on top of the margin and leaves a chasm between each heading. Reset it. */
+  .svc-body section{padding:0;margin-bottom:1.9rem}
+  .svc-body h2{font-size:1.25rem;margin-bottom:.6rem;display:flex;align-items:center;gap:.55rem}
   .svc-body h2::before{content:"";width:14px;height:14px;border-radius:4px;background:var(--svc);flex-shrink:0}
   .svc-body p{color:var(--ink);max-width:65ch}
   .svc-list{list-style:none;display:grid;gap:.5rem;max-width:65ch}
@@ -106,13 +135,13 @@ const PAGE_CSS = `
   .svc-steps li::before{content:counter(s);position:absolute;left:0;top:-.1em;width:1.6rem;height:1.6rem;
     border-radius:50%;background:var(--svc);color:#fff;font-weight:900;font-size:.8rem;
     display:flex;align-items:center;justify-content:center}
-  .svc-cta{max-width:820px;margin:0 auto 3rem;padding:1.75rem 1.25rem;text-align:center;
+  .svc-cta{max-width:820px;margin:0 auto 2.25rem;padding:1.75rem 1.25rem;text-align:center;
     background:var(--card);border:2px dashed #bfdedd;border-radius:var(--radius)}
   .svc-cta h2{font-size:1.25rem;margin-bottom:.4rem}
   .svc-cta p{color:var(--gray);margin-bottom:1.1rem}
   .svc-cta-actions{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
-  .disclaimer{max-width:820px;margin:0 auto 2.5rem;padding:0 1.25rem;font-size:.82rem;color:var(--gray);max-width:70ch}
-  .related{background:var(--card);padding:2.5rem 1.25rem}
+  .disclaimer{max-width:70ch;margin:0 auto 1.75rem;padding:0 1.25rem;font-size:.82rem;color:var(--gray)}
+  .related{background:var(--card);padding:2.25rem 1.25rem}
   .related .wrap{max-width:820px;margin:0 auto}
   .related h2{font-size:1.15rem;margin-bottom:1rem}
   .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem}
@@ -130,11 +159,17 @@ function page(s, all) {
   const i = all.indexOf(s);
   const related = [1, 2, 3].map(k => all[(i + k) % all.length]);
 
-  const sessions = /^2 x/.test(s.duration);
-  const perSession = s.duration.replace(/^2 x /, '');
+  const sessions = s.bookable && /^2 x/.test(s.duration);
+  const perSession = s.bookable ? s.duration.replace(/^2 x /, '') : null;
 
   // Only the consultation has a published price, and it is the one Karina gave.
   const price = s.slug === 'general-consultation' ? '$50 USD' : null;
+
+  // Services handled by a visiting specialist start with a consultation rather
+  // than a self-booked slot, so their call to action goes there instead.
+  const bookHref = s.bookable
+    ? '../index.html?service=' + s.slug + '#book'
+    : '../index.html?service=general-consultation#book';
 
   const dict = lang => {
     const d = s[lang];
@@ -148,10 +183,17 @@ function page(s, all) {
       relTitle: lang === 'en' ? 'Other services' : 'Otros servicios',
       relAll: lang === 'en' ? 'See all services' : 'Ver todos los servicios',
       ctaTitle: lang === 'en' ? 'Ready to book?' : '¿Lista o listo para agendar?',
-      ctaSub: lang === 'en'
-        ? 'Pick a time that suits you. We confirm every appointment personally.'
-        : 'Elige el horario que te acomode. Confirmamos cada cita personalmente.',
-      ctaBook: lang === 'en' ? 'Book this service' : 'Agendar este servicio',
+      ctaSub: s.bookable
+        ? (lang === 'en'
+            ? 'Pick a time that suits you. We confirm every appointment personally.'
+            : 'Elige el horario que te acomode. Confirmamos cada cita personalmente.')
+        : (lang === 'en'
+            ? 'This treatment is carried out by a visiting specialist, so it starts with a consultation. Book that and we will arrange the rest with you.'
+            : 'Este tratamiento lo realiza un especialista que acude al consultorio, así que empieza con una consulta. Agenda la consulta y coordinamos lo demás contigo.'),
+      ctaBook: s.bookable
+        ? (lang === 'en' ? 'Book this service' : 'Agendar este servicio')
+        : (lang === 'en' ? 'Book a consultation' : 'Agendar una consulta'),
+      factSpecialist: lang === 'en' ? 'With a visiting specialist' : 'Con especialista visitante',
       ctaDirections: lang === 'en' ? 'Directions from the border' : 'Cómo llegar desde la garita',
       factTime: lang === 'en' ? 'Appointment' : 'Cita',
       factVisits: lang === 'en' ? 'Two visits' : 'Dos citas',
@@ -248,7 +290,7 @@ ${BASE_CSS}${PAGE_CSS}
       <a href="../index.html#services" class="current" aria-current="page" data-i18n="navServices">Services</a>
       <a href="../directions.html" data-i18n="navDirections">Directions</a>
       <a href="../index.html#contact" data-i18n="navContact">Contact</a>
-      <a class="cta-btn" href="../index.html?service=${s.slug}#book" data-i18n="navCta">Book Appointment</a>
+      <a class="cta-btn" href="${bookHref}" data-i18n="navCta">Book Appointment</a>
     </nav>
     <div style="display:flex;align-items:center;gap:.8rem">
       <a class="bwt-chip" id="bwtChip" href="../index.html#border" hidden>
@@ -273,8 +315,9 @@ ${BASE_CSS}${PAGE_CSS}
       <h1 data-i18n="svcName">${esc(s.en.name)}</h1>
       <p class="svc-lead" data-i18n="svcLead">${esc(s.en.lead)}</p>
       <div class="svc-facts">
-        <span class="svc-fact"><span data-i18n="factTime">Appointment</span> <b>${esc(perSession)}</b></span>
+        ${s.bookable ? `<span class="svc-fact"><span data-i18n="factTime">Appointment</span> <b>${esc(perSession)}</b></span>` : ''}
         ${sessions ? '<span class="svc-fact"><b data-i18n="factVisits">Two visits</b></span>' : ''}
+        ${!s.bookable ? '<span class="svc-fact"><b data-i18n="factSpecialist">With a visiting specialist</b></span>' : ''}
         ${price ? `<span class="svc-fact"><span data-i18n="factPrice">Consultation</span> <b>${price}</b></span>` : ''}
       </div>
     </div>
@@ -309,7 +352,7 @@ ${s.en.visit.map((t, k) => `        <li data-i18n="visit${k}">${esc(t)}</li>`).j
     <h2 data-i18n="ctaTitle">Ready to book?</h2>
     <p data-i18n="ctaSub">${esc(en.ctaSub)}</p>
     <div class="svc-cta-actions">
-      <a class="btn-primary" href="../index.html?service=${s.slug}#book" data-i18n="ctaBook">Book this service</a>
+      <a class="btn-primary" href="${bookHref}" data-i18n="ctaBook">Book this service</a>
       <a class="btn-ghost" href="../directions.html" data-i18n="ctaDirections">Directions from the border</a>
     </div>
   </div>

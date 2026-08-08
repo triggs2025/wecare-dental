@@ -108,10 +108,35 @@ item.
 - Whether appointments may overlap, how many chairs, and whether she has an
   assistant (the double-booking defect, item 1 above)
 
+### Deep Cleaning and Orthodontics added, NOT bookable (Aug 8, 2026)
+
+Both come from Karina's Aug 8 answer: her periodontist handles deep cleanings
+and her orthodontist handles braces, and both **visit her office** rather than
+working there. So they have a Services card and a service page, but **no GHL
+calendar and no picker button**. Their call to action is "Book a consultation",
+pointing at the General Consultation calendar.
+
+That is deliberate. Letting a stranger drop into a fixed slot for a treatment
+that depends on coordinating a visiting specialist would create appointments
+Karina cannot honour. It also avoids inventing durations for them: **she has not
+given any**, and guessing durations is exactly what caused the earlier mess.
+
+If she wants them bookable, we need from her: how long each appointment runs,
+and how far ahead the specialist visits are arranged.
+
+They are inserted in the running order, not appended, so Deep Cleaning sits
+beside Dental Cleaning and Orthodontics beside Veneers. That meant renumbering
+the `svcN` keys, which now run 1..16 in display order. The checker asserts that.
+
 ### One page per service, GENERATED (Aug 8, 2026)
 
-`services/*.html`, 14 pages, one per service, plus `sitemap.xml` and
-`robots.txt`. Each Services card on the home page links to its page.
+`services/*.html`, one page per service, plus `sitemap.xml` and `robots.txt`.
+Each Services card on the home page links to its page.
+
+Watch the spacing if you touch the CSS: the base stylesheet sets
+`section{padding:3rem 0}` for the full-width bands on the other pages, and that
+applies to the sections inside the service pages too. `.svc-body section` resets
+it to zero. Without that reset there is a chasm between every heading.
 
 **Do not edit `services/*.html` by hand. They are generated and the next build
 overwrites them.** Change the source and rebuild:

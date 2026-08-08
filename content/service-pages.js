@@ -64,6 +64,27 @@ module.exports = [
     },
   },
   {
+    slug: 'deep-cleaning',
+    en: {
+      title: 'Deep Cleaning (Periodontal Treatment)',
+      lead: 'Cleaning below the gum line, for gums that bleed or have pulled back.',
+      what: 'A deep cleaning, also called scaling and root planing, treats gum disease. A routine cleaning works above the gum line; a deep cleaning goes beneath it, removing bacteria and hardened deposits from the root surfaces and smoothing them so the gum can reattach. It is normally done under local anaesthetic, often one section of the mouth at a time.',
+      when: ['Gums bleed regularly when brushing', 'Gums have pulled back and teeth look longer', 'Persistent bad breath or a bad taste', 'A dentist has measured deep pockets around the teeth', 'A tooth has begun to feel loose'],
+      visit: ['Measuring the pockets around each tooth', 'Numbing of the area being treated', 'Cleaning the root surfaces below the gum line', 'A follow-up to see how the gums have responded'],
+      after: 'Gums are usually tender for a few days, and teeth can be sensitive to cold for a while because more of the root is exposed. Gum disease is controlled rather than cured, so regular maintenance cleanings matter more after this treatment than before it.',
+      desc: 'Deep cleaning and periodontal treatment in San Luis Rio Colorado, near Yuma, Arizona. Scaling and root planing for bleeding or receding gums.',
+    },
+    es: {
+      title: 'Limpieza Profunda (Tratamiento Periodontal)',
+      lead: 'Limpieza debajo de la encía, para encías que sangran o se han retraído.',
+      what: 'Una limpieza profunda, también llamada raspado y alisado radicular, trata la enfermedad de las encías. Una limpieza de rutina trabaja por encima de la encía; la profunda va por debajo, retirando bacterias y depósitos endurecidos de la superficie de la raíz y alisándola para que la encía pueda volver a adherirse. Normalmente se hace con anestesia local, muchas veces por secciones de la boca.',
+      when: ['Las encías sangran seguido al cepillar', 'Las encías se retrajeron y los dientes se ven más largos', 'Mal aliento o mal sabor persistente', 'Un dentista midió bolsas profundas alrededor de los dientes', 'Un diente empezó a sentirse flojo'],
+      visit: ['Medición de las bolsas alrededor de cada diente', 'Anestesia de la zona a tratar', 'Limpieza de las superficies de la raíz debajo de la encía', 'Una cita de control para ver cómo respondieron las encías'],
+      after: 'Las encías suelen quedar sensibles unos días, y los dientes pueden resentir el frío por un tiempo porque queda más raíz expuesta. La enfermedad periodontal se controla más que se cura, así que después de este tratamiento las limpiezas de mantenimiento importan todavía más.',
+      desc: 'Limpieza profunda y tratamiento periodontal en San Luis Río Colorado, cerca de Yuma, Arizona. Raspado y alisado radicular para encías que sangran.',
+    },
+  },
+  {
     slug: 'fillings',
     en: {
       title: 'Dental Fillings',
@@ -233,6 +254,27 @@ module.exports = [
       visit: ['Se platica la forma y el tono', 'Se prepara una capa delgada de esmalte al frente de los dientes', 'Se toma una impresión o escaneo', 'En la segunda cita se adhieren las carillas'],
       after: 'Es normal algo de sensibilidad entre las citas. Las carillas ya no cambian de color con blanqueamiento, así que el tono se elige desde el principio, y hábitos como morderse las uñas o abrir cosas con los dientes las astillan.',
       desc: 'Carillas dentales en San Luis Río Colorado, a minutos de San Luis, Arizona. Cambia la forma y el color de tus dientes de enfrente en dos citas.',
+    },
+  },
+  {
+    slug: 'orthodontics',
+    en: {
+      title: 'Orthodontics',
+      lead: 'Braces and aligners to straighten teeth and correct how they bite together.',
+      what: 'Orthodontic treatment moves teeth gradually into better positions using steady, gentle pressure, either from fixed braces bonded to the teeth or from a series of removable clear aligners. It changes both how the teeth look and how the upper and lower sets meet, which affects chewing and how evenly the teeth wear.',
+      when: ['Crowded or overlapping teeth', 'Gaps between the teeth', 'An overbite, underbite or crossbite', 'Teeth wearing unevenly', 'Crooked teeth that are hard to clean between'],
+      visit: ['An assessment with X-rays, photographs and impressions', 'A plan setting out how the teeth will move and over what period', 'Fitting of braces or the first set of aligners', 'Regular adjustment visits throughout treatment'],
+      after: 'Orthodontics is measured in months and years rather than in visits, and it needs regular appointments the whole way through. Retainers are worn afterwards, because teeth drift back towards where they started if nothing holds them. Worth planning carefully if you are travelling for treatment.',
+      desc: 'Orthodontics in San Luis Rio Colorado, near San Luis and Yuma, Arizona. Braces and clear aligners to straighten teeth and correct the bite.',
+    },
+    es: {
+      title: 'Ortodoncia',
+      lead: 'Brackets y alineadores para enderezar los dientes y corregir la mordida.',
+      what: 'El tratamiento de ortodoncia mueve los dientes poco a poco a mejores posiciones con una presión suave y constante, ya sea con brackets fijos pegados a los dientes o con una serie de alineadores transparentes removibles. Cambia tanto cómo se ven los dientes como la forma en que encajan las arcadas, lo cual afecta la masticación y el desgaste.',
+      when: ['Dientes encimados o apiñados', 'Espacios entre los dientes', 'Mordida profunda, cruzada o invertida', 'Dientes que se desgastan de forma despareja', 'Dientes chuecos difíciles de limpiar entre sí'],
+      visit: ['Una valoración con radiografías, fotografías e impresiones', 'Un plan que define cómo se moverán los dientes y en cuánto tiempo', 'Colocación de brackets o del primer juego de alineadores', 'Citas de ajuste periódicas durante todo el tratamiento'],
+      after: 'La ortodoncia se mide en meses y años, no en citas, y requiere acudir con regularidad durante todo el tratamiento. Después se usan retenedores, porque los dientes tienden a regresar a donde estaban si nada los sostiene. Conviene planearlo bien si vienes de viaje por el tratamiento.',
+      desc: 'Ortodoncia en San Luis Río Colorado, cerca de San Luis y Yuma, Arizona. Brackets y alineadores transparentes para alinear tus dientes.',
     },
   },
   {
