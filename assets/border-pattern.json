@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-08-08T14:10:39.911Z",
+ "generatedAt": "2026-08-08T14:29:28.743Z",
  "source": "U.S. Customs and Border Protection, port 260801 San Luis, collected hourly",
  "timezone": "America/Phoenix",
  "note": "Median northbound (into Arizona) delay by local hour. An estimate from collected history, not a forecast and not a promise.",
- "samples": 83,
+ "samples": 84,
  "days": 1.6,
  "firstSample": "2026-08-07T00:52:19.785Z",
- "lastSample": "2026-08-08T14:10:39.850Z",
+ "lastSample": "2026-08-08T14:29:28.633Z",
  "minSamples": 3,
  "reliableHours": 19,
  "hours": {
@@ -67,9 +67,9 @@
    "reliable": true
   },
   "7": {
-   "n": 3,
-   "vehicle": 50,
-   "pedestrian": 10,
+   "n": 4,
+   "vehicle": 30,
+   "pedestrian": 8,
    "low": 10,
    "high": 50,
    "reliable": true
