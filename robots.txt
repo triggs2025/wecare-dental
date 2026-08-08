@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://triggs2025.github.io/wecare-dental/sitemap.xml

@@ -1,0 +1,324 @@
+// Long-form educational copy for the per-service pages, in both languages.
+//
+// SCOPE RULE, and it matters: this describes each PROCEDURE in general terms.
+// It must not promise anything about how Karina personally works, what she will
+// find, or what she will recommend. Everything specific to her (her hours, the
+// 50 USD consultation, appointment lengths, the two-visit services, her
+// specialty) is confirmed and comes from the data in index.html, not from here.
+// If you want to add "we always do X", ask her first.
+//
+// Nothing here is medical advice, and every page says so.
+//
+// Keys map to the svcNt order in index.html. The build script pairs them up by
+// index and fails if the two ever disagree, so this file cannot silently drift.
+//
+//   lead   one sentence under the H1
+//   what   what the procedure is
+//   when   reasons someone might need it
+//   visit  what the appointment generally involves
+//   after  what to expect afterwards
+//   title  <title> and og:title
+//   desc   meta description, aim for 150-160 characters
+
+module.exports = [
+  {
+    slug: 'general-consultation',
+    en: {
+      title: 'General Dental Consultation',
+      lead: 'The first visit, and the right place to start if you are not sure what you need.',
+      what: 'A general consultation is an examination of your teeth, gums and bite, usually with X-rays so the dentist can see what is happening below the gum line and inside each tooth. It ends with an explanation of what was found and what treatment, if any, is worth considering.',
+      when: ['You have not had a check-up in a year or more', 'Something hurts, feels loose, or has changed', 'You want a second opinion on a treatment plan', 'You do not know what treatment you need'],
+      visit: ['An examination of the teeth, gums and bite', 'X-rays where they are needed', 'An explanation of what was found', 'A plan for any treatment, and what it costs'],
+      after: 'Treatment is normally booked as a separate appointment, so there is time to think it over. Patients travelling from Arizona often use the consultation to plan the trip they will make for the treatment itself.',
+      desc: 'Dental consultation with X-rays in San Luis Rio Colorado, minutes from the San Luis, Arizona crossing. Exam, X-rays and a treatment plan for $50 USD.',
+    },
+    es: {
+      title: 'Consulta Dental General',
+      lead: 'La primera visita, y el mejor lugar para empezar si no sabes qué necesitas.',
+      what: 'Una consulta general es una revisión de los dientes, las encías y la mordida, normalmente con radiografías para poder ver lo que ocurre debajo de la encía y dentro de cada diente. Termina con una explicación de lo que se encontró y del tratamiento que conviene considerar, si hace falta alguno.',
+      when: ['No has ido al dentista en un año o más', 'Algo te duele, se siente flojo o ha cambiado', 'Quieres una segunda opinión sobre un plan de tratamiento', 'No sabes qué tratamiento necesitas'],
+      visit: ['Revisión de dientes, encías y mordida', 'Radiografías donde hagan falta', 'Explicación de lo que se encontró', 'Un plan de tratamiento y lo que cuesta'],
+      after: 'El tratamiento normalmente se agenda como una cita aparte, así hay tiempo para pensarlo. Los pacientes que vienen de Arizona suelen aprovechar la consulta para planear el viaje del tratamiento.',
+      desc: 'Consulta dental con radiografías en San Luis Río Colorado, a minutos de la garita de San Luis, Arizona. Revisión, radiografías y plan por 50 dólares.',
+    },
+  },
+  {
+    slug: 'dental-cleaning',
+    en: {
+      title: 'Dental Cleaning',
+      lead: 'Routine cleaning removes what brushing at home cannot reach.',
+      what: 'A dental cleaning, or prophylaxis, removes plaque and hardened tartar from the teeth and along the gum line. Tartar cannot be brushed away once it forms, and it is what irritates gums and causes them to bleed and recede over time.',
+      when: ['Gums bleed when you brush or floss', 'You can see or feel build-up on your teeth', 'Persistent bad breath', 'Six months to a year since your last cleaning'],
+      visit: ['Removal of plaque and tartar above the gum line', 'Polishing to smooth the tooth surfaces', 'A look at the health of the gums'],
+      after: 'Gums can feel slightly tender for a day or so, especially if there was a lot of build-up. Most people go straight back to normal eating and brushing.',
+      desc: 'Professional dental cleaning in San Luis Rio Colorado, near Yuma and San Luis, Arizona. Tartar removal and polishing to protect your gums.',
+    },
+    es: {
+      title: 'Limpieza Dental',
+      lead: 'La limpieza de rutina quita lo que el cepillo en casa no alcanza.',
+      what: 'Una limpieza dental, o profilaxis, elimina la placa y el sarro endurecido de los dientes y de la línea de la encía. El sarro ya no se quita con el cepillo una vez que se forma, y es lo que irrita las encías y hace que sangren y se retraigan con el tiempo.',
+      when: ['Las encías sangran al cepillar o usar hilo dental', 'Ves o sientes acumulación en los dientes', 'Mal aliento persistente', 'Han pasado de seis meses a un año desde tu última limpieza'],
+      visit: ['Eliminación de placa y sarro por encima de la encía', 'Pulido para alisar la superficie del diente', 'Revisión de la salud de las encías'],
+      after: 'Las encías pueden sentirse un poco sensibles por un día, sobre todo si había mucha acumulación. La mayoría vuelve enseguida a comer y cepillarse normal.',
+      desc: 'Limpieza dental profesional en San Luis Río Colorado, cerca de Yuma y San Luis, Arizona. Eliminación de sarro y pulido para cuidar tus encías.',
+    },
+  },
+  {
+    slug: 'fillings',
+    en: {
+      title: 'Dental Fillings',
+      lead: 'Decay removed and the tooth rebuilt, usually in a single visit.',
+      what: 'A filling repairs a tooth damaged by decay. The decayed part is removed and the space is rebuilt with composite resin, a tooth-coloured material that is shaped and hardened in place so it blends with the surrounding tooth.',
+      when: ['A tooth is sensitive to sweet, hot or cold', 'You can see a dark spot or a hole', 'Food keeps catching in the same place', 'A previous filling has chipped or fallen out'],
+      visit: ['Numbing of the area', 'Removal of the decayed tissue', 'The tooth rebuilt with resin, shaped and hardened', 'A check that the bite feels right'],
+      after: 'The numbness wears off over a few hours. Mild sensitivity to temperature for a few days is common and usually settles on its own.',
+      desc: 'Tooth-coloured resin fillings in San Luis Rio Colorado, minutes from San Luis, Arizona. Decay removed and the tooth restored in one visit.',
+    },
+    es: {
+      title: 'Resinas Dentales',
+      lead: 'Se quita la caries y se reconstruye el diente, normalmente en una sola visita.',
+      what: 'Una resina repara un diente dañado por caries. Se elimina la parte cariada y se reconstruye el espacio con resina compuesta, un material del color del diente que se moldea y se endurece en el momento para que se integre con el resto del diente.',
+      when: ['Un diente es sensible a lo dulce, lo caliente o lo frío', 'Ves un punto oscuro o un hoyo', 'La comida se te queda siempre en el mismo lugar', 'Una resina anterior se rompió o se cayó'],
+      visit: ['Anestesia de la zona', 'Eliminación del tejido cariado', 'Reconstrucción con resina, moldeada y endurecida', 'Revisión de que la mordida quede bien'],
+      after: 'La anestesia se pasa en unas horas. Es común algo de sensibilidad al frío o al calor por unos días, y normalmente se quita sola.',
+      desc: 'Resinas del color del diente en San Luis Río Colorado, a minutos de San Luis, Arizona. Se quita la caries y se restaura el diente en una visita.',
+    },
+  },
+  {
+    slug: 'teeth-whitening',
+    en: {
+      title: 'Teeth Whitening',
+      lead: 'Professional whitening, done in the clinic in a single appointment.',
+      what: 'Whitening uses a peroxide gel to lift stains that have built up in the enamel from coffee, tea, tobacco and time. Done professionally, the gums are protected first and the strength and timing are controlled, which is the main difference from a shop-bought kit.',
+      when: ['Teeth have yellowed gradually over the years', 'Staining from coffee, tea, red wine or tobacco', 'You have an event coming up', 'Over-the-counter strips have not made a difference'],
+      visit: ['A check that the teeth and gums are healthy enough', 'Protection of the gums and lips', 'Application of the whitening gel', 'Rinsing and a look at the result'],
+      after: 'Teeth can be sensitive for a day or two. Dark drinks and tobacco are usually avoided for the first couple of days, while the enamel is most likely to pick up new stains. Whitening does not change the colour of crowns, veneers or fillings.',
+      desc: 'Professional teeth whitening in San Luis Rio Colorado, near Yuma, Arizona. A brighter smile in one visit, at a fraction of US prices.',
+    },
+    es: {
+      title: 'Blanqueamiento Dental',
+      lead: 'Blanqueamiento profesional, en el consultorio y en una sola cita.',
+      what: 'El blanqueamiento usa un gel de peróxido para levantar las manchas que se acumulan en el esmalte por el café, el té, el tabaco y el tiempo. Hecho de forma profesional, primero se protegen las encías y se controla la concentración y el tiempo, que es la diferencia principal con un kit de tienda.',
+      when: ['Los dientes se han puesto amarillos con los años', 'Manchas de café, té, vino tinto o tabaco', 'Tienes un evento próximo', 'Las tiras de farmacia no te hicieron diferencia'],
+      visit: ['Revisión de que dientes y encías estén sanos', 'Protección de encías y labios', 'Aplicación del gel blanqueador', 'Enjuague y revisión del resultado'],
+      after: 'Los dientes pueden quedar sensibles uno o dos días. Normalmente se evitan las bebidas oscuras y el tabaco los primeros días, cuando el esmalte agarra manchas con más facilidad. El blanqueamiento no cambia el color de coronas, carillas ni resinas.',
+      desc: 'Blanqueamiento dental profesional en San Luis Río Colorado, cerca de Yuma, Arizona. Una sonrisa más brillante en una sola visita.',
+    },
+  },
+  {
+    slug: 'extractions',
+    en: {
+      title: 'Tooth Extractions',
+      lead: 'Removing a tooth that cannot be saved, including wisdom teeth.',
+      what: 'An extraction removes a tooth from its socket. It is normally the last option, considered when a tooth is too damaged or decayed to repair, when a wisdom tooth has no room, or when a tooth is causing an infection that will not clear.',
+      when: ['A tooth is broken below the gum line', 'Decay too extensive to repair', 'A wisdom tooth with no room to come through', 'Infection that keeps coming back'],
+      visit: ['Numbing of the area', 'The tooth loosened and removed', 'The socket cleaned', 'Instructions for healing, and stitches if needed'],
+      after: 'A blood clot forms in the socket and must be left alone: no rinsing hard, no straws, no smoking for the first day or two, since dislodging it is painful and slows healing. Soreness and swelling for a few days is normal. Ask about replacing the tooth, since neighbouring teeth tend to drift into the gap over time.',
+      desc: 'Comfortable tooth extractions and wisdom teeth in San Luis Rio Colorado, minutes from the San Luis, Arizona border crossing.',
+    },
+    es: {
+      title: 'Extracciones Dentales',
+      lead: 'Sacar un diente que ya no se puede salvar, incluyendo muelas del juicio.',
+      what: 'Una extracción saca el diente de su alveolo. Normalmente es la última opción, cuando el diente está demasiado dañado o cariado para repararlo, cuando una muela del juicio no tiene espacio, o cuando el diente causa una infección que no cede.',
+      when: ['Un diente roto por debajo de la encía', 'Caries demasiado extensa para repararla', 'Una muela del juicio sin espacio para salir', 'Infección que vuelve una y otra vez'],
+      visit: ['Anestesia de la zona', 'El diente se afloja y se retira', 'Limpieza del alveolo', 'Indicaciones para la cicatrización, y puntos si hacen falta'],
+      after: 'Se forma un coágulo en el alveolo y hay que dejarlo en paz: no enjuagar fuerte, no usar popote y no fumar el primer par de días, porque desprenderlo duele y retrasa la cicatrización. Es normal tener molestia e inflamación unos días. Pregunta por reemplazar el diente, porque los de al lado tienden a moverse hacia el hueco con el tiempo.',
+      desc: 'Extracciones dentales y muelas del juicio en San Luis Río Colorado, a minutos de la garita de San Luis, Arizona.',
+    },
+  },
+  {
+    slug: 'root-canal',
+    en: {
+      title: 'Root Canal Treatment',
+      lead: 'Endodontic treatment saves a tooth whose nerve has become infected.',
+      what: 'Inside every tooth is a soft core of nerve and blood vessels. When decay or a crack lets bacteria reach it, that tissue becomes infected and the tooth aches. A root canal removes the infected tissue, cleans and shapes the canals, and seals them, which keeps the tooth in place instead of extracting it.',
+      when: ['Severe or throbbing toothache', 'Lingering pain after something hot or cold', 'Pain when biting on one particular tooth', 'A tooth that has darkened, or a bump on the gum beside it'],
+      visit: ['Numbing of the area', 'The infected tissue removed', 'The canals cleaned, shaped and disinfected', 'The canals sealed'],
+      after: 'The tooth is usually tender to bite on for a few days. A tooth that has had a root canal is more brittle than a living one, so a crown is often recommended afterwards to protect it from fracturing.',
+      note: 'endodontist',
+      desc: 'Root canal treatment by an endodontics specialist in San Luis Rio Colorado, near Yuma, Arizona. Save your natural tooth instead of losing it.',
+    },
+    es: {
+      title: 'Tratamiento de Endodoncia',
+      lead: 'La endodoncia salva un diente cuyo nervio se ha infectado.',
+      what: 'Dentro de cada diente hay un centro blando de nervio y vasos sanguíneos. Cuando una caries o una fractura deja entrar bacterias, ese tejido se infecta y el diente duele. La endodoncia retira el tejido infectado, limpia y da forma a los conductos y los sella, lo que permite conservar el diente en lugar de extraerlo.',
+      when: ['Dolor de muela fuerte o pulsátil', 'Dolor que sigue después de algo frío o caliente', 'Dolor al morder en un diente en particular', 'Un diente que se oscureció, o una bolita en la encía junto a él'],
+      visit: ['Anestesia de la zona', 'Retiro del tejido infectado', 'Limpieza, conformado y desinfección de los conductos', 'Sellado de los conductos'],
+      after: 'Es normal que el diente quede sensible al morder unos días. Un diente con endodoncia es más frágil que uno vivo, así que después suele recomendarse una corona para protegerlo de fracturas.',
+      note: 'endodontist',
+      desc: 'Endodoncia con especialista en San Luis Río Colorado, cerca de Yuma, Arizona. Salva tu diente natural en lugar de perderlo.',
+    },
+  },
+  {
+    slug: 'root-canal-retreatment',
+    en: {
+      title: 'Root Canal Retreatment',
+      lead: 'Redoing a root canal that has failed or become reinfected.',
+      what: 'Most root canals last for years, but some fail. A canal can be narrow or curved enough that a small branch was missed, a seal can break down, or new decay can let bacteria back in. Retreatment reopens the tooth, removes the old filling material, cleans the canals again and reseals them.',
+      when: ['Pain returning in a tooth already treated', 'Swelling or a recurring bump on the gum', 'A crown or filling on a treated tooth has come loose', 'A dentist has spotted a problem on an X-ray'],
+      visit: ['The tooth reopened and the old material removed', 'The canals cleaned and disinfected again', 'The canals resealed'],
+      after: 'Retreatment is more involved than a first root canal, which is why it is done over two visits. Tenderness afterwards is normal and settles over several days.',
+      note: 'endodontist',
+      desc: 'Root canal retreatment by an endodontics specialist in San Luis Rio Colorado, near San Luis, Arizona. A failed root canal can often be saved.',
+    },
+    es: {
+      title: 'Retratamiento de Endodoncia',
+      lead: 'Repetir una endodoncia que falló o se volvió a infectar.',
+      what: 'La mayoría de las endodoncias duran años, pero algunas fallan. Un conducto puede ser tan estrecho o curvo que se haya quedado una ramificación sin tratar, un sellado puede deteriorarse, o una caries nueva puede dejar entrar bacterias otra vez. El retratamiento vuelve a abrir el diente, retira el material anterior, limpia de nuevo los conductos y los vuelve a sellar.',
+      when: ['Vuelve el dolor en un diente ya tratado', 'Inflamación o una bolita que reaparece en la encía', 'Se aflojó una corona o resina sobre un diente tratado', 'Un dentista vio un problema en una radiografía'],
+      visit: ['Se vuelve a abrir el diente y se retira el material anterior', 'Los conductos se limpian y desinfectan de nuevo', 'Se vuelven a sellar los conductos'],
+      after: 'El retratamiento es más laborioso que una endodoncia inicial, por eso se hace en dos citas. Es normal que quede molestia y va cediendo en varios días.',
+      note: 'endodontist',
+      desc: 'Retratamiento de endodoncia con especialista en San Luis Río Colorado, cerca de San Luis, Arizona. Una endodoncia fallida suele poder salvarse.',
+    },
+  },
+  {
+    slug: 'dental-post',
+    en: {
+      title: 'Dental Post',
+      lead: 'A post gives a root-treated tooth enough structure to hold a crown.',
+      what: 'When a tooth has had a root canal and little of the natural crown is left, there may not be enough tooth for a crown to grip. A post is a small rod cemented into one of the treated canals. It anchors a build-up of filling material, and that build-up is what the crown sits on.',
+      when: ['A root-treated tooth has broken down to the gum line', 'A crown is planned but there is little tooth left', 'A previous post-and-crown has come out'],
+      visit: ['The canal prepared to receive the post', 'The post fitted and cemented', 'A core built up around it to support the crown'],
+      after: 'A post is a step towards a crown rather than a finished restoration, so a crown appointment normally follows.',
+      desc: 'Dental posts in San Luis Rio Colorado, minutes from San Luis, Arizona. Rebuild a root-treated tooth so it can support a crown.',
+    },
+    es: {
+      title: 'Poste Dental',
+      lead: 'El poste da a un diente con endodoncia la estructura para sostener una corona.',
+      what: 'Cuando un diente tuvo endodoncia y queda poco de la corona natural, puede no haber suficiente diente para que una corona se sujete. El poste es una pequeña barra que se cementa dentro de uno de los conductos ya tratados. Sirve de anclaje para reconstruir con material de relleno, y sobre esa reconstrucción se asienta la corona.',
+      when: ['Un diente con endodoncia se destruyó hasta la encía', 'Se planea una corona pero queda poco diente', 'Se salió un poste con corona anterior'],
+      visit: ['Se prepara el conducto para recibir el poste', 'Se coloca y cementa el poste', 'Se reconstruye un muñón alrededor para sostener la corona'],
+      after: 'El poste es un paso hacia la corona, no una restauración terminada, así que normalmente sigue una cita para la corona.',
+      desc: 'Postes dentales en San Luis Río Colorado, a minutos de San Luis, Arizona. Reconstruye un diente con endodoncia para que sostenga una corona.',
+    },
+  },
+  {
+    slug: 'crowns',
+    en: {
+      title: 'Dental Crowns',
+      lead: 'A crown caps a damaged tooth and takes the force of chewing off it.',
+      what: 'A crown is a cover made to fit over a prepared tooth. It restores the shape and the biting surface, and it holds a weakened tooth together. Crowns are commonly placed on teeth that have had root canals, cracked teeth, and teeth too broken down for a filling to hold.',
+      when: ['A tooth has cracked or a large piece has broken off', 'A tooth has had root canal treatment', 'A very large old filling keeps failing', 'A tooth is worn down badly'],
+      visit: ['The tooth shaped to take the crown', 'An impression or scan taken', 'A temporary crown fitted', 'At the second visit, the permanent crown fitted and cemented'],
+      after: 'A temporary crown is worn between visits and is more fragile than the final one, so sticky and very hard foods are usually avoided on that side. The gum may be tender for a few days after each visit.',
+      desc: 'Dental crowns in San Luis Rio Colorado, near Yuma, Arizona. Durable, natural-looking crowns over two short visits.',
+    },
+    es: {
+      title: 'Coronas Dentales',
+      lead: 'La corona cubre un diente dañado y le quita la fuerza de la masticación.',
+      what: 'Una corona es una funda hecha a la medida que se coloca sobre un diente preparado. Devuelve la forma y la superficie de masticación, y mantiene unido un diente debilitado. Es común colocarlas en dientes con endodoncia, dientes fracturados y dientes demasiado destruidos para que una resina aguante.',
+      when: ['Un diente se fracturó o se rompió un pedazo grande', 'Un diente tuvo tratamiento de endodoncia', 'Una resina vieja muy grande se sigue rompiendo', 'Un diente está muy desgastado'],
+      visit: ['Se da forma al diente para recibir la corona', 'Se toma una impresión o escaneo', 'Se coloca una corona temporal', 'En la segunda cita se coloca y cementa la corona definitiva'],
+      after: 'Entre las dos citas se usa una corona temporal, más frágil que la definitiva, así que normalmente se evitan los alimentos pegajosos y muy duros de ese lado. La encía puede quedar sensible unos días después de cada cita.',
+      desc: 'Coronas dentales en San Luis Río Colorado, cerca de Yuma, Arizona. Coronas duraderas y de aspecto natural en dos citas cortas.',
+    },
+  },
+  {
+    slug: 'veneers',
+    en: {
+      title: 'Dental Veneers',
+      lead: 'Thin facings bonded to the front teeth to change how they look.',
+      what: 'A veneer is a thin shell bonded to the front surface of a tooth. Veneers change colour, shape and alignment without treating the whole tooth, which is why they are used for appearance rather than for repairing damage. They are usually done across several front teeth at once so the result looks even.',
+      when: ['Front teeth are stained in a way whitening cannot fix', 'Chips or uneven edges', 'Small gaps between the front teeth', 'Teeth that are slightly crooked or misshapen'],
+      visit: ['A discussion of shape and shade', 'A thin layer of enamel prepared from the front of the teeth', 'An impression or scan taken', 'At the second visit, the veneers bonded in place'],
+      after: 'Some sensitivity between visits is normal. Veneers do not respond to whitening later, so the shade is chosen up front, and habits like biting nails or opening things with your teeth will chip them.',
+      desc: 'Dental veneers in San Luis Rio Colorado, minutes from San Luis, Arizona. Reshape and brighten your front teeth over two visits.',
+    },
+    es: {
+      title: 'Carillas Dentales',
+      lead: 'Láminas delgadas adheridas a los dientes de enfrente para cambiar cómo se ven.',
+      what: 'Una carilla es una lámina delgada que se adhiere a la superficie frontal del diente. Las carillas cambian color, forma y alineación sin tratar todo el diente, por eso se usan por estética y no para reparar daño. Normalmente se hacen en varios dientes de enfrente a la vez para que el resultado se vea parejo.',
+      when: ['Manchas en los dientes de enfrente que el blanqueamiento no quita', 'Bordes astillados o disparejos', 'Espacios pequeños entre los dientes de enfrente', 'Dientes algo chuecos o de forma irregular'],
+      visit: ['Se platica la forma y el tono', 'Se prepara una capa delgada de esmalte al frente de los dientes', 'Se toma una impresión o escaneo', 'En la segunda cita se adhieren las carillas'],
+      after: 'Es normal algo de sensibilidad entre las citas. Las carillas ya no cambian de color con blanqueamiento, así que el tono se elige desde el principio, y hábitos como morderse las uñas o abrir cosas con los dientes las astillan.',
+      desc: 'Carillas dentales en San Luis Río Colorado, a minutos de San Luis, Arizona. Cambia la forma y el color de tus dientes de enfrente en dos citas.',
+    },
+  },
+  {
+    slug: 'dental-surgery',
+    en: {
+      title: 'Dental Surgery',
+      lead: 'Surgical procedures carried out in the clinic.',
+      what: 'Dental surgery covers procedures that involve working in the bone or soft tissue rather than only on the tooth itself. Common examples are removing an impacted wisdom tooth, taking out a root left behind under the gum, and preparing a site before an implant.',
+      when: ['An impacted tooth that has not come through', 'A root or fragment left under the gum', 'Preparation before an implant', 'A lesion or growth that needs removing'],
+      visit: ['A review of X-rays and a plan for the procedure', 'Numbing of the area', 'The procedure itself', 'Stitches and aftercare instructions where needed'],
+      after: 'Swelling and soreness for several days is normal and usually peaks around the second day. Aftercare instructions matter more here than for routine treatment, so follow them closely and ask if anything is unclear.',
+      note: 'specialist',
+      desc: 'Dental surgery in San Luis Rio Colorado, near Yuma and San Luis, Arizona. Impacted teeth, retained roots and pre-implant procedures.',
+    },
+    es: {
+      title: 'Cirugías Dentales',
+      lead: 'Procedimientos quirúrgicos realizados en el consultorio.',
+      what: 'La cirugía dental abarca procedimientos que implican trabajar en el hueso o en el tejido blando, y no solo sobre el diente. Ejemplos comunes son retirar una muela del juicio retenida, sacar una raíz que quedó debajo de la encía y preparar la zona antes de un implante.',
+      when: ['Un diente retenido que no ha salido', 'Una raíz o fragmento que quedó bajo la encía', 'Preparación antes de un implante', 'Una lesión o crecimiento que hay que retirar'],
+      visit: ['Revisión de radiografías y plan del procedimiento', 'Anestesia de la zona', 'El procedimiento', 'Puntos e indicaciones de cuidado si hacen falta'],
+      after: 'Es normal tener inflamación y molestia varios días, y suele ser mayor alrededor del segundo día. Aquí las indicaciones de cuidado importan más que en un tratamiento de rutina, así que síguelas al pie de la letra y pregunta si algo no queda claro.',
+      note: 'specialist',
+      desc: 'Cirugías dentales en San Luis Río Colorado, cerca de Yuma y San Luis, Arizona. Dientes retenidos, raíces residuales y preparación para implantes.',
+    },
+  },
+  {
+    slug: 'removable-partial-denture',
+    en: {
+      title: 'Removable Partial Denture',
+      lead: 'Replaces several missing teeth and clips onto the ones you still have.',
+      what: 'A partial denture is a removable plate carrying replacement teeth. It fills the gaps where teeth are missing and is held in place by resting against and clasping onto the remaining natural teeth. It is taken out for cleaning and usually at night.',
+      when: ['Several teeth missing in one arch', 'Chewing has become difficult', 'Remaining teeth are drifting into the gaps', 'An implant or bridge is not the right option'],
+      visit: ['Impressions of the arch taken', 'The denture made to fit those impressions', 'At the second visit, fitting and adjustment', 'Further small adjustments as it beds in'],
+      after: 'A new partial feels bulky at first and speech can take a little practice. Sore spots in the first weeks are normal and are fixed by small adjustments, so it is worth going back rather than living with them.',
+      desc: 'Removable partial dentures in San Luis Rio Colorado, near San Luis, Arizona. Custom-fitted replacements for several missing teeth.',
+    },
+    es: {
+      title: 'Prótesis Parcial Removible',
+      lead: 'Reemplaza varios dientes faltantes y se sujeta de los que aún tienes.',
+      what: 'Una prótesis parcial es una placa removible con dientes de reemplazo. Rellena los espacios donde faltan dientes y se sostiene apoyándose y sujetándose de los dientes naturales que quedan. Se retira para limpiarla y normalmente por la noche.',
+      when: ['Faltan varios dientes en una misma arcada', 'Se te dificulta masticar', 'Los dientes que quedan se están moviendo hacia los huecos', 'Un implante o puente no es la opción adecuada'],
+      visit: ['Se toman impresiones de la arcada', 'Se fabrica la prótesis a partir de esas impresiones', 'En la segunda cita, colocación y ajuste', 'Ajustes pequeños adicionales mientras se acomoda'],
+      after: 'Una prótesis nueva se siente voluminosa al principio y hablar puede requerir algo de práctica. Es normal que salgan puntos de roce las primeras semanas y se resuelven con ajustes pequeños, así que conviene regresar en lugar de aguantarse.',
+      desc: 'Prótesis parcial removible en San Luis Río Colorado, cerca de San Luis, Arizona. Hecha a tu medida para reemplazar varios dientes.',
+    },
+  },
+  {
+    slug: 'full-denture',
+    en: {
+      title: 'Full Denture',
+      lead: 'Replaces a complete upper or lower arch of teeth.',
+      what: 'A full denture replaces all the teeth in one arch. It rests on the gum and the bone underneath, and is shaped to support the lips and cheeks as well as to chew with. It is removed for cleaning and usually overnight.',
+      when: ['All the teeth in an arch are missing', 'The remaining teeth cannot be saved', 'An existing denture no longer fits', 'Chewing and speaking have become difficult'],
+      visit: ['Impressions and bite records taken', 'The denture made to those records', 'At the second visit, fitting and adjustment', 'Follow-up adjustments as the fit settles'],
+      after: 'Adjusting takes time. Eating starts with soft food and small pieces, and speech usually settles within a few weeks. Gums and bone change shape over the years, so a denture that fits well now will eventually need relining or replacing.',
+      desc: 'Full dentures in San Luis Rio Colorado, minutes from San Luis, Arizona. Custom-fitted to replace a complete arch of teeth.',
+    },
+    es: {
+      title: 'Prótesis Total',
+      lead: 'Reemplaza una arcada completa, superior o inferior.',
+      what: 'Una prótesis total reemplaza todos los dientes de una arcada. Se apoya sobre la encía y el hueso de abajo, y está diseñada tanto para masticar como para dar soporte a labios y mejillas. Se retira para limpiarla y normalmente para dormir.',
+      when: ['Faltan todos los dientes de una arcada', 'Los dientes que quedan no se pueden salvar', 'Una prótesis actual ya no ajusta', 'Se dificulta masticar y hablar'],
+      visit: ['Se toman impresiones y registros de mordida', 'Se fabrica la prótesis con esos registros', 'En la segunda cita, colocación y ajuste', 'Ajustes de seguimiento conforme se acomoda'],
+      after: 'Acostumbrarse toma tiempo. Se empieza a comer con alimentos suaves y en trozos pequeños, y el habla suele normalizarse en unas semanas. La encía y el hueso cambian de forma con los años, así que una prótesis que hoy ajusta bien con el tiempo necesitará rebase o reemplazo.',
+      desc: 'Prótesis totales en San Luis Río Colorado, a minutos de San Luis, Arizona. Hechas a tu medida para reemplazar una arcada completa.',
+    },
+  },
+  {
+    slug: 'dental-implants',
+    en: {
+      title: 'Dental Implants',
+      lead: 'A permanent replacement that is anchored into the jawbone.',
+      what: 'An implant is a small titanium screw placed into the jawbone to take the place of a missing tooth root. Once the bone has grown around it, a crown is attached on top. Unlike a denture it is fixed in place, and unlike a bridge it does not rely on cutting down the neighbouring teeth.',
+      when: ['A single missing tooth', 'A tooth that cannot be saved and will be removed', 'A denture that moves and you want something fixed', 'Neighbouring teeth are healthy and you want to keep them that way'],
+      visit: ['Assessment of the bone, usually with X-rays', 'The implant placed into the jaw', 'A healing period while bone grows around it', 'The crown made and attached'],
+      after: 'The healing period between placing the implant and attaching the crown is measured in months, not days, because the bone has to fuse to the implant. That is worth planning around if you are travelling for treatment: it means more than one trip.',
+      desc: 'Dental implants in San Luis Rio Colorado, near Yuma, Arizona. A permanent replacement for a missing tooth, at Mexican prices.',
+    },
+    es: {
+      title: 'Implantes Dentales',
+      lead: 'Un reemplazo permanente anclado en el hueso de la mandíbula.',
+      what: 'Un implante es un pequeño tornillo de titanio que se coloca en el hueso maxilar para ocupar el lugar de la raíz del diente perdido. Una vez que el hueso crece alrededor, se le coloca una corona encima. A diferencia de una prótesis queda fijo, y a diferencia de un puente no requiere desgastar los dientes vecinos.',
+      when: ['Falta un solo diente', 'Un diente que no se puede salvar y se va a extraer', 'Una prótesis que se mueve y quieres algo fijo', 'Los dientes vecinos están sanos y quieres conservarlos así'],
+      visit: ['Valoración del hueso, normalmente con radiografías', 'Colocación del implante en el hueso', 'Un periodo de cicatrización mientras el hueso crece alrededor', 'Fabricación y colocación de la corona'],
+      after: 'El periodo de cicatrización entre colocar el implante y poner la corona se mide en meses, no en días, porque el hueso tiene que integrarse al implante. Conviene tenerlo en cuenta si vienes de viaje por el tratamiento: implica más de un viaje.',
+      desc: 'Implantes dentales en San Luis Río Colorado, cerca de Yuma, Arizona. Reemplazo permanente de un diente a precios de México.',
+    },
+  },
+];

@@ -38,7 +38,8 @@ const ALIAS = { 'Extractions': 'Extraction' };
 
   const html = fs.readFileSync(path.join(repo, 'index.html'), 'utf8');
   const cards = [...html.matchAll(
-    /<div class="card svc-card" style="--svc:(#[0-9A-Fa-f]{6})">.*?<h3 data-i18n="svc\d+t">([^<]+)<\/h3>/g)];
+    /<a class="card svc-card" href="services\/([a-z0-9-]+)\.html" style="--svc:(#[0-9A-Fa-f]{6})">.*?<h3 data-i18n="svc\d+t">([^<]+)<\/h3>/g)]
+    .map(m => [m[0], m[2], m[3], m[1]]);   // [full, colour, title, slug]
 
   console.log('cards: ' + cards.length + '   calendars: ' + byName.size + '\n');
   let bad = 0;
@@ -71,20 +72,27 @@ const ALIAS = { 'Extractions': 'Extraction' };
     } })).json()).calendars.map(c => [c.id, c]));
 
   const picks = [...html.matchAll(
-    /<button type="button" class="pick" data-cal="([^"]+)" data-key="(svc\d+t)" style="--svc:(#[0-9A-Fa-f]{6})">/g)];
+    /<button type="button" class="pick" data-cal="([^"]+)" data-slug="([a-z0-9-]+)" data-key="(svc\d+t)" style="--svc:(#[0-9A-Fa-f]{6})">/g)]
+    .map(m => [m[0], m[1], m[3], m[4], m[2]]);   // [full, calId, i18nKey, colour, slug]
   console.log('\npicker cards: ' + picks.length);
   if (picks.length !== cards.length) {
     console.log('  COUNT MISMATCH: ' + picks.length + ' picker vs ' + cards.length + ' service cards'); bad++;
   }
-  picks.forEach(([, id, key, colour], i) => {
+  picks.forEach(([, id, key, colour, slug], i) => {
     const cal = byId.get(id);
-    const expectedTitle = cards[i] ? cards[i][2] : '(no service card)';
-    const expectedColour = cards[i] ? cards[i][1] : '';
+    const card = cards[i];
+    const expectedTitle = card ? card[2] : '(no service card)';
     const problems = [];
     if (!cal) problems.push('unknown calendar id');
     else if (cal.name !== (ALIAS[expectedTitle] || expectedTitle)) problems.push('id belongs to "' + cal.name + '"');
-    if (expectedColour && colour.toUpperCase() !== expectedColour.toUpperCase()) problems.push('colour differs from the service card');
+    if (card && colour.toUpperCase() !== card[1].toUpperCase()) problems.push('colour differs from the service card');
+    if (card && slug !== card[3]) problems.push('slug "' + slug + '" but the card links to "' + card[3] + '"');
     if (key !== 'svc' + (i + 1) + 't') problems.push('i18n key out of order');
+    // The service page has to exist, or "Learn more" and "Book this service"
+    // both land on a 404 and the sitemap advertises a dead URL.
+    if (card && !fs.existsSync(path.join(repo, 'services', card[3] + '.html'))) {
+      problems.push('services/' + card[3] + '.html does not exist, run the build');
+    }
     if (problems.length) bad++;
     console.log((problems.length ? '  BAD ' : '  ok  ') + '  ' + expectedTitle.padEnd(28) +
       (cal ? cal.name : id).padEnd(28) + (problems.length ? problems.join('; ') : ''));

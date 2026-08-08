@@ -108,6 +108,50 @@ item.
 - Whether appointments may overlap, how many chairs, and whether she has an
   assistant (the double-booking defect, item 1 above)
 
+### One page per service, GENERATED (Aug 8, 2026)
+
+`services/*.html`, 14 pages, one per service, plus `sitemap.xml` and
+`robots.txt`. Each Services card on the home page links to its page.
+
+**Do not edit `services/*.html` by hand. They are generated and the next build
+overwrites them.** Change the source and rebuild:
+
+    node scripts/build-service-pages.js
+
+Where each part comes from, so nothing is duplicated:
+
+| part | source |
+|---|---|
+| names, short descriptions | `index.html` i18n blocks |
+| colours, calendar ids, durations | `index.html` picker buttons |
+| header, footer, nav, base CSS | `directions.html` `<style>` block |
+| the long educational copy | `content/service-pages.js` |
+
+That last row is the only file that exists purely for these pages. Editing the
+base CSS in `directions.html` restyles all 14 on the next build, which is
+deliberate: it keeps the subpages looking identical without a fourth copy of the
+stylesheet.
+
+**Content rule, and it matters.** These pages explain each PROCEDURE in general
+terms. They must not promise how Karina personally works, what she will find, or
+what she will recommend. Everything specific to her comes from confirmed data.
+Every page carries a line saying it is general information and not a diagnosis.
+She has not reviewed this copy yet.
+
+Separate pages rather than one page with anchors, because each needs its own
+title, meta description, canonical, H1 and `MedicalProcedure` markup. Only the
+English is in the static HTML, same as the rest of the site, since Spanish is
+applied by JS. If Spanish search traffic ever matters that needs generated
+`/es/` pages, not a toggle.
+
+Getting back to the services is deliberately easy: the nav "Services" link, an
+"All services" link above the H1, three related-service cards, and "See all
+services" at the bottom. Every page links onward so none is a dead end.
+
+"Book this service" links to `index.html?service=<slug>#book`, which auto-selects
+that service in the picker. The slug is matched by looping over the buttons
+rather than building a CSS selector out of the URL.
+
 ### The booking section is our own picker now (Aug 8, 2026)
 
 The GoHighLevel **calendar group widget is gone** from the home page. It is
