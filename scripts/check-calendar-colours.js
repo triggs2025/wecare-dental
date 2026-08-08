@@ -37,6 +37,25 @@ const ALIAS = { 'Extractions': 'Extraction' };
   const byName = new Map((await res.json()).calendars.map(c => [c.name, c]));
 
   const html = fs.readFileSync(path.join(repo, 'index.html'), 'utf8');
+
+  // Duplicate i18n keys are SILENT: a JS object literal keeps the last one, so a
+  // stale leftover block quietly overrides the correct values and the page shows
+  // one service's name over another service's link. That shipped once. Never
+  // again without this failing first.
+  let dupBad = 0;
+  for (const [lang, block] of [['en', 0], ['es', 1]]) {
+    const body = html.slice(html.indexOf('const I18N'));
+    const esAt = body.search(/\n\s*es\s*:\s*\{/);
+    const part = block === 0 ? body.slice(0, esAt) : body.slice(esAt);
+    const seen = new Set(), dupes = new Set();
+    for (const m of part.matchAll(/^\s*([A-Za-z0-9_]+)\s*:\s*"/gm)) {
+      if (seen.has(m[1])) dupes.add(m[1]); else seen.add(m[1]);
+    }
+    if (dupes.size) {
+      console.log('  DUPLICATE i18n KEYS in ' + lang + ': ' + [...dupes].join(', '));
+      dupBad += dupes.size;
+    }
+  }
   const cards = [...html.matchAll(
     /<a class="card svc-card" href="services\/([a-z0-9-]+)\.html" style="--svc:(#[0-9A-Fa-f]{6})">.*?<h3 data-i18n="svc(\d+)t">([^<]+)<\/h3>/g)]
     .map(m => ({ slug: m[1], colour: m[2], n: Number(m[3]), title: m[4] }));
@@ -45,14 +64,18 @@ const ALIAS = { 'Extractions': 'Extraction' };
   // done by visiting specialists, so they have a card and a page but no
   // calendar and no picker button. A card with no picker button is expected;
   // a picker button with no calendar is not.
-  const picks = [...html.matchAll(
-    /<button type="button" class="pick" data-cal="([^"]+)" data-slug="([a-z0-9-]+)" data-key="svc(\d+)t" style="--svc:(#[0-9A-Fa-f]{6})">/g)]
-    .map(m => ({ cal: m[1], slug: m[2], n: Number(m[3]), colour: m[4] }));
+  const allPicks = [...html.matchAll(
+    /<button type="button" class="pick( is-consult)?" data-cal="([^"]+)"( data-consult="1")? data-slug="([a-z0-9-]+)" data-key="svc(\d+)t" style="--svc:(#[0-9A-Fa-f]{6})">/g)]
+    .map(m => ({ consult: Boolean(m[3]), cal: m[2], slug: m[4], n: Number(m[5]), colour: m[6] }));
+  // The picker must show EVERY service, in the same order as the cards. Skipping
+  // the two specialist ones made the two grids stop lining up, and a reader
+  // tracking down the list clicked the wrong service.
+  const picks = allPicks.filter(p => !p.consult);
   const bookable = new Set(picks.map(p => p.slug));
 
   console.log('cards: ' + cards.length + '   bookable: ' + picks.length +
               '   calendars: ' + byName.size + '\n');
-  let bad = 0;
+  let bad = dupBad;
   for (const card of cards) {
     if (!bookable.has(card.slug)) {
       console.log('  --    ' + card.title.padEnd(28) + 'site ' + card.colour + '   no calendar by design');
@@ -97,8 +120,28 @@ const ALIAS = { 'Extractions': 'Extraction' };
         Version: '2021-04-15', Accept: 'application/json',
     } })).json()).calendars.map(c => [c.id, c]));
 
-  console.log('\npicker buttons: ' + picks.length);
+  console.log('\npicker buttons: ' + allPicks.length + ' (' + picks.length + ' bookable, ' +
+              (allPicks.length - picks.length) + ' routed to a consultation)');
   const cardBySlug = new Map(cards.map(c => [c.slug, c]));
+
+  // Order and completeness: picker position N must be card position N.
+  if (allPicks.length !== cards.length) {
+    console.log('  ORDER  picker has ' + allPicks.length + ' buttons but there are ' +
+                cards.length + ' service cards, so the two grids do not line up'); bad++;
+  } else {
+    allPicks.forEach((p, i) => {
+      if (p.slug !== cards[i].slug) {
+        console.log('  ORDER  position ' + (i + 1) + ': card is "' + cards[i].slug +
+                    '" but the picker has "' + p.slug + '"'); bad++;
+      }
+    });
+  }
+  const consultCal = (allPicks.find(p => p.slug === 'general-consultation') || {}).cal;
+  allPicks.filter(p => p.consult).forEach(p => {
+    if (p.cal !== consultCal) {
+      console.log('  BAD   ' + p.slug + ' is routed to a consultation but does not use the consultation calendar'); bad++;
+    }
+  });
   picks.forEach(p => {
     const cal = byId.get(p.cal);
     const card = cardBySlug.get(p.slug);
