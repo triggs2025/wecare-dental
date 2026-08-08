@@ -50,6 +50,38 @@ reversal of the earlier "never print hours" rule, because her 2-4pm closure
 would otherwise look like a fully booked afternoon. **If her hours change,
 update BOTH places.**
 
+### Karina answered again on Aug 8, 2026 — APPLIED
+
+**Durations are now hers, not my guesses.** Ten of the fourteen changed; most of
+mine were too long, which was quietly eating her availability. Live in GHL and
+on the picker cards. Rerun with `node scripts/set-calendar-durations.js`.
+
+**FIVE SERVICES ARE TWO VISITS.** Retreatment 2x60, Crowns 2x40, Veneers 2x40,
+Partial Denture 2x30, Full Denture 2x30. GHL books ONE appointment, so
+slotDuration is the length of a single session, not the total. The second visit
+is arranged when she sees the patient. Both the site descriptions and the picker
+cards say so, in both languages: a patient driving over a border has to know
+that before setting off, not on arrival.
+
+**General consultation is 50 USD including X-rays.** Now on the site in both
+languages. It is the only price published anywhere. If it changes, it must
+change in `svc1d` in BOTH i18n blocks and then
+`node scripts/sync-calendar-descriptions.js`.
+
+**Staffing:** one assistant, but Karina does the treatment herself. There are no
+hygienists in Mexico, because anyone treating a patient must be a dentist.
+
+**Overlapping appointments: yes, but conditionally.** She has visiting
+specialists who come to her office as needed, an oral surgeon for surgery, a
+periodontist for deep cleanings, and an orthodontist. So two patients at once is
+legitimate when a specialist takes one of them, but NOT for two procedures she
+performs herself. The current setup allows any two bookings to overlap, which is
+still wrong. Correct modelling needs her as a GHL user; see the double-booking
+item.
+
+**She mentioned services the site does not list:** deep cleaning
+(periodontics) and orthodontics. Worth asking whether she wants them bookable.
+
 ### Still waiting on Karina
 
 - **Appointment durations per service.** She sent her service list but not how
